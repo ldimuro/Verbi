@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 // }
 
 export class AppComponent implements OnInit {
-  title = 'lou-game';
+  title = 'take5';
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -189,9 +189,6 @@ export class AppComponent implements OnInit {
     else {
       console.log(this.user);
       this.getUserData(this.user);
-      // this.high_score = this.user.high_score;
-      // this.highest_scoring_word = this.user.highest_scoring_word.word;
-      // this.highest_scoring_word_value = this.user.highest_scoring_word.score;
     }
   }
 
@@ -346,6 +343,7 @@ export class AppComponent implements OnInit {
       this.used_letters = [];
       this.starting_word = new_word;
       this.total_score = 0;
+      this.correct_words.push(new_word);
     }
     /*else */if (animate) {
       // Apply BOUNCE animation to each letter with a 0.1s delay
