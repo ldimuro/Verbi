@@ -10,11 +10,6 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.scss']
 })
 
-// export class UserSavedData {
-//   id: string;
-//   high_score: number;
-// }
-
 export class AppComponent implements OnInit {
   title = 'take5';
 
@@ -215,18 +210,17 @@ export class AppComponent implements OnInit {
   }
 
   keyboardClicked(letter: any) {
-    let c = this.findLetter(letter);
-    this.cells[this.selected_cell].value = c.name;
-    this.cells[this.selected_cell].color = c.point_color;
-    this.cells[this.selected_cell].font_color = c.font_color;
+    let char = this.findLetter(letter);
+    this.cells[this.selected_cell].value = char.name;
+    this.cells[this.selected_cell].color = char.point_color;
+    this.cells[this.selected_cell].font_color = char.font_color;
 
     this.show_keyboard = false;
     this.letter_selected = true;
 
-    this.used_letters.push(c);
+    this.used_letters.push(char);
 
     // Hide keyboard letter
-    let char = this.findLetter(letter);
     char.opacity = this.key_opacity_used;
     char.enabled = false;
 
@@ -241,11 +235,11 @@ export class AppComponent implements OnInit {
     if (this.word_list.includes(string)) {
       let submission_successful = this.submitGuess(string, true);
 
-      // Show keyboard letter if auto-guess contains word that already exists
+      // Show keyboard letter and remove from used_letters if auto-guess contains word that already exists
       if (!submission_successful) {
-        let char = this.findLetter(letter);
         char.opacity = this.key_opacity_free;
         char.enabled = true;
+        this.used_letters.pop();
       }
     }
   }
