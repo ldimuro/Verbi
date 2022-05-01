@@ -2,8 +2,19 @@
   <div style="font-size: 40px;"><b>{{starting_word}}</b></div>
   Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span>
 </div>
-<div class="correct_words">
-  SCORE: {{total_score}}
+
+<div class="used_letters">
+  <div class="used_letter_row">
+    Used Letters:&nbsp;
+    <div *ngFor="let letter of used_letters">
+      <div class="used_letter_icon" [style.background-color]="letter.point_color"
+        [style.color]="letter.font_color">{{letter.name}}</div>
+    </div>
+  </div>
+</div>
+
+<div class="score">
+  SCORE: <b>{{total_score}}</b>
 </div>
 
 <!-- CELLS -->

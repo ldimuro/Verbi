@@ -33,8 +33,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient
-  ) {
-  }
+  ) { }
+
+
+  test = ['A', 'B', 'C']
 
   cell_color = '#f2f2f2';
   cell_color_selected = '#f2f880';
@@ -186,7 +188,8 @@ export class AppComponent implements OnInit {
     this.show_keyboard = false;
     this.letter_selected = true;
 
-    this.used_letters.push(letter);
+    // this.used_letters.push(letter);
+    this.used_letters.push(c);
 
     // Hide keyboard letter
     let char = this.findLetter(letter);
@@ -303,6 +306,7 @@ export class AppComponent implements OnInit {
       });
 
       this.correct_words = [];
+      this.used_letters = [];
       this.starting_word = new_word;
       this.total_score = 0;
     }
