@@ -1,5 +1,8 @@
 # Take5
 
+![alt text](https://github.com/[ldimuro]/[Take5]/blob/[master]/take5_screenshot1.jpg?raw=true)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.14.
 
 ## Development server
