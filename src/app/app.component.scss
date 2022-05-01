@@ -94,7 +94,21 @@
 .used_letter_icon {
     display: inline-block; 
     flex-grow: 1; 
-    width:25px; 
-    text-align:center; 
-    margin-right:5px;
+    width: 25px; 
+    text-align: center; 
+    margin-right: 5px;
+}
+
+.bounce {
+    animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+    0%   { transform: scale(1,1) translateY(0); }
+    10%  { transform: scale(1,1) translateY(0); }
+    30%  { transform: scale(1,1)   translateY(-55px);}
+    50%  { transform: scale(1,1) translateY(0); }
+    // 58%  { transform: scale(1,1) translateY(-7px); }
+    65%  { transform: scale(1,1) translateY(0);}
+    100% { transform: scale(1,1) translateY(0);}
 }

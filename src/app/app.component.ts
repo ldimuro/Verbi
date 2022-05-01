@@ -269,7 +269,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  reset(new_word: string, hard_reset: boolean) {
+  async reset(new_word: string, hard_reset: boolean) {
     for (let i in this.cells) {
       let char = this.findLetter(new_word[i]);
       this.cells[i].value = char.name;
@@ -309,6 +309,21 @@ export class AppComponent implements OnInit {
       this.used_letters = [];
       this.starting_word = new_word;
       this.total_score = 0;
+    }
+    else {
+      // Apply BOUNCE animation to each letter with a 0.1s delay
+      for (let i = 1; i < this.cells.length + 1; i++) {
+        document.getElementById(`container_cell${i}`).classList.add('bounce');
+        await this.delay(100);
+      }
+
+      // Wait for each letter to bounce (5 letters * 0.1s)
+      await this.delay(600);
+
+      // Remove BOUNCE animation from each letter
+      for (let i = 1; i < this.cells.length + 1; i++) {
+        document.getElementById(`container_cell${i}`).classList.remove('bounce');
+      }
     }
   }
 
@@ -376,6 +391,10 @@ export class AppComponent implements OnInit {
     else if (find_bottom) {
       return find_bottom;
     }
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 

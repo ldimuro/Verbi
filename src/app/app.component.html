@@ -20,7 +20,7 @@
 <!-- CELLS -->
 <div class="container">
   <div *ngFor="let cell of cells; let i = index" class="letters">
-    <button class="butt" [disabled]="letter_selected" [style.cursor]="letter_selected ? 'auto' : 'cursor'"
+    <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected" [style.cursor]="letter_selected ? 'auto' : 'cursor'"
       [style.background-color]="cell.color" [style.color]="cell.font_color"
       [style.border-color]="cell.selected ? '#cfa52b' : 'white'" (click)="cellClicked(i)">{{cell.value}}</button>
   </div>
