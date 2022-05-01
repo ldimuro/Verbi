@@ -7,8 +7,8 @@
   <div class="used_letter_row">
     Used Letters:&nbsp;
     <div *ngFor="let letter of used_letters">
-      <div class="used_letter_icon" [style.background-color]="letter.point_color"
-        [style.color]="letter.font_color">{{letter.name}}</div>
+      <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
+        {{letter.name}}</div>
     </div>
   </div>
 </div>
@@ -24,9 +24,10 @@
 <!-- CELLS -->
 <div class="container">
   <div *ngFor="let cell of cells; let i = index" class="letters">
-    <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected" [style.cursor]="letter_selected ? 'auto' : 'cursor'"
-      [style.background-color]="cell.color" [style.color]="cell.font_color"
-      [style.border-color]="cell.selected ? '#cfa52b' : 'white'" (click)="cellClicked(i)">{{cell.value}}</button>
+    <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
+      [style.cursor]="letter_selected ? 'auto' : 'cursor'" [style.background-color]="cell.color"
+      [style.color]="cell.font_color" [style.border-color]="cell.selected ? '#cfa52b' : 'white'"
+      (click)="cellClicked(i)">{{cell.value}}</button>
   </div>
 </div>
 
