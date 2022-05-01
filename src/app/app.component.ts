@@ -36,9 +36,7 @@ export class AppComponent implements OnInit {
   ) {
   }
 
-  // TODO: EACH LETTER HAS A COLOR BASED ON ITS RARITY
-
-  cell_color = '#ffffff';
+  cell_color = '#f2f2f2';
   cell_color_selected = '#f2f880';
   black = '#4d4749';
   cells = [
@@ -118,6 +116,7 @@ export class AppComponent implements OnInit {
   used_letters = [];
   total_score = 0;
   most_recently_selected_letter_index;
+  current_word = '';
 
   show_keyboard = true;
   letter_selected = false;
@@ -144,6 +143,7 @@ export class AppComponent implements OnInit {
 
   initialize() {
     const random_word: any = this.chooseRandomWord();
+    this.current_word = random_word;
     this.starting_word = random_word;
     this.correct_words.push(this.starting_word);
 
@@ -164,8 +164,7 @@ export class AppComponent implements OnInit {
     this.cells[index].selected = true;
     this.cells[index].color = letter.point_color;
     this.cells[index].font_color = letter.font_color;
-    // this.cells[index].color = this.cell_color_selected;
-    
+
 
     // Ensures only 1 cell can be selected at a time
     for (let i in this.cells) {
@@ -174,8 +173,6 @@ export class AppComponent implements OnInit {
         this.cells[i].color = char.point_color;
         this.cells[i].font_color = char.font_color;
         this.cells[i].selected = false;
-
-        // this.cells[i].color = this.cell_color;
       }
     }
   }
@@ -191,19 +188,34 @@ export class AppComponent implements OnInit {
 
     this.used_letters.push(letter);
 
+    // Hide keyboard letter
     let char = this.findLetter(letter);
-    // char.color = this.key_used;
     char.opacity = this.key_opacity_used;
     char.enabled = false;
 
+    // Check to see if arrangement of new letters is a word
+    let string = '';
+    this.cells.forEach(cell => {
+      string += cell.value;
+    });
 
     this.updateUserLetters();
+
+    if (this.word_list.includes(string)) {
+      let submission_successful = this.submitGuess(string, true);
+
+      // Show keyboard letter if auto-guess contains word that already exists
+      if (!submission_successful) {
+        let char = this.findLetter(letter);
+        char.opacity = this.key_opacity_free;
+        char.enabled = true;
+      }
+    }
   }
 
   updateUserLetters() {
     for (let i in this.cells) {
       this.user_letters[i].value = this.cells[i].value;
-
       this.user_letters[i].color = this.cells[i].color;
       this.user_letters[i].font_color = this.cells[i].font_color;
 
@@ -211,8 +223,6 @@ export class AppComponent implements OnInit {
       this.cells[i].color = this.cell_color;
       this.cells[i].selected = false;
     }
-
-    // this.user_letters[this.most_recently_selected_letter_index].color = this.cell_color_selected;
   }
 
   userLetterClicked(index: any) {
@@ -224,14 +234,12 @@ export class AppComponent implements OnInit {
         this.cells[i].user_letter_index = index;
 
         if (index === this.most_recently_selected_letter_index) {
-          // this.cells[i].color = this.cell_color_selected;
         }
 
         break;
       }
     }
 
-    // this.user_letters[index].color = this.user_letter_selected_color;
     this.user_letters[index].enabled = false;
   }
 
@@ -244,10 +252,6 @@ export class AppComponent implements OnInit {
           this.user_letters[this.cells[i].user_letter_index].enabled = true;
           this.cells[i].value = '';
           this.cells[i].color = this.cell_color;
-          
-          // this.cells[i].value = '';
-          // this.user_letters[this.cells[i].user_letter_index].color = this.user_letter_color;
-          // this.user_letters[this.cells[i].user_letter_index].enabled = true;
           break;
         }
       }
@@ -258,22 +262,7 @@ export class AppComponent implements OnInit {
         submitted_word += cell.value;
       });
 
-      if (this.correct_words.includes(submitted_word)) {
-        alert('Word already guessed');
-      }
-      else if (this.word_list.includes(submitted_word)) {
-        this.correct_words.push(submitted_word);
-
-        let points = this.calculateScore(submitted_word);
-        this.total_score += points;
-
-        this.reset(submitted_word, false);
-      }
-      else {
-        alert(`\'${submitted_word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`)
-        let new_random_word = this.chooseRandomWord();
-        this.reset(new_random_word, true);
-      }
+      this.submitGuess(submitted_word);
     }
   }
 
@@ -284,10 +273,6 @@ export class AppComponent implements OnInit {
       this.cells[i].color = char.point_color;
       this.cells[i].font_color = char.font_color;
       this.cells[i].user_letter_index = null;
-
-      // this.cells[i].value = new_word[i];
-      // this.cells[i].color = this.cell_color;
-      // this.cells[i].user_letter_index = null;
     }
 
     this.user_letters.forEach(letter => {
@@ -298,25 +283,23 @@ export class AppComponent implements OnInit {
 
     this.letter_selected = false;
     this.show_keyboard = true;
-    this.keyboard_opacity = this.keyboard_opacity;
+    // this.keyboard_opacity = this.keyboard_opacity;
 
     if (hard_reset) {
+      // Reset keyboard keys
       this.keyboard_top.forEach(key => {
         key.enabled = true;
         key.opacity = this.key_opacity_free;
-        // key.color = this.findLetter(key.name).point_color;
       });
 
       this.keyboard_middle.forEach(key => {
         key.enabled = true;
         key.opacity = this.key_opacity_free;
-        // key.color = this.findLetter(key.name).point_color;
       });
 
       this.keyboard_bottom.forEach(key => {
         key.enabled = true;
         key.opacity = this.key_opacity_free;
-        // key.color = this.findLetter(key.name).point_color;
       });
 
       this.correct_words = [];
@@ -331,7 +314,6 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < word.length; i++) {
       let letter = this.findLetter(word.charAt(i));
       score += letter.points;
-      // console.log(word.charAt(i) + ': ' + letter.points);
     }
 
     return score;
@@ -342,6 +324,38 @@ export class AppComponent implements OnInit {
     // return 'SLCHF';
     // return 'WITCH';
     // return 'ZACUH';
+  }
+
+  submitGuess(word: string, autoguess?: boolean) {
+    if (this.correct_words.includes(word)) {
+      alert('Word already guessed');
+
+      if (autoguess) {
+        this.reset(this.current_word, false);
+      }
+
+      return false;
+    }
+    else if (this.word_list.includes(word)) {
+      this.successfulGuess(word);
+      return true;
+    }
+    else {
+      alert(`\'${word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`)
+      let new_random_word = this.chooseRandomWord();
+      this.reset(new_random_word, true);
+      return false;
+    }
+  }
+
+  successfulGuess(word: string) {
+    this.correct_words.push(word);
+    this.current_word = word;
+
+    let points = this.calculateScore(word);
+    this.total_score += points;
+
+    this.reset(word, false);
   }
 
   findLetter(char: string) {
