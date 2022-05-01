@@ -10,6 +10,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.scss']
 })
 
+// export class UserSavedData {
+//   id: string;
+//   high_score: number;
+// }
+
 export class AppComponent implements OnInit {
   title = 'lou-game';
 
@@ -124,6 +129,13 @@ export class AppComponent implements OnInit {
   letter_selected = false;
   selected_cell;
 
+  // USER LocalStorage data
+  user;
+  high_score;
+  highest_scoring_word: string;
+  highest_scoring_word_value: number;
+
+
   ngOnInit() {
     this.httpClient.get('/assets/word_list.txt', { responseType: 'text' })
       .subscribe(data => {
@@ -149,11 +161,37 @@ export class AppComponent implements OnInit {
     this.starting_word = random_word;
     this.correct_words.push(this.starting_word);
 
+    // Initialize Cells for starting word
     for (let i in random_word) {
       let char = this.findLetter(random_word.charAt(i));
       this.cells[i].value = random_word.charAt(i);
       this.cells[i].color = char.point_color;
       this.cells[i].font_color = char.font_color;
+    }
+
+    // Get User Credentials
+    this.user = JSON.parse(window.localStorage.getItem('user'));
+
+    if (!this.user) { // If user doesn't exist, create new one
+      console.log('NEW USER FOUND');
+      let new_user = {
+        id: '1234',
+        high_score: 0,
+        highest_scoring_word: {
+          word: 'SEEDS',
+          score: 6
+        }
+      };
+
+      window.localStorage.setItem('user', JSON.stringify(new_user));
+      this.user = new_user;
+    }
+    else {
+      console.log(this.user);
+      this.getUserData(this.user);
+      // this.high_score = this.user.high_score;
+      // this.highest_scoring_word = this.user.highest_scoring_word.word;
+      // this.highest_scoring_word_value = this.user.highest_scoring_word.score;
     }
   }
 
@@ -188,7 +226,6 @@ export class AppComponent implements OnInit {
     this.show_keyboard = false;
     this.letter_selected = true;
 
-    // this.used_letters.push(letter);
     this.used_letters.push(c);
 
     // Hide keyboard letter
@@ -269,7 +306,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async reset(new_word: string, hard_reset: boolean) {
+  async reset(new_word: string, hard_reset: boolean, animate: boolean) {
     for (let i in this.cells) {
       let char = this.findLetter(new_word[i]);
       this.cells[i].value = char.name;
@@ -310,7 +347,7 @@ export class AppComponent implements OnInit {
       this.starting_word = new_word;
       this.total_score = 0;
     }
-    else {
+    /*else */if (animate) {
       // Apply BOUNCE animation to each letter with a 0.1s delay
       for (let i = 1; i < this.cells.length + 1; i++) {
         document.getElementById(`container_cell${i}`).classList.add('bounce');
@@ -350,7 +387,7 @@ export class AppComponent implements OnInit {
       alert('Word already guessed');
 
       if (autoguess) {
-        this.reset(this.current_word, false);
+        this.reset(this.current_word, false, false);
       }
 
       return false;
@@ -362,7 +399,7 @@ export class AppComponent implements OnInit {
     else {
       alert(`\'${word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`)
       let new_random_word = this.chooseRandomWord();
-      this.reset(new_random_word, true);
+      this.reset(new_random_word, true, false);
       return false;
     }
   }
@@ -374,7 +411,26 @@ export class AppComponent implements OnInit {
     let points = this.calculateScore(word);
     this.total_score += points;
 
-    this.reset(word, false);
+    // Check to see if submitted word has a higher score than the user's record
+    let highest_word_updated = false;
+    if (points > this.highest_scoring_word_value) {
+      this.user.highest_scoring_word.word = word;
+      this.user.highest_scoring_word.score = points;
+      highest_word_updated = true;
+    }
+
+    // Check to see if total score is higher than the user's high score
+    let high_score_updated = false;
+    if (this.total_score > this.user.high_score) {
+      this.user.high_score = this.total_score;
+      high_score_updated = true;
+    }
+
+    if (highest_word_updated || high_score_updated) {
+      this.saveToLocalStorage(this.user);
+    }
+
+    this.reset(word, false, true);
   }
 
   findLetter(char: string) {
@@ -391,6 +447,19 @@ export class AppComponent implements OnInit {
     else if (find_bottom) {
       return find_bottom;
     }
+  }
+
+  saveToLocalStorage(user: any) {
+    console.log('SAVED DATA TO LOCAL STORAGE', user);
+    window.localStorage.setItem('user', JSON.stringify(user));
+
+    this.getUserData(user);
+  }
+
+  getUserData(user: any) {
+    this.high_score = user.high_score;
+    this.highest_scoring_word = user.highest_scoring_word.word;
+    this.highest_scoring_word_value = user.highest_scoring_word.score;
   }
 
   delay(ms: number) {
