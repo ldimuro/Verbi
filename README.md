@@ -1,7 +1,6 @@
 # Take5
 
-![alt text](https://github.com/[ldimuro]/[Take5]/blob/[master]/take5_screenshot1.jpg?raw=true)
-
+<img src="/assets/take5_screenshot1.png" alt="Take5 Screenshot" title="Take5 Screenshot" width="500" /> <img src="/assets/take5_screenshot1.png" alt="Screenshot" height="200" />
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.14.
 
