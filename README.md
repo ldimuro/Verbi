@@ -1,4 +1,7 @@
 # Take5
+A word game where you simply have to switch out letters from a starting word one at a time to create a new word. The rarer the letter (e.g. V, W, Z), the more points you earn for each word you create. Can you use every letter of the alphabet?
+
+<img src="/src/assets/take5_screenshot1.png" alt="Take5 Screenshot" title="Take5 Screenshot" width="800" />
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.14.
 
