@@ -1,25 +1,39 @@
-<div class="correct_words">
-  <div style="font-size: 40px;"><b>{{starting_word}}</b></div>
-  Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span>
-</div>
-
-<div class="used_letters">
-  <div class="used_letter_row">
-    Used Letters:&nbsp;
-    <div *ngFor="let letter of used_letters">
-      <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
-        {{letter.name}}</div>
-    </div>
+<div class="header">
+  <div style="margin-top: 7px;">
+    <div style="font-size: 30px; font-family: 'Segoe UI', 'Courier New', Courier, monospace;">take5</div>
   </div>
 </div>
 
-<br />
+<br>
+<br>
+<br>
 
-<div class="score">SCORE: <b>{{total_score}}</b></div>
+<div class="data">
+  <div class="correct_words">
+    <div style="font-size: 40px;"><b>{{starting_word}}</b></div>
+    Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span>
+  </div>
 
-<div *ngIf="high_score !== undefined" class="high_score">HIGH SCORE <b>{{high_score}}</b></div>
+  <div class="used_letters">
+    <div class="used_letter_row">
+      Used Letters:&nbsp;
+      <div *ngFor="let letter of used_letters">
+        <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
+          {{letter.name}}</div>
+      </div>
+    </div>
+  </div>
 
-<!-- <div *ngIf="highest_scoring_word" class="highest_scoring_word">Highest scoring word: {{highest_scoring_word}} - {{highest_scoring_word_value}} points</div> -->
+  <br />
+
+  <div class="score">SCORE: <b>{{total_score}}</b></div>
+
+  <div *ngIf="high_score !== undefined" class="high_score">HIGH SCORE <b>{{high_score}}</b></div>
+
+  <!-- <div *ngIf="highest_scoring_word" class="highest_scoring_word">Highest scoring word: {{highest_scoring_word}} - {{highest_scoring_word_value}} points</div> -->
+
+</div>
+
 
 <!-- CELLS -->
 <div class="container">
@@ -103,6 +117,10 @@
   TEST
 </div> -->
 
+
+<div class="footer">
+  <div style="float: left">Created by Lou DiMuro</div>
+</div>
 
 
 
