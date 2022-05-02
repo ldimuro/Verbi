@@ -346,13 +346,13 @@ export class AppComponent implements OnInit {
       // Apply BOUNCE animation to each letter with a 0.1s delay
       for (let i = 1; i < this.cells.length + 1; i++) {
         document.getElementById(`container_cell${i}`).classList.add('bounce');
-        document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
+        // await this.delay(50);
+        // document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
         await this.delay(100);
-
       }
 
       // Wait for each letter to bounce (5 letters * 0.1s)
-      await this.delay(600);
+      await this.delay(300);
 
       // Remove BOUNCE animation from each letter
       for (let i = 1; i < this.cells.length + 1; i++) {
@@ -363,7 +363,7 @@ export class AppComponent implements OnInit {
 
       // Remove POINT_ANIMATION from each cell
       for (let i = 1; i < this.cells.length + 1; i++) {
-        document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
+        // document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
       }
     }
   }

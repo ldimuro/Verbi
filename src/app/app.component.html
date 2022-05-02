@@ -38,7 +38,7 @@
 <!-- CELLS -->
 <div class="container">
   <div *ngFor="let cell of cells; let i = index" class="letters">
-    <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color"><b>+5</b></div>
+    <!-- <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color"><b>5</b></div> -->
     <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
       [style.cursor]="letter_selected ? 'auto' : 'cursor'" [style.background-color]="cell.color"
       [style.color]="cell.font_color" [style.border-color]="cell.selected ? '#cfa52b' : 'white'"
@@ -120,7 +120,7 @@
 
 
 <div class="footer">
-  <div style="float: left">Created by Lou DiMuro</div>
+  <div style="display: flex;">Created by Lou DiMuro</div>
 </div>
 
 
