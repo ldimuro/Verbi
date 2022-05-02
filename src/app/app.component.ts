@@ -137,6 +137,9 @@ export class AppComponent implements OnInit {
         if (data) {
           this.word_list = data.split('\n');
           this.initial_word_list = this.word_list;
+
+          this.generateWordListData(this.word_list);
+
           this.initialize();
         }
       });
@@ -452,6 +455,31 @@ export class AppComponent implements OnInit {
     this.high_score = user.high_score;
     this.highest_scoring_word = user.highest_scoring_word.word;
     this.highest_scoring_word_value = user.highest_scoring_word.score;
+  }
+
+  generateWordListData(word_list: any) {
+    let total_points = 0;
+    let high_scoring_words = [];
+    let highest_scoring_word = '';
+    let high_point_cutoff = 18;
+    word_list.forEach(word => {
+      let score = this.calculateScore(word)
+      total_points += score;
+
+      // Find highest scoring word
+      if (score > this.calculateScore(highest_scoring_word)) {
+        highest_scoring_word = word;
+      }
+
+      // Collect words whose score is above high_point_cutoff
+      if (score > high_point_cutoff) {
+        high_scoring_words.push(word);
+      }
+    });
+
+    console.log(`Average word score: ${(Math.round((total_points / word_list.length) * 100) / 100).toFixed(2)} points`);
+    console.log(`Words with ${high_point_cutoff}+ points: ${high_scoring_words.sort()}`);
+    console.log(`Highest scoring word: "${highest_scoring_word}" - ${this.calculateScore(highest_scoring_word)} points`);
   }
 
   delay(ms: number) {
