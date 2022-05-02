@@ -110,6 +110,14 @@
     transform: translate(-50%, -50%);
 }
 
+.point_value {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 50px;
+    opacity: 0;
+    // position: fixed
+}
+
 .header {
     position: fixed;
     left: 0;
@@ -146,6 +154,11 @@
     animation: bounce 1s ease infinite;
 }
 
+.point_animation {
+    opacity: 1;
+    animation: rise 7s ease infinite, fadeout 2.5s linear forwards;
+}
+
 @keyframes bounce {
     0% {
         transform: scale(1, 1) translateY(0);
@@ -165,5 +178,40 @@
     }
     100% {
         transform: scale(1, 1) translateY(0);
+    }
+}
+
+@keyframes rise {
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+    10% {
+        transform: scale(1, 1) translateY(-50px);
+    }
+    30% {
+        transform: scale(1, 1) translateY(-50px);
+    }
+    50% {
+        transform: scale(1, 1) translateY(-50px);
+    }
+    // 58%  { transform: scale(1,1) translateY(-7px); }
+    65% {
+        transform: scale(1, 1) translateY(-50px);
+    }
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
+}
+
+@keyframes fadeout {
+    // 0%,50% {
+    //     opacity: 0;
+    // }
+    50% {
+        opacity: 1;
+    }
+    50%,
+    100% {
+        opacity: 0;
     }
 }
