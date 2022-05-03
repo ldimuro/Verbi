@@ -124,6 +124,8 @@ export class AppComponent implements OnInit {
   letter_selected = false;
   selected_cell;
 
+  stats_modal_open = false;
+
   // USER LocalStorage data
   user;
   high_score;
@@ -346,7 +348,7 @@ export class AppComponent implements OnInit {
       // Apply BOUNCE animation to each letter with a 0.1s delay
       for (let i = 1; i < this.cells.length + 1; i++) {
         document.getElementById(`container_cell${i}`).classList.add('bounce');
-        // await this.delay(50);
+        await this.delay(50);
         // document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
         await this.delay(100);
       }
@@ -359,7 +361,7 @@ export class AppComponent implements OnInit {
         document.getElementById(`container_cell${i}`).classList.remove('bounce');
       }
 
-      await this.delay(300);
+      await this.delay(400);
 
       // Remove POINT_ANIMATION from each cell
       for (let i = 1; i < this.cells.length + 1; i++) {
@@ -450,6 +452,20 @@ export class AppComponent implements OnInit {
     }
     else if (find_bottom) {
       return find_bottom;
+    }
+  }
+
+  statsModal(open: boolean) {
+    if (open) {
+      this.stats_modal_open = true;
+      document.getElementById(`app`).classList.add('blur-background');
+      // console.log(document.getElementById('stats_modal'));
+      // document.getElementById('stats_modal').classList.add('fadein');
+    }
+    else {
+      this.stats_modal_open = false;
+      document.getElementById(`app`).classList.remove('blur-background');
+      // document.getElementsByClassName(`stats_modal`)[0].classList.remove('fadein');
     }
   }
 

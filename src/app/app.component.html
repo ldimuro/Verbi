@@ -1,126 +1,151 @@
-<div class="header">
-  <div style="margin-top: 7px;">
-    <div style="font-size: 30px; font-family: 'Segoe UI', 'Courier New', Courier, monospace;">take5</div>
+<div class="app" id="app">
+
+  <header>
+    <div class="header_items" style="display: flex;justify-content: flex-end;">
+      <!-- <button></button> -->
+      <a (click)="statsModal(true)">
+        <mat-icon style="font-size:40px;padding-right:20px;">equalizer</mat-icon>
+      </a>
+      <mat-icon style="font-size:40px;padding-right:20px;">settings</mat-icon>
+      <!-- <span class="item">STATS</span>
+      <span class="item">SETTINGS</span> -->
+    </div>
+  </header>
+
+  <br>
+  <br>
+
+  <div class="data">
+    <div class="correct_words">
+      <div style="font-size: 40px;"><b>{{starting_word}}</b></div>
+      Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span>
+    </div>
+
+    <div class="used_letters">
+      <div class="used_letter_row">
+        Used Letters:&nbsp;
+        <div *ngFor="let letter of used_letters">
+          <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
+            {{letter.name}}</div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="score">SCORE: <b>{{total_score}}</b></div>
+
+    <div *ngIf="high_score !== undefined" class="high_score">HIGH SCORE <b>{{high_score}}</b></div>
+
+    <!-- <div *ngIf="highest_scoring_word" class="highest_scoring_word">Highest scoring word: {{highest_scoring_word}} - {{highest_scoring_word_value}} points</div> -->
+
   </div>
-</div>
 
-<br>
-<br>
-<br>
 
-<div class="data">
-  <div class="correct_words">
-    <div style="font-size: 40px;"><b>{{starting_word}}</b></div>
-    Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span>
+  <!-- CELLS -->
+  <div class="container">
+    <div *ngFor="let cell of cells; let i = index" class="letters">
+      <!-- <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color"><b>5</b></div> -->
+      <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
+        [style.cursor]="letter_selected ? 'auto' : 'cursor'" [style.background-color]="cell.color"
+        [style.color]="cell.font_color" [style.border-color]="cell.selected ? '#cfa52b' : 'white'"
+        (click)="cellClicked(i)">{{cell.value}}</button>
+    </div>
   </div>
 
-  <div class="used_letters">
-    <div class="used_letter_row">
-      Used Letters:&nbsp;
-      <div *ngFor="let letter of used_letters">
-        <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
-          {{letter.name}}</div>
+
+  <!-- KEYBOARD -->
+  <div *ngIf="show_keyboard" [style.opacity]="keyboard_opacity"
+    [style.pointer-events]="keyboard_opacity === '1.0' ? 'auto' : 'none'" class="keyboard">
+
+    <!-- <div *ngFor="let key of keyboard">
+      <div [ngSwitch]="keyboard.row" style="display: flex; justify-content: center; margin-top: 80px;">
+        <div *ngSwitchCase="top">
+          <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
+          (click)="keyboardClicked(key.name)">{{key.name}}</button>
+        </div>
+  
+        <div *ngSwitchCase="middle" style="display: flex; justify-content: center; margin-top: 8px;">
+          <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
+          (click)="keyboardClicked(key.name)">{{key.name}}</button>
+        </div>
+  
+        <div *ngSwitchCase="bottom" style="display: flex; justify-content: center; margin-top: 8px;">
+          <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
+          (click)="keyboardClicked(key.name)">{{key.name}}</button>
+        </div>
+      </div>
+    </div> -->
+
+    <div style="display: flex; justify-content: center; margin-top: 80px;">
+      <div *ngFor="let key of keyboard_top;">
+        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
+          [style.opacity]="key.opacity" [style.color]="key.font_color"
+          (click)="keyboardClicked(key.name)">{{key.name}}</button>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin-top: 8px;">
+      <div *ngFor="let key of keyboard_middle;">
+        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
+          [style.opacity]="key.opacity" [style.color]="key.font_color"
+          (click)="keyboardClicked(key.name)">{{key.name}}</button>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin-top: 8px;">
+      <div *ngFor="let key of keyboard_bottom;">
+        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
+          [style.opacity]="key.opacity" [style.color]="key.font_color"
+          (click)="keyboardClicked(key.name)">{{key.name}}</button>
       </div>
     </div>
   </div>
 
-  <br />
-
-  <div class="score">SCORE: <b>{{total_score}}</b></div>
-
-  <div *ngIf="high_score !== undefined" class="high_score">HIGH SCORE <b>{{high_score}}</b></div>
-
-  <!-- <div *ngIf="highest_scoring_word" class="highest_scoring_word">Highest scoring word: {{highest_scoring_word}} - {{highest_scoring_word_value}} points</div> -->
-
-</div>
-
-
-<!-- CELLS -->
-<div class="container">
-  <div *ngFor="let cell of cells; let i = index" class="letters">
-    <!-- <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color"><b>5</b></div> -->
-    <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
-      [style.cursor]="letter_selected ? 'auto' : 'cursor'" [style.background-color]="cell.color"
-      [style.color]="cell.font_color" [style.border-color]="cell.selected ? '#cfa52b' : 'white'"
-      (click)="cellClicked(i)">{{cell.value}}</button>
-  </div>
-</div>
-
-
-<!-- KEYBOARD -->
-<div *ngIf="show_keyboard" [style.opacity]="keyboard_opacity"
-  [style.pointer-events]="keyboard_opacity === '1.0' ? 'auto' : 'none'" class="keyboard">
-
-  <!-- <div *ngFor="let key of keyboard">
-    <div [ngSwitch]="keyboard.row" style="display: flex; justify-content: center; margin-top: 80px;">
-      <div *ngSwitchCase="top">
-        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
-        (click)="keyboardClicked(key.name)">{{key.name}}</button>
-      </div>
-
-      <div *ngSwitchCase="middle" style="display: flex; justify-content: center; margin-top: 8px;">
-        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
-        (click)="keyboardClicked(key.name)">{{key.name}}</button>
-      </div>
-
-      <div *ngSwitchCase="bottom" style="display: flex; justify-content: center; margin-top: 8px;">
-        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
-        (click)="keyboardClicked(key.name)">{{key.name}}</button>
+  <!-- USER LETTERS -->
+  <div *ngIf="letter_selected">
+    <div style="display: flex; justify-content: center; margin-top: 30px;">
+      <div *ngFor="let letter of user_letters; let i = index" class="letters">
+        <button class="user_letters" [disabled]="!letter.enabled" [style.background-color]="letter.color"
+          [style.color]="letter.font_color" [style.opacity]="letter.enabled ? '1.0' : '0.25'"
+          (click)="userLetterClicked(i)">{{letter.value}}</button>
       </div>
     </div>
-  </div> -->
 
-  <div style="display: flex; justify-content: center; margin-top: 80px;">
-    <div *ngFor="let key of keyboard_top;">
-      <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
-        [style.opacity]="key.opacity" [style.color]="key.font_color"
-        (click)="keyboardClicked(key.name)">{{key.name}}</button>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+      <div *ngFor="let control of user_letter_controls">
+        <button class="control"
+          [disabled]="(control.id === 'enter' && cells[4].value === '') || (control.id === 'delete' && cells[0].value === '')"
+          (click)="controlClicked(control.id)">{{control.display}}</button>
+      </div>
     </div>
   </div>
 
-  <div style="display: flex; justify-content: center; margin-top: 8px;">
-    <div *ngFor="let key of keyboard_middle;">
-      <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
-        [style.opacity]="key.opacity" [style.color]="key.font_color"
-        (click)="keyboardClicked(key.name)">{{key.name}}</button>
-    </div>
+
+  <div class="footer">
+    <div style="display: flex;">Created by Lou DiMuro</div>
   </div>
 
-  <div style="display: flex; justify-content: center; margin-top: 8px;">
-    <div *ngFor="let key of keyboard_bottom;">
-      <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
-        [style.opacity]="key.opacity" [style.color]="key.font_color"
-        (click)="keyboardClicked(key.name)">{{key.name}}</button>
-    </div>
-  </div>
 </div>
 
-<!-- USER LETTERS -->
-<div *ngIf="letter_selected">
-  <div style="display: flex; justify-content: center; margin-top: 30px;">
-    <div *ngFor="let letter of user_letters; let i = index" class="letters">
-      <button class="user_letters" [disabled]="!letter.enabled" [style.background-color]="letter.color"
-        [style.color]="letter.font_color" [style.opacity]="letter.enabled ? '1.0' : '0.25'"
-        (click)="userLetterClicked(i)">{{letter.value}}</button>
+
+
+<div *ngIf="stats_modal_open" class="modal stats_modal" id="stats_modal" data-backdrop="static">
+  <header style="border: none;">
+    <div class="header_items" style="display: flex;justify-content: space-between;">
+      <span style="font-size: 30px; padding: 10px;"><b>Stats</b></span>
+      <a (click)="statsModal(false)">
+        <mat-icon style="font-size: 30px; padding-right:20px; padding-top: 10px;">close</mat-icon>
+      </a>
     </div>
+  </header>
+
+  <br>
+
+  <div style="margin-top: 50px; padding: 10px;">
+    <div><b>High Score:</b> {{high_score}}</div>
+    <span><b>Highest Scoring Word:</b> "{{user.highest_scoring_word.word}}" - {{user.highest_scoring_word.score}} points</span>
   </div>
-
-  <div style="display: flex; justify-content: center; margin-top: 20px;">
-    <div *ngFor="let control of user_letter_controls">
-      <button class="control"
-        [disabled]="(control.id === 'enter' && cells[4].value === '') || (control.id === 'delete' && cells[0].value === '')"
-        (click)="controlClicked(control.id)">{{control.display}}</button>
-    </div>
-  </div>
-</div>
-
-<!-- <div class="popup" style="background-color: red;">
-  TEST
-</div> -->
-
-
-<div class="footer">
-  <div style="display: flex;">Created by Lou DiMuro</div>
 </div>
 
 
