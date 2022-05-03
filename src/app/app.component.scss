@@ -59,11 +59,11 @@
 }
 
 .control {
-    border: 4px outset rgb(150, 150, 150);
+    border: 4px outset rgb(54, 54, 54);
     border-radius: 10px;
     border-style: solid;
     background-color: white;
-    color: rgb(150, 150, 150);
+    color: rgb(54, 54, 54);
     height: fit-content;
     width: fit-content;
     padding: 10px;
@@ -116,7 +116,24 @@
 
     -moz-box-shadow: 0 0 3px #ccc;
     -webkit-box-shadow: 0 0 3px #ccc;
-    box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.you_lose_modal {
+    position: fixed;
+    height: 250px;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    // border: 10px solid rgb(232, 232, 232);
+    border-radius: 8px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    -moz-box-shadow: 0 0 3px #ccc;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 10px #ccc;
 }
 
 .blur-background {
@@ -260,17 +277,17 @@ a:hover {
         transform: scale(1, 1) translateY(0);
     }
     10% {
-        transform: scale(1, 1) translateY(-50px);
+        transform: scale(1, 1) translateY(-40px);
     }
     30% {
-        transform: scale(1, 1) translateY(-50px);
+        transform: scale(1, 1) translateY(-40px);
     }
     50% {
-        transform: scale(1, 1) translateY(-50px);
+        transform: scale(1, 1) translateY(-40px);
     }
     // 58%  { transform: scale(1,1) translateY(-7px); }
     65% {
-        transform: scale(1, 1) translateY(-50px);
+        transform: scale(1, 1) translateY(-40px);
     }
     100% {
         transform: scale(1, 1) translateY(0);

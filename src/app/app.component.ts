@@ -119,12 +119,15 @@ export class AppComponent implements OnInit {
   total_score = 0;
   most_recently_selected_letter_index;
   current_word = '';
+  losing_word = '';
+  final_score;
 
   show_keyboard = true;
   letter_selected = false;
   selected_cell;
 
   stats_modal_open = false;
+  you_lose_modal_open = false;
 
   // USER LocalStorage data
   user;
@@ -140,7 +143,7 @@ export class AppComponent implements OnInit {
           this.word_list = data.split('\n');
           this.initial_word_list = this.word_list;
 
-          this.generateWordListData(this.word_list);
+          // this.generateWordListData(this.word_list);
 
           this.initialize();
         }
@@ -153,6 +156,26 @@ export class AppComponent implements OnInit {
     //       this.initialize();
     //     }
     //   });
+
+    const you_lost_modal = document.querySelector('.you_lose_modal');
+    const stats_modal = document.querySelector('.stats_modal');
+    window.onclick = (event: any) => {
+      // console.log(event);
+      if (event.target !== you_lost_modal && this.you_lose_modal_open) {
+        // console.log('CLICKED OUTSIDE YOU_LOST');
+      }
+      else if (event.target !== stats_modal && this.stats_modal_open) {
+        // console.log('CLICKED OUTSIDE STATS_MODAL');
+      }
+    }
+
+    // console.log(modalOuter);
+    // modalOuter.classList.addEventListener('click', function(event) {
+    //   const isOutside = !event.target.closest('.modal-inner');
+    //   if (isOutside) {
+    //     closeModal();
+    //   }
+    // })
   }
 
   initialize() {
@@ -303,6 +326,7 @@ export class AppComponent implements OnInit {
   }
 
   async reset(new_word: string, hard_reset: boolean, animate: boolean) {
+    console.log('RESET');
     for (let i in this.cells) {
       let char = this.findLetter(new_word[i]);
       this.cells[i].value = char.name;
@@ -403,7 +427,8 @@ export class AppComponent implements OnInit {
       return true;
     }
     else {
-      alert(`\'${word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`)
+      // alert(`\'${word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`);
+      this.youLoseModal(true, word);
       let new_random_word = this.chooseRandomWord();
       this.reset(new_random_word, true, false);
       return false;
@@ -455,6 +480,19 @@ export class AppComponent implements OnInit {
     }
   }
 
+  youLoseModal(open: boolean, losing_word?: any) {
+    if (open) {
+      this.you_lose_modal_open = true;
+      this.losing_word = losing_word;
+      this.final_score = this.total_score;
+      document.getElementById(`app`).classList.add('blur-background');
+    }
+    else {
+      this.you_lose_modal_open = false;
+      document.getElementById(`app`).classList.remove('blur-background');
+    }
+  }
+
   statsModal(open: boolean) {
     if (open) {
       this.stats_modal_open = true;
@@ -468,6 +506,8 @@ export class AppComponent implements OnInit {
       // document.getElementsByClassName(`stats_modal`)[0].classList.remove('fadein');
     }
   }
+
+  
 
   saveToLocalStorage(user: any) {
     console.log('SAVED DATA TO LOCAL STORAGE', user);

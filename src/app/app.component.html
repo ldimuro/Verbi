@@ -114,9 +114,12 @@
 
     <div style="display: flex; justify-content: center; margin-top: 20px;">
       <div *ngFor="let control of user_letter_controls">
-        <button class="control"
-          [disabled]="(control.id === 'enter' && cells[4].value === '') || (control.id === 'delete' && cells[0].value === '')"
+        <button *ngIf="control.id === 'enter'" class="control" [disabled]="cells[4].value === ''"
           (click)="controlClicked(control.id)">{{control.display}}</button>
+        <button *ngIf="control.id === 'delete'" class="control" [disabled]="cells[0].value === ''"
+          (click)="controlClicked(control.id)">
+          {{control.display}}
+        </button>
       </div>
     </div>
   </div>
@@ -129,22 +132,42 @@
 </div>
 
 
+<!-- YOU LOSE MODAL -->
+<div [hidden]="!you_lose_modal_open" class="you_lose_modal" id="you_lose_modal">
+  <div>
+    <div style="text-align: center;font-size: 30px;padding: 10px;"><b>YOU LOSE!</b></div>
+    <div style="text-align: center;font-size: 18px;">"{{losing_word}}" is not a word</div>
 
-<div *ngIf="stats_modal_open" class="modal stats_modal" id="stats_modal" data-backdrop="static">
+    <br>
+
+    <div style="text-align: center;font-size: 25px; padding: 10px;">Final Score: <b>{{final_score}}</b></div>
+
+    <br>
+    <br>
+    
+    <button (click)="youLoseModal(false)" style="font-size: 20px; border-width: 2px; margin:0 auto; display:block;"
+      class="control">PLAY AGAIN</button>
+  </div>
+</div>
+
+
+<!-- STATS MODAL -->
+<div [hidden]="!stats_modal_open" class="modal stats_modal" id="stats_modal">
   <header style="border: none;">
     <div class="header_items" style="display: flex;justify-content: space-between;">
       <span style="font-size: 30px; padding: 10px;"><b>Stats</b></span>
       <a (click)="statsModal(false)">
-        <mat-icon style="font-size: 30px; padding-right:20px; padding-top: 10px;">close</mat-icon>
+        <mat-icon style="font-size: 30px; padding-right:15px; padding-top: 10px;">close</mat-icon>
       </a>
     </div>
   </header>
 
   <br>
 
-  <div style="margin-top: 50px; padding: 10px;">
+  <div *ngIf="stats_modal_open" style="margin-top: 50px; padding: 10px;">
     <div><b>High Score:</b> {{high_score}}</div>
-    <span><b>Highest Scoring Word:</b> "{{user.highest_scoring_word.word}}" - {{user.highest_scoring_word.score}} points</span>
+    <span><b>Highest Scoring Word:</b> "{{user.highest_scoring_word.word}}" - {{user.highest_scoring_word.score}}
+      points</span>
   </div>
 </div>
 
