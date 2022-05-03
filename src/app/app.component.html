@@ -140,11 +140,12 @@
 
     <br>
 
-    <div style="text-align: center;font-size: 25px; padding: 10px;">Final Score: <b>{{final_score}}</b></div>
+    <div style="text-align: center;font-size: 22px; padding: 10px;">Final Score: <b>{{final_score}}
+        ({{game_over_correct_words.length}} word<span *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
 
     <br>
     <br>
-    
+
     <button (click)="youLoseModal(false)" style="font-size: 20px; border-width: 2px; margin:0 auto; display:block;"
       class="control">PLAY AGAIN</button>
   </div>

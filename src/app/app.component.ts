@@ -121,6 +121,7 @@ export class AppComponent implements OnInit {
   current_word = '';
   losing_word = '';
   final_score;
+  game_over_correct_words = [];
 
   show_keyboard = true;
   letter_selected = false;
@@ -182,7 +183,6 @@ export class AppComponent implements OnInit {
     const random_word: any = this.chooseRandomWord();
     this.current_word = random_word;
     this.starting_word = random_word;
-    this.correct_words.push(this.starting_word);
 
     // Initialize Cells for starting word
     for (let i in random_word) {
@@ -199,10 +199,10 @@ export class AppComponent implements OnInit {
       console.log('NEW USER FOUND');
       let new_user = {
         id: '1234',
-        high_score: 0,
+        high_score: 289,
         highest_scoring_word: {
-          word: 'SEEDS',
-          score: 6
+          word: 'ZAXES',
+          score: 23
         }
       };
 
@@ -366,9 +366,10 @@ export class AppComponent implements OnInit {
       this.used_letters = [];
       this.starting_word = new_word;
       this.total_score = 0;
-      this.correct_words.push(new_word);
     }
-    /*else */if (animate) {
+    
+    // APPLY ANIMATIONS
+    if (animate) {
       // Apply BOUNCE animation to each letter with a 0.1s delay
       for (let i = 1; i < this.cells.length + 1; i++) {
         document.getElementById(`container_cell${i}`).classList.add('bounce');
@@ -413,7 +414,7 @@ export class AppComponent implements OnInit {
   }
 
   submitGuess(word: string, autoguess?: boolean) {
-    if (this.correct_words.includes(word)) {
+    if (this.correct_words.includes(word) || word === this.starting_word) {
       alert('Word already guessed');
 
       if (autoguess) {
@@ -428,9 +429,14 @@ export class AppComponent implements OnInit {
     }
     else {
       // alert(`\'${word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`);
-      this.youLoseModal(true, word);
-      let new_random_word = this.chooseRandomWord();
-      this.reset(new_random_word, true, false);
+
+      // this.youLoseModal(true, word);
+      // let new_random_word = this.chooseRandomWord();
+      // this.reset(new_random_word, true, false);
+      console.log(this.correct_words);
+      this.game_over_correct_words = this.correct_words;
+
+      this.gameOver(word);
       return false;
     }
   }
@@ -507,7 +513,11 @@ export class AppComponent implements OnInit {
     }
   }
 
-  
+  gameOver(losing_word: string) {
+    this.youLoseModal(true, losing_word);
+    let new_random_word = this.chooseRandomWord();
+    this.reset(new_random_word, true, false);
+  }
 
   saveToLocalStorage(user: any) {
     console.log('SAVED DATA TO LOCAL STORAGE', user);
