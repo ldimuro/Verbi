@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { GameData, UserData } from './app.model';
 // import * as config from './assets/word_list.txt';
 // import * as words from './test.json';
 // import words from '../assets/word_list.txt';
@@ -131,7 +132,7 @@ export class AppComponent implements OnInit {
   you_lose_modal_open = false;
 
   // USER LocalStorage data
-  user;
+  user: UserData;
   high_score;
   highest_scoring_word: string;
   highest_scoring_word_value: number;
@@ -197,13 +198,16 @@ export class AppComponent implements OnInit {
 
     if (!this.user) { // If user doesn't exist, create new one
       console.log('NEW USER FOUND');
-      let new_user = {
+      let new_user: UserData = {
         id: '1234',
         high_score: 289,
         highest_scoring_word: {
           word: 'ZAXES',
           score: 23
-        }
+        },
+        total_points_scored: 0,
+        games_played: [],
+        average_score_per_game: 0
       };
 
       window.localStorage.setItem('user', JSON.stringify(new_user));
@@ -212,6 +216,8 @@ export class AppComponent implements OnInit {
     else {
       console.log(this.user);
       this.getUserData(this.user);
+      // console.log('REMOVED');
+      // window.localStorage.removeItem('user');
     }
   }
 
@@ -326,7 +332,6 @@ export class AppComponent implements OnInit {
   }
 
   async reset(new_word: string, hard_reset: boolean, animate: boolean) {
-    console.log('RESET');
     for (let i in this.cells) {
       let char = this.findLetter(new_word[i]);
       this.cells[i].value = char.name;
@@ -429,11 +434,6 @@ export class AppComponent implements OnInit {
     }
     else {
       // alert(`\'${word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`);
-
-      // this.youLoseModal(true, word);
-      // let new_random_word = this.chooseRandomWord();
-      // this.reset(new_random_word, true, false);
-      console.log(this.correct_words);
       this.game_over_correct_words = this.correct_words;
 
       this.gameOver(word);
@@ -516,6 +516,20 @@ export class AppComponent implements OnInit {
   gameOver(losing_word: string) {
     this.youLoseModal(true, losing_word);
     let new_random_word = this.chooseRandomWord();
+
+    // Add game session to LocalStorage
+    let game_data: GameData = {
+      timestamp: new Date(),
+      correct_words: this.game_over_correct_words,
+      score: this.final_score
+    }
+
+    let update_user: UserData = this.user;
+    update_user.games_played.push(game_data);
+    update_user.total_points_scored += this.final_score;
+    update_user.average_score_per_game = Number((Math.round((update_user.total_points_scored / update_user.games_played.length) * 100) / 100).toFixed(2));
+    this.saveToLocalStorage(update_user);
+
     this.reset(new_random_word, true, false);
   }
 
@@ -527,6 +541,7 @@ export class AppComponent implements OnInit {
   }
 
   getUserData(user: any) {
+    this.user = user;
     this.high_score = user.high_score;
     this.highest_scoring_word = user.highest_scoring_word.word;
     this.highest_scoring_word_value = user.highest_scoring_word.score;

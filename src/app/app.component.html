@@ -167,8 +167,10 @@
 
   <div *ngIf="stats_modal_open" style="margin-top: 50px; padding: 10px;">
     <div><b>High Score:</b> {{high_score}}</div>
-    <span><b>Highest Scoring Word:</b> "{{user.highest_scoring_word.word}}" - {{user.highest_scoring_word.score}}
-      points</span>
+    <div><b>Highest Scoring Word:</b> "{{user.highest_scoring_word.word}}" - {{user.highest_scoring_word.score}}
+      points</div>
+    <div><b>Games Played:</b> {{user.games_played.length}}</div>
+    <div><b>Average Score per Game</b>{{user.average_score_per_game}}</div>
   </div>
 </div>
 
