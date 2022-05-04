@@ -11,7 +11,7 @@ export class UserData {
 }
 
 export class GameData {
-    timestamp: Date;
+    timestamp: string;
     correct_words: string[];
     score: number;
 }

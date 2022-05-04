@@ -1,9 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GameData, UserData } from './app.model';
-// import * as config from './assets/word_list.txt';
-// import * as words from './test.json';
-// import words from '../assets/word_list.txt';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +31,8 @@ export class AppComponent implements OnInit {
   }
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private datepipe: DatePipe
   ) { }
 
 
@@ -379,7 +378,7 @@ export class AppComponent implements OnInit {
       for (let i = 1; i < this.cells.length + 1; i++) {
         document.getElementById(`container_cell${i}`).classList.add('bounce');
         await this.delay(50);
-        // document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
+        document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
         await this.delay(100);
       }
 
@@ -391,11 +390,11 @@ export class AppComponent implements OnInit {
         document.getElementById(`container_cell${i}`).classList.remove('bounce');
       }
 
-      await this.delay(400);
+      await this.delay(800);
 
       // Remove POINT_ANIMATION from each cell
       for (let i = 1; i < this.cells.length + 1; i++) {
-        // document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
+        document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
       }
     }
   }
@@ -518,8 +517,9 @@ export class AppComponent implements OnInit {
     let new_random_word = this.chooseRandomWord();
 
     // Add game session to LocalStorage
+    let now = new Date();
     let game_data: GameData = {
-      timestamp: new Date(),
+      timestamp: this.datepipe.transform(now, 'yyyy-MM-dd hh:mm:ss a z'),
       correct_words: this.game_over_correct_words,
       score: this.final_score
     }

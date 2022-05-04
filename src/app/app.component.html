@@ -35,7 +35,7 @@
 
     <div class="score">SCORE: <b>{{total_score}}</b></div>
 
-    <div *ngIf="high_score !== undefined" class="high_score">HIGH SCORE <b>{{high_score}}</b></div>
+    <div *ngIf="high_score !== undefined" class="high_score">HIGH SCORE: <b>{{high_score}}</b></div>
 
   </div>
 
@@ -43,7 +43,7 @@
   <!-- CELLS -->
   <div class="container">
     <div *ngFor="let cell of cells; let i = index" class="letters">
-      <!-- <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color"><b>5</b></div> -->
+      <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color"><b>5</b></div>
       <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
         [style.cursor]="letter_selected ? 'auto' : 'cursor'" [style.background-color]="cell.color"
         [style.color]="cell.font_color" [style.border-color]="cell.selected ? '#cfa52b' : 'white'"
@@ -53,12 +53,12 @@
 
 
   <!-- KEYBOARD -->
-  <div *ngIf="show_keyboard" [style.opacity]="keyboard_opacity"
+  <div *ngIf="show_keyboard" id="keyboard"[style.opacity]="keyboard_opacity"
     [style.pointer-events]="keyboard_opacity === '1.0' ? 'auto' : 'none'" class="keyboard">
 
     <div style="display: flex; justify-content: center; margin-top: 80px;">
       <div *ngFor="let key of keyboard_top;">
-        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
+        <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open" [style.background-color]="key.point_color"
           [style.opacity]="key.opacity" [style.color]="key.font_color"
           (click)="keyboardClicked(key.name)">{{key.name}}</button>
       </div>
@@ -66,7 +66,7 @@
 
     <div style="display: flex; justify-content: center; margin-top: 8px;">
       <div *ngFor="let key of keyboard_middle;">
-        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
+        <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open" [style.background-color]="key.point_color"
           [style.opacity]="key.opacity" [style.color]="key.font_color"
           (click)="keyboardClicked(key.name)">{{key.name}}</button>
       </div>
@@ -74,7 +74,7 @@
 
     <div style="display: flex; justify-content: center; margin-top: 8px;">
       <div *ngFor="let key of keyboard_bottom;">
-        <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.point_color"
+        <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open" [style.background-color]="key.point_color"
           [style.opacity]="key.opacity" [style.color]="key.font_color"
           (click)="keyboardClicked(key.name)">{{key.name}}</button>
       </div>
