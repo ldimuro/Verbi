@@ -37,8 +37,6 @@
 
     <div *ngIf="high_score !== undefined" class="high_score">HIGH SCORE <b>{{high_score}}</b></div>
 
-    <!-- <div *ngIf="highest_scoring_word" class="highest_scoring_word">Highest scoring word: {{highest_scoring_word}} - {{highest_scoring_word_value}} points</div> -->
-
   </div>
 
 
@@ -57,25 +55,6 @@
   <!-- KEYBOARD -->
   <div *ngIf="show_keyboard" [style.opacity]="keyboard_opacity"
     [style.pointer-events]="keyboard_opacity === '1.0' ? 'auto' : 'none'" class="keyboard">
-
-    <!-- <div *ngFor="let key of keyboard">
-      <div [ngSwitch]="keyboard.row" style="display: flex; justify-content: center; margin-top: 80px;">
-        <div *ngSwitchCase="top">
-          <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
-          (click)="keyboardClicked(key.name)">{{key.name}}</button>
-        </div>
-  
-        <div *ngSwitchCase="middle" style="display: flex; justify-content: center; margin-top: 8px;">
-          <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
-          (click)="keyboardClicked(key.name)">{{key.name}}</button>
-        </div>
-  
-        <div *ngSwitchCase="bottom" style="display: flex; justify-content: center; margin-top: 8px;">
-          <button class="butt-sm" [disabled]="!key.enabled" [style.background-color]="key.color"
-          (click)="keyboardClicked(key.name)">{{key.name}}</button>
-        </div>
-      </div>
-    </div> -->
 
     <div style="display: flex; justify-content: center; margin-top: 80px;">
       <div *ngFor="let key of keyboard_top;">
@@ -154,23 +133,34 @@
 
 <!-- STATS MODAL -->
 <div [hidden]="!stats_modal_open" class="modal stats_modal" id="stats_modal">
-  <header style="border: none;">
-    <div class="header_items" style="display: flex;justify-content: space-between;">
-      <span style="font-size: 30px; padding: 10px;"><b>Stats</b></span>
+  <div>
+    <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="statsModal(false)">
         <mat-icon style="font-size: 30px; padding-right:15px; padding-top: 10px;">close</mat-icon>
       </a>
     </div>
-  </header>
+    <div style="font-size: 30px; text-align: center"><b>STATISTICS</b></div>
+  </div>
 
-  <br>
+  <div *ngIf="stats_modal_open" style="margin-top: 20px; padding: 10px;">
+    <div class="modal_text"><b>High Score</b></div>
+    <div class="modal_text" style="font-size:25px">{{high_score}}</div>
 
-  <div *ngIf="stats_modal_open" style="margin-top: 50px; padding: 10px;">
-    <div><b>High Score:</b> {{high_score}}</div>
-    <div><b>Highest Scoring Word:</b> "{{user.highest_scoring_word.word}}" - {{user.highest_scoring_word.score}}
-      points</div>
-    <div><b>Games Played:</b> {{user.games_played.length}}</div>
-    <div><b>Average Score per Game</b>{{user.average_score_per_game}}</div>
+    <br>
+
+    <div class="modal_text"><b>Highest Scoring Word</b></div>
+    <div class="modal_text" style="font-size:25px">"{{user.highest_scoring_word.word}}" -
+      {{user.highest_scoring_word.score}} points</div>
+
+    <br>
+
+    <div class="modal_text"><b>Games Played</b></div>
+    <div class="modal_text" style="font-size:25px">{{user.games_played.length}}</div>
+
+    <br>
+
+    <div class="modal_text"><b>Average Score per Game</b></div>
+    <div class="modal_text" style="font-size:25px">{{user.average_score_per_game}} points</div>
   </div>
 </div>
 
