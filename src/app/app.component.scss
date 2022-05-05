@@ -223,7 +223,7 @@ a:hover {
 }
 
 .footer {
-    position: fixed;
+    position: sticky;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -240,12 +240,20 @@ a:hover {
     // text-align: center;
 }
 
-.blur-background {
+.blur-background_in {
     filter: blur(30px);
     -webkit-filter: blur(30px);
     pointer-events: none;
-    // -webkit-transition: all 0.5s ease-in;
-    // transition: all 0.5s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+}
+
+.in {
+    animation: blurin 0.3s, linear forwards;
+}
+
+.blur-background_out {
+    animation: blurout 0.3s, linear forwards;
 }
 
 .bounce {
@@ -336,6 +344,24 @@ a:hover {
     50%,
     100% {
         opacity: 0;
+    }
+}
+
+@keyframes blurout {
+    from {
+        filter: blur(30px);
+    }
+    to {
+        filter: none;
+    }
+}
+
+@keyframes blurin {
+    from {
+        filter: none;
+    }
+    to {
+        filter: blur(30px);
     }
 }
 

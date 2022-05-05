@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
     { name: 'W', opacity: this.key_opacity_free, enabled: true, points: 5, row: 'top', point_color: this.point5_color, font_color: 'white' },
     { name: 'E', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'top', point_color: this.point1_color, font_color: this.black },
     { name: 'R', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'top', point_color: this.point1_color, font_color: this.black },
-    { name: 'T', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'top', point_color: this.point2_color, font_color: 'white' },
+    { name: 'T', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'top', point_color: this.point2_color, font_color: this.black },
     { name: 'Y', opacity: this.key_opacity_free, enabled: true, points: 3, row: 'top', point_color: this.point3_color, font_color: 'white' },
     { name: 'U', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'top', point_color: this.point2_color, font_color: this.black },
     { name: 'I', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'top', point_color: this.point1_color, font_color: this.black },
@@ -465,7 +465,7 @@ export class AppComponent implements OnInit {
       // alert(`\'${word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`);
       this.game_over_correct_words = this.correct_words;
 
-      this.gameOver(word);
+      this.youLoseModal(true, word);
       return false;
     }
   }
@@ -515,23 +515,12 @@ export class AppComponent implements OnInit {
     }
   }
 
-  youLoseModal(open: boolean, losing_word?: any) {
-    if (open) {
-      this.you_lose_modal_open = true;
-      this.losing_word = losing_word;
-      this.final_score = this.total_score;
-      document.getElementById(`app`).classList.add('blur-background');
-    }
-    else {
-      this.you_lose_modal_open = false;
-      document.getElementById(`app`).classList.remove('blur-background');
-    }
-  }
-
   async statsModal(open: boolean) {
     if (open) {
       this.stats_modal_open = true;
-      document.getElementById(`app`).classList.add('blur-background');
+      document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_out');
+      console.log(document.getElementById(`app`).classList);
 
       let stats_modal = document.getElementById('stats_modal');
       stats_modal.classList.add('modal_fadein');
@@ -539,21 +528,54 @@ export class AppComponent implements OnInit {
       stats_modal.classList.remove('modal_fadeout');
     }
     else {
-      document.getElementById(`app`).classList.remove('blur-background');
+      document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_out');
 
       let stats_modal = document.getElementById('stats_modal');
-      console.log('ADD FADEOUT');
       stats_modal.classList.remove('modal_fadein');
       stats_modal.classList.remove('modal_appear');
       stats_modal.classList.add('modal_fadeout');
+
+      // Give time for blur_out animation to perform
+      await this.delay(200);
+      
       this.stats_modal_open = false;
-      
-      
     }
   }
 
-  gameOver(losing_word: string) {
-    this.youLoseModal(true, losing_word);
+  youLoseModal(open: boolean, losing_word?: any) {
+    if (open) {
+      this.you_lose_modal_open = true;
+      this.losing_word = losing_word;
+      this.final_score = this.total_score;
+
+      document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_out');
+
+      let stats_modal = document.getElementById('you_lose_modal');
+      stats_modal.classList.add('modal_fadein');
+      stats_modal.classList.add('modal_appear');
+      stats_modal.classList.remove('modal_fadeout');
+    }
+    else {
+      this.you_lose_modal_open = false;
+      document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_out');
+
+      let stats_modal = document.getElementById('stats_modal');
+      stats_modal.classList.remove('modal_fadein');
+      stats_modal.classList.remove('modal_appear');
+      stats_modal.classList.add('modal_fadeout');
+
+      this.gameOver(losing_word);
+    }
+  }
+
+  async gameOver(losing_word: string) {
+    // this.youLoseModal(true, losing_word);
+
+    await this.delay(300);
+
     let new_random_word = this.chooseRandomWord();
 
     // Add game session to LocalStorage
