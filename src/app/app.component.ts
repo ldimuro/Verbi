@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
 
   cell_color = '#f2f2f2';
   cell_color_selected = '#f2f880';
-  black = '#4d4749';
+  black = '#242022';
   cells: Cell[] = [
     { name: "cell1", value: "", point_value: 0, color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
     { name: "cell2", value: "", point_value: 0, color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
@@ -64,12 +64,36 @@ export class AppComponent implements OnInit {
     { display: 'DELETE', id: 'delete', color: '#ffffff' }
   ];
 
-  point1_color = '#e6e0cf';
-  point2_color = '#f0d47f';
-  point3_color = '#7EBDC2';
-  point4_color = '#2d6b8c';
-  point5_color = '#c9523e';
-  point10_color = '#4d4749';
+  // point1_color = '#e6e0cf';
+  // point2_color = '#f0d47f';
+  // point3_color = '#7EBDC2';
+  // point4_color = '#2d6b8c';
+  // point5_color = '#c9523e';
+  // point10_color = '#4d4749';
+
+  // BLUE
+  // point1_color = '#61c9ff';
+  // point2_color = '#00a6fb';
+  // point3_color = '#0582ca';
+  // point4_color = '#006494';
+  // point5_color = '#003554';
+  // point10_color = '#051923';
+
+  // RED
+  // point1_color = '#ffdbd6';
+  // point2_color = '#ffada3';
+  // point3_color = '#f4877b';
+  // point4_color = '#f27c6f';
+  // point5_color = '#e02d15';
+  // point10_color = '#831a0c';
+
+  // RED (alternate)
+  point1_color = '#fcd6d2';
+  point2_color = '#f29c91';
+  point3_color = '#de5445';
+  point4_color = '#b31e0e';
+  point5_color = '#8a1101';
+  point10_color = '#470000';
 
   keyboard_opacity = '1.0'; // 0.5
   key_used = '#8a8a8a';
@@ -77,11 +101,11 @@ export class AppComponent implements OnInit {
   key_opacity_free = '1.0';
   key_opacity_used = '0.0'; // 0.18
   keyboard_top: Letter[] = [
-    { name: 'Q', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'top', point_color: this.point10_color, font_color: 'gold' },
+    { name: 'Q', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'top', point_color: this.point10_color, font_color: 'white' },
     { name: 'W', opacity: this.key_opacity_free, enabled: true, points: 5, row: 'top', point_color: this.point5_color, font_color: 'white' },
     { name: 'E', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'top', point_color: this.point1_color, font_color: this.black },
     { name: 'R', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'top', point_color: this.point1_color, font_color: this.black },
-    { name: 'T', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'top', point_color: this.point2_color, font_color: this.black },
+    { name: 'T', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'top', point_color: this.point2_color, font_color: 'white' },
     { name: 'Y', opacity: this.key_opacity_free, enabled: true, points: 3, row: 'top', point_color: this.point3_color, font_color: 'white' },
     { name: 'U', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'top', point_color: this.point2_color, font_color: this.black },
     { name: 'I', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'top', point_color: this.point1_color, font_color: this.black },
@@ -96,14 +120,14 @@ export class AppComponent implements OnInit {
     { name: 'F', opacity: this.key_opacity_free, enabled: true, points: 5, row: 'middle', point_color: this.point5_color, font_color: 'white' },
     { name: 'G', opacity: this.key_opacity_free, enabled: true, points: 4, row: 'middle', point_color: this.point4_color, font_color: 'white' },
     { name: 'H', opacity: this.key_opacity_free, enabled: true, points: 4, row: 'middle', point_color: this.point4_color, font_color: 'white' },
-    { name: 'J', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'middle', point_color: this.point10_color, font_color: 'gold' },
+    { name: 'J', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'middle', point_color: this.point10_color, font_color: 'white' },
     { name: 'K', opacity: this.key_opacity_free, enabled: true, points: 4, row: 'middle', point_color: this.point4_color, font_color: 'white' },
     { name: 'L', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'middle', point_color: this.point2_color, font_color: this.black }
   ];
 
   keyboard_bottom: Letter[]  = [
-    { name: 'Z', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'bottom', point_color: this.point10_color, font_color: 'gold' },
-    { name: 'X', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'bottom', point_color: this.point10_color, font_color: 'gold' },
+    { name: 'Z', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'bottom', point_color: this.point10_color, font_color: 'white' },
+    { name: 'X', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'bottom', point_color: this.point10_color, font_color: 'white' },
     { name: 'C', opacity: this.key_opacity_free, enabled: true, points: 3, row: 'bottom', point_color: this.point3_color, font_color: 'white' },
     { name: 'V', opacity: this.key_opacity_free, enabled: true, points: 5, row: 'bottom', point_color: this.point5_color, font_color: 'white' },
     { name: 'B', opacity: this.key_opacity_free, enabled: true, points: 4, row: 'bottom', point_color: this.point4_color, font_color: 'white' },
@@ -418,7 +442,7 @@ export class AppComponent implements OnInit {
 
   chooseRandomWord() {
     return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
-    // return 'SLCHF';
+    // return 'LCHFZ';
     // return 'WITCH';
     // return 'ZACUH';
   }
@@ -504,17 +528,27 @@ export class AppComponent implements OnInit {
     }
   }
 
-  statsModal(open: boolean) {
+  async statsModal(open: boolean) {
     if (open) {
       this.stats_modal_open = true;
       document.getElementById(`app`).classList.add('blur-background');
-      // console.log(document.getElementById('stats_modal'));
-      // document.getElementById('stats_modal').classList.add('fadein');
+
+      let stats_modal = document.getElementById('stats_modal');
+      stats_modal.classList.add('modal_fadein');
+      stats_modal.classList.add('modal_appear');
+      stats_modal.classList.remove('modal_fadeout');
     }
     else {
-      this.stats_modal_open = false;
       document.getElementById(`app`).classList.remove('blur-background');
-      // document.getElementsByClassName(`stats_modal`)[0].classList.remove('fadein');
+
+      let stats_modal = document.getElementById('stats_modal');
+      console.log('ADD FADEOUT');
+      stats_modal.classList.remove('modal_fadein');
+      stats_modal.classList.remove('modal_appear');
+      stats_modal.classList.add('modal_fadeout');
+      this.stats_modal_open = false;
+      
+      
     }
   }
 

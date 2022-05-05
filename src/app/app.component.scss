@@ -55,7 +55,7 @@
     height: 80px;
     width: 60px;
     margin-right: 8px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .control {
@@ -144,25 +144,15 @@
     box-shadow: 0 0 10px #ccc;
 }
 
-.blur-background {
-    filter: blur(30px);
-    -webkit-filter: blur(30px);
-    pointer-events: none;
-    // -webkit-transition: all 0.25s ease-in;
-    // transition: all 0.25s ease-in;
-}
-
 .point_value {
     text-align: center;
     font-size: 34px;
     margin-bottom: 50px;
     opacity: 0;
     position: fixed;
-    // margin-bottom: 50px;
-    // left: 50px;
     margin-left: 66px;
-    // margin-bottom: 20px;
-    margin-top: -75px;
+    margin-top: -92px;
+    filter: brightness(80%);
 }
 
 .header {
@@ -250,6 +240,14 @@ a:hover {
     // text-align: center;
 }
 
+.blur-background {
+    filter: blur(30px);
+    -webkit-filter: blur(30px);
+    pointer-events: none;
+    // -webkit-transition: all 0.5s ease-in;
+    // transition: all 0.5s ease-in;
+}
+
 .bounce {
     animation: bounce 1s ease infinite;
 }
@@ -262,6 +260,18 @@ a:hover {
 .fadein {
     animation: fadein 0.5s;
 }
+
+.modal_fadein {
+    animation: fadein 0.3s linear forwards;
+}
+
+.modal_fadeout {
+    animation: fadeout 0.5s linear forwards;
+}
+
+// .modal_appear {
+//     animation: modal_appear 0.5s;
+// }
 
 @keyframes bounce {
     0% {
@@ -328,3 +338,13 @@ a:hover {
         opacity: 0;
     }
 }
+
+// @keyframes modal_appear {
+//     from {
+//         transform: scale(0.5, 0.5);
+//         // transform: translate(-50%, -50%)
+//     }
+//     to {
+//         transform: scale(1, 1);
+//     }
+// }

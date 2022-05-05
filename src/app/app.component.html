@@ -59,7 +59,7 @@
     <div style="display: flex; justify-content: center; margin-top: 55px;">
       <div *ngFor="let key of keyboard_top;">
         <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open" [style.background-color]="key.point_color"
-          [style.opacity]="key.opacity" [style.color]="key.font_color"
+          [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
           (click)="keyboardClicked(key.name)">{{key.name}}</button>
       </div>
     </div>
@@ -67,7 +67,7 @@
     <div style="display: flex; justify-content: center; margin-top: 8px;">
       <div *ngFor="let key of keyboard_middle;">
         <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open" [style.background-color]="key.point_color"
-          [style.opacity]="key.opacity" [style.color]="key.font_color"
+          [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
           (click)="keyboardClicked(key.name)">{{key.name}}</button>
       </div>
     </div>
@@ -75,7 +75,7 @@
     <div style="display: flex; justify-content: center; margin-top: 8px;">
       <div *ngFor="let key of keyboard_bottom;">
         <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open" [style.background-color]="key.point_color"
-          [style.opacity]="key.opacity" [style.color]="key.font_color"
+          [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
           (click)="keyboardClicked(key.name)">{{key.name}}</button>
       </div>
     </div>
@@ -144,23 +144,23 @@
 
   <div *ngIf="stats_modal_open" style="margin-top: 20px; padding: 10px;">
     <div class="modal_text"><b>High Score</b></div>
-    <div class="modal_text" style="font-size:25px">{{high_score}}</div>
+    <div class="modal_text" style="font-size:25px"><b>{{high_score}}</b></div>
 
     <br>
 
     <div class="modal_text"><b>Highest Scoring Word</b></div>
-    <div class="modal_text" style="font-size:25px">"{{user.highest_scoring_word.word}}" -
-      {{user.highest_scoring_word.score}} points</div>
+    <div class="modal_text" style="font-size:25px"><b>"{{user.highest_scoring_word.word}}" -
+      {{user.highest_scoring_word.score}} points</b></div>
 
     <br>
 
     <div class="modal_text"><b>Games Played</b></div>
-    <div class="modal_text" style="font-size:25px">{{user.games_played.length}}</div>
+    <div class="modal_text" style="font-size:25px"><b>{{user.games_played.length}}</b></div>
 
     <br>
 
     <div class="modal_text"><b>Average Score per Game</b></div>
-    <div class="modal_text" style="font-size:25px">{{user.average_score_per_game}} points</div>
+    <div class="modal_text" style="font-size:25px"><b>{{user.average_score_per_game}} points</b></div>
   </div>
 </div>
 
