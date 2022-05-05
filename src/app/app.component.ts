@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GameData, UserData } from './app.model';
+import { Cell, GameData, Letter, UserData } from './app.model';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -41,12 +41,12 @@ export class AppComponent implements OnInit {
   cell_color = '#f2f2f2';
   cell_color_selected = '#f2f880';
   black = '#4d4749';
-  cells = [
-    { name: "cell1", value: "", color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
-    { name: "cell2", value: "", color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
-    { name: "cell3", value: "", color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
-    { name: "cell4", value: "", color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
-    { name: "cell5", value: "", color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false }
+  cells: Cell[] = [
+    { name: "cell1", value: "", point_value: 0, color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
+    { name: "cell2", value: "", point_value: 0, color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
+    { name: "cell3", value: "", point_value: 0, color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
+    { name: "cell4", value: "", point_value: 0, color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false },
+    { name: "cell5", value: "", point_value: 0, color: this.cell_color, user_letter_index: null, font_color: this.black, selected: false }
   ];
 
   user_letter_color = '#f0f0f0';
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
   key_free = '#e0e0e0';
   key_opacity_free = '1.0';
   key_opacity_used = '0.0'; // 0.18
-  keyboard_top = [
+  keyboard_top: Letter[] = [
     { name: 'Q', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'top', point_color: this.point10_color, font_color: 'gold' },
     { name: 'W', opacity: this.key_opacity_free, enabled: true, points: 5, row: 'top', point_color: this.point5_color, font_color: 'white' },
     { name: 'E', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'top', point_color: this.point1_color, font_color: this.black },
@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
     { name: 'P', opacity: this.key_opacity_free, enabled: true, points: 3, row: 'top', point_color: this.point3_color, font_color: 'white' }
   ];
 
-  keyboard_middle = [
+  keyboard_middle: Letter[]  = [
     { name: 'A', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'middle', point_color: this.point1_color, font_color: this.black },
     { name: 'S', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'middle', point_color: this.point1_color, font_color: this.black },
     { name: 'D', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'middle', point_color: this.point2_color, font_color: this.black },
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
     { name: 'L', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'middle', point_color: this.point2_color, font_color: this.black }
   ];
 
-  keyboard_bottom = [
+  keyboard_bottom: Letter[]  = [
     { name: 'Z', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'bottom', point_color: this.point10_color, font_color: 'gold' },
     { name: 'X', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'bottom', point_color: this.point10_color, font_color: 'gold' },
     { name: 'C', opacity: this.key_opacity_free, enabled: true, points: 3, row: 'bottom', point_color: this.point3_color, font_color: 'white' },
@@ -146,17 +146,17 @@ export class AppComponent implements OnInit {
 
           // this.generateWordListData(this.word_list);
 
-          this.initialize();
+          // this.initialize();
         }
       });
 
-    // this.httpClient.get('/assets/initial_words.txt', { responseType: 'text' })
-    //   .subscribe(data => {
-    //     if (data) {
-    //       this.initial_word_list = data.split('\n');
-    //       this.initialize();
-    //     }
-    //   });
+    this.httpClient.get('/assets/initial_words.txt', { responseType: 'text' })
+      .subscribe(data => {
+        if (data) {
+          this.initial_word_list = data.split('\n');
+          this.initialize();
+        }
+      });
 
     const you_lost_modal = document.querySelector('.you_lose_modal');
     const stats_modal = document.querySelector('.stats_modal');
@@ -190,6 +190,7 @@ export class AppComponent implements OnInit {
       this.cells[i].value = random_word.charAt(i);
       this.cells[i].color = char.point_color;
       this.cells[i].font_color = char.font_color;
+      this.cells[i].point_value = char.points
     }
 
     // Get User Credentials
@@ -247,6 +248,7 @@ export class AppComponent implements OnInit {
     this.cells[this.selected_cell].value = char.name;
     this.cells[this.selected_cell].color = char.point_color;
     this.cells[this.selected_cell].font_color = char.font_color;
+    this.cells[this.selected_cell].point_value = char.points;
 
     this.show_keyboard = false;
     this.letter_selected = true;
@@ -297,6 +299,9 @@ export class AppComponent implements OnInit {
         this.cells[i].font_color = this.user_letters[index].font_color;
         this.cells[i].user_letter_index = index;
 
+        let char = this.findLetter(this.user_letters[index].value);
+        this.cells[i].point_value = char.points;
+
         if (index === this.most_recently_selected_letter_index) {
         }
 
@@ -337,6 +342,7 @@ export class AppComponent implements OnInit {
       this.cells[i].color = char.point_color;
       this.cells[i].font_color = char.font_color;
       this.cells[i].user_letter_index = null;
+      this.cells[i].point_value = char.points;
     }
 
     this.user_letters.forEach(letter => {
