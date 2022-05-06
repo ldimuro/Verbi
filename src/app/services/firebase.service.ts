@@ -53,7 +53,6 @@ export class FirebaseService {
   }
 
   async getUserData(id: string): Promise<UserData> {
-    console.log('FIREBASE: GET');
     const dbRef = ref(this.database);
     let retrieved_user: UserData;
 
@@ -72,7 +71,6 @@ export class FirebaseService {
   }
 
   async updateUserData(userData: UserData) {
-    console.log('FIREBASE: UPDATE');
     set(ref(this.database, '/users/' + userData.id), {
       id: userData.id,
       high_score: userData.high_score,

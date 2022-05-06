@@ -39,9 +39,6 @@ export class AppComponent implements OnInit {
     private appSvc: AppService
   ) { }
 
-
-  firebase;
-
   cell_color = '#f2f2f2';
   cell_color_selected = '#f2f880';
   black = '#242022';
@@ -100,7 +97,6 @@ export class AppComponent implements OnInit {
   point5_color = '#8a1101';
   point10_color = '#470000';
 
-  keyboard_opacity = '1.0'; // 0.5
   key_used = '#8a8a8a';
   key_free = '#e0e0e0';
   key_opacity_free = '1.0';
@@ -161,12 +157,7 @@ export class AppComponent implements OnInit {
 
   // USER LocalStorage data
   userID_LocalStorage;
-
   user: UserData;
-  high_score;
-  highest_scoring_word: string;
-  highest_scoring_word_value: number;
-
 
   ngOnInit() {
     this.httpClient.get('/assets/word_list.txt', { responseType: 'text' })
@@ -264,7 +255,6 @@ export class AppComponent implements OnInit {
 
   cellClicked(index: any) {
     this.selected_cell = index;
-    this.keyboard_opacity = '1.0';
     this.most_recently_selected_letter_index = index;
 
     let letter = this.findLetter(this.cells[this.most_recently_selected_letter_index].value);
@@ -342,9 +332,6 @@ export class AppComponent implements OnInit {
 
         let char = this.findLetter(this.user_letters[index].value);
         this.cells[i].point_value = char.points;
-
-        if (index === this.most_recently_selected_letter_index) {
-        }
 
         break;
       }
