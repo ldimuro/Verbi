@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cell, GameData, Letter, UserData } from './app.model';
 import { DatePipe } from '@angular/common';
+import { FirebaseService } from './services/firebase.service';
+import { AppService } from './services/app.service';
 
 @Component({
   selector: 'app-root',
@@ -32,11 +34,13 @@ export class AppComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private firebaseSvc: FirebaseService,
+    private appSvc: AppService
   ) { }
 
 
-  test = ['A', 'B', 'C']
+  firebase;
 
   cell_color = '#f2f2f2';
   cell_color_selected = '#f2f880';
@@ -155,6 +159,8 @@ export class AppComponent implements OnInit {
   you_lose_modal_open = false;
 
   // USER LocalStorage data
+  userID_LocalStorage;
+
   user: UserData;
   high_score;
   highest_scoring_word: string;
@@ -246,7 +252,10 @@ export class AppComponent implements OnInit {
     return str.substring(0,index) + chr + str.substring(index+1);
   }
 
-  initialize() {
+  async initialize() {
+    // Initialize Firebase
+    this.firebaseSvc.initializeApp();
+
     const random_word: any = this.chooseRandomWord();
     this.current_word = random_word;
     this.starting_word = random_word;
@@ -261,30 +270,38 @@ export class AppComponent implements OnInit {
     }
 
     // Get User Credentials
-    this.user = JSON.parse(window.localStorage.getItem('user'));
+    this.userID_LocalStorage = JSON.parse(window.localStorage.getItem('userID_LocalStorage'));
 
-    if (!this.user) { // If user doesn't exist, create new one
+    if (!this.userID_LocalStorage) { // If user doesn't exist, create new one
       console.log('NEW USER FOUND');
-      let new_user: UserData = {
-        id: '1234',
-        high_score: 289,
-        highest_scoring_word: {
-          word: 'ZAXES',
-          score: 23
-        },
-        total_points_scored: 0,
-        games_played: [],
-        average_score_per_game: 0
-      };
+      let randomID = this.appSvc.generateRandomID();
+      this.firebaseSvc.createNewUser(randomID);
+      this.userID_LocalStorage = randomID;
+      window.localStorage.setItem('userID_LocalStorage', JSON.stringify(this.userID_LocalStorage));
+      window.localStorage.removeItem('user');
 
-      window.localStorage.setItem('user', JSON.stringify(new_user));
-      this.user = new_user;
+      // let new_user: UserData = {
+      //   id: '1234',
+      //   high_score: 312,
+      //   highest_scoring_word: {
+      //     word: 'ZAXES',
+      //     score: 23
+      //   },
+      //   total_points_scored: 0,
+      //   games_played: null,
+      //   average_score_per_game: 0
+      // };
+
+      // window.localStorage.setItem('user', JSON.stringify(new_user));
+      // this.user = new_user;
     }
     else {
-      console.log(this.user);
-      this.getUserData(this.user);
+      console.log('WELCOME BACK, ' + this.userID_LocalStorage);
+      this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
+      // this.getUserData(this.user);
+
       // console.log('REMOVED');
-      // window.localStorage.removeItem('user');
+      // window.localStorage.removeItem('userID_LocalStorage');
     }
   }
 
@@ -536,7 +553,8 @@ export class AppComponent implements OnInit {
     }
 
     if (highest_word_updated || high_score_updated) {
-      this.saveToLocalStorage(this.user);
+      // this.saveToLocalStorage(this.user);
+      this.firebaseSvc.updateUserData(this.user);
     }
 
     this.reset(word, false, true);
@@ -633,7 +651,8 @@ export class AppComponent implements OnInit {
     update_user.games_played.push(game_data);
     update_user.total_points_scored += this.final_score;
     update_user.average_score_per_game = Number((Math.round((update_user.total_points_scored / update_user.games_played.length) * 100) / 100).toFixed(2));
-    this.saveToLocalStorage(update_user);
+    // this.saveToLocalStorage(update_user);
+    await this.firebaseSvc.updateUserData(update_user);
 
     this.reset(new_random_word, true, false);
   }
@@ -643,6 +662,8 @@ export class AppComponent implements OnInit {
     window.localStorage.setItem('user', JSON.stringify(user));
 
     this.getUserData(user);
+
+    // await this.firebaseSvc.updateUserData(user);
   }
 
   getUserData(user: any) {
