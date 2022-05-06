@@ -68,6 +68,7 @@ export class AppComponent implements OnInit {
     { display: 'DELETE', id: 'delete', color: '#ffffff' }
   ];
 
+  // MULT-COLOR
   // point1_color = '#e6e0cf';
   // point2_color = '#f0d47f';
   // point3_color = '#7EBDC2';
@@ -173,9 +174,6 @@ export class AppComponent implements OnInit {
         if (data) {
           this.word_list = data.split('\n');
           this.initial_word_list = this.word_list;
-
-          // this.generateWordListData(this.word_list);
-
           // this.initialize();
         }
       });
@@ -185,25 +183,6 @@ export class AppComponent implements OnInit {
         if (data) {
           this.initial_word_list = data.split('\n');
           this.initialize();
-
-          
-          // let valid_words = [];
-          // let myString = "ZONAL";
-          // let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'V', 'Q', 'R', 'S', 'T', 'U', 'V', 'W'];
-          // for (let each of alphabet) {
-          //   for (let i = 0; i < myString.length; i++) {
-          //     let temp = this.setCharAt(myString, i, each);
-          //     let permutations = this.permut(temp);
-          //     for (let p of permutations) {
-          //       console.log(p);
-          //       if (this.word_list.includes(p)) {
-          //         valid_words.push(p);
-          //       }
-          //     }
-          //   }
-          // }
-
-          // console.log('POTENTIAL MOVES: ' + valid_words);
         }
       });
 
@@ -226,30 +205,6 @@ export class AppComponent implements OnInit {
     //     closeModal();
     //   }
     // })
-  }
-
-  permut(string) {
-    if (string.length < 2) return string; // This is our break condition
-
-    var permutations = []; // This array will hold our permutations
-    for (var i = 0; i < string.length; i++) {
-      var char = string[i];
-
-      // Cause we don't want any duplicates:
-      if (string.indexOf(char) != i) // if char was used already
-        continue; // skip it this time
-
-      var remainingString = string.slice(0, i) + string.slice(i + 1, string.length); //Note: you can concat Strings via '+' in JS
-
-      for (var subPermutation of this.permut(remainingString))
-        permutations.push(char + subPermutation)
-    }
-    return permutations;
-  }
-
-  setCharAt(str,index,chr) {
-    if(index > str.length-1) return str;
-    return str.substring(0,index) + chr + str.substring(index+1);
   }
 
   async initialize() {
@@ -697,6 +652,7 @@ export class AppComponent implements OnInit {
     console.log(`Words with ${high_point_cutoff}+ points: ${high_scoring_words.sort()}`);
     console.log(`Highest scoring word: "${highest_scoring_word}" - ${this.calculateScore(highest_scoring_word)} points`);
   }
+
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
