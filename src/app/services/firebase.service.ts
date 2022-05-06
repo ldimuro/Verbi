@@ -53,6 +53,7 @@ export class FirebaseService {
   }
 
   async getUserData(id: string): Promise<UserData> {
+    console.log('FIREBASE: GET');
     const dbRef = ref(this.database);
     let retrieved_user: UserData;
 
@@ -70,15 +71,19 @@ export class FirebaseService {
     return retrieved_user;
   }
 
-  async updateUserData(userData: UserData) {;
-    // Get a key for a new Post.
-    const newPostKey = push(child(ref(this.database), `users`)).key;
-
-    // Write the new post's data simultaneously in the posts list and the user's post list.
-    const updates = {};
-    updates['/users/' + userData.id + newPostKey] = userData;
-
-    return update(ref(this.database), updates);
+  async updateUserData(userData: UserData) {
+    console.log('FIREBASE: UPDATE');
+    set(ref(this.database, '/users/' + userData.id), {
+      id: userData.id,
+      high_score: userData.high_score,
+      highest_scoring_word: {
+        word: userData.highest_scoring_word.word,
+        score: userData.highest_scoring_word.score
+      },
+      games_played: userData.games_played,
+      total_points_scored: userData.total_points_scored,
+      average_score_per_game: userData.average_score_per_game
+    });
   }
 
 }

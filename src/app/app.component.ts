@@ -235,6 +235,8 @@ export class AppComponent implements OnInit {
       window.localStorage.setItem('userID_LocalStorage', JSON.stringify(this.userID_LocalStorage));
       window.localStorage.removeItem('user');
 
+      this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
+
       // let new_user: UserData = {
       //   id: '1234',
       //   high_score: 312,
@@ -485,7 +487,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  successfulGuess(word: string) {
+  async successfulGuess(word: string) {
     this.correct_words.push(word);
     this.current_word = word;
 
@@ -494,7 +496,7 @@ export class AppComponent implements OnInit {
 
     // Check to see if submitted word has a higher score than the user's record
     let highest_word_updated = false;
-    if (points > this.highest_scoring_word_value) {
+    if (points > this.user.highest_scoring_word.score) {
       this.user.highest_scoring_word.word = word;
       this.user.highest_scoring_word.score = points;
       highest_word_updated = true;
@@ -509,7 +511,10 @@ export class AppComponent implements OnInit {
 
     if (highest_word_updated || high_score_updated) {
       // this.saveToLocalStorage(this.user);
+
       this.firebaseSvc.updateUserData(this.user);
+      this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
+      // this.getUserData(this.user);
     }
 
     this.reset(word, false, true);
@@ -536,7 +541,6 @@ export class AppComponent implements OnInit {
       this.stats_modal_open = true;
       document.getElementById(`app`).classList.add('blur-background_in');
       document.getElementById(`app`).classList.remove('blur-background_out');
-      console.log(document.getElementById(`app`).classList);
 
       let stats_modal = document.getElementById('stats_modal');
       stats_modal.classList.add('modal_fadein');
@@ -603,7 +607,14 @@ export class AppComponent implements OnInit {
     }
 
     let update_user: UserData = this.user;
-    update_user.games_played.push(game_data);
+
+    if (!update_user.games_played.length) {
+      update_user.games_played = [game_data];
+    }
+    else {
+      update_user.games_played.push(game_data);
+    }
+    
     update_user.total_points_scored += this.final_score;
     update_user.average_score_per_game = Number((Math.round((update_user.total_points_scored / update_user.games_played.length) * 100) / 100).toFixed(2));
     // this.saveToLocalStorage(update_user);
@@ -612,21 +623,14 @@ export class AppComponent implements OnInit {
     this.reset(new_random_word, true, false);
   }
 
-  saveToLocalStorage(user: any) {
-    console.log('SAVED DATA TO LOCAL STORAGE', user);
-    window.localStorage.setItem('user', JSON.stringify(user));
+  // saveToLocalStorage(user: any) {
+  //   console.log('SAVED DATA TO LOCAL STORAGE', user);
+  //   window.localStorage.setItem('user', JSON.stringify(user));
 
-    this.getUserData(user);
+  //   // this.getUserData(user);
 
-    // await this.firebaseSvc.updateUserData(user);
-  }
-
-  getUserData(user: any) {
-    this.user = user;
-    this.high_score = user.high_score;
-    this.highest_scoring_word = user.highest_scoring_word.word;
-    this.highest_scoring_word_value = user.highest_scoring_word.score;
-  }
+  //   // await this.firebaseSvc.updateUserData(user);
+  // }
 
   generateWordListData(word_list: any) {
     let total_points = 0;

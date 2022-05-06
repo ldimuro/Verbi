@@ -35,7 +35,7 @@
 
     <div class="score">SCORE: <b>{{total_score}}</b></div>
 
-    <div *ngIf="high_score !== undefined" class="high_score">HIGH SCORE: <b>{{high_score}}</b></div>
+    <div *ngIf="user?.high_score !== undefined" class="high_score">HIGH SCORE: <b>{{user?.high_score}}</b></div>
 
   </div>
 
@@ -144,7 +144,7 @@
 
   <div *ngIf="stats_modal_open" style="margin-top: 20px; padding: 10px;">
     <div class="modal_text"><b>High Score</b></div>
-    <div class="modal_text" style="font-size:25px"><b>{{high_score}}</b></div>
+    <div class="modal_text" style="font-size:25px"><b>{{user?.high_score}}</b></div>
 
     <br>
 
