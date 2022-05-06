@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
     private appSvc: AppService
   ) { }
 
+
   cell_color = '#f2f2f2';
   cell_color_selected = '#f2f880';
   black = '#242022';
@@ -97,6 +98,7 @@ export class AppComponent implements OnInit {
   point5_color = '#8a1101';
   point10_color = '#470000';
 
+  keyboard_opacity = '1.0'; // 0.5
   key_used = '#8a8a8a';
   key_free = '#e0e0e0';
   key_opacity_free = '1.0';
@@ -158,6 +160,7 @@ export class AppComponent implements OnInit {
   // USER LocalStorage data
   userID_LocalStorage;
   user: UserData;
+
 
   ngOnInit() {
     this.httpClient.get('/assets/word_list.txt', { responseType: 'text' })
@@ -255,6 +258,7 @@ export class AppComponent implements OnInit {
 
   cellClicked(index: any) {
     this.selected_cell = index;
+    this.keyboard_opacity = '1.0';
     this.most_recently_selected_letter_index = index;
 
     let letter = this.findLetter(this.cells[this.most_recently_selected_letter_index].value);
@@ -445,10 +449,11 @@ export class AppComponent implements OnInit {
   }
 
   chooseRandomWord() {
-    return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
+    // return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
     // return 'LCHFZ';
     // return 'WITCH';
     // return 'ZACUH';
+    return 'PAZZY'
   }
 
   submitGuess(word: string, autoguess?: boolean) {

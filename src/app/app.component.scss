@@ -21,7 +21,6 @@
     margin-right: 7px;
     font-size: 60px;
     color: white;
-    // font-family: monospace;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -30,6 +29,7 @@
 .butt-sm:hover:enabled,
 .control:hover:enabled {
     filter: brightness(90%);
+    cursor: pointer;
 }
 
 .user_letters {
@@ -43,8 +43,6 @@
     margin-right: 7px;
     font-size: 60px;
     color: rgb(92, 92, 92);
-    // font-family: 'Courier New', Courier, monospace;
-    // font-family: monospace;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -206,11 +204,6 @@ header {
     border-bottom: 1px solid rgb(184, 184, 184);
     justify-content: flex-end;
 }
-
-// .header-items {
-//     display: flex;
-//     justify-content: flex-end;
-// }
 
 a:hover {
     cursor: pointer;
