@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cell, GameData, Letter, UserData } from './app.model';
+import { Cell, GameData, Letter, TodaysGameData, UserData } from './app.model';
 import { DatePipe } from '@angular/common';
 import { FirebaseService } from './services/firebase.service';
 import { AppService } from './services/app.service';
@@ -161,6 +161,9 @@ export class AppComponent implements OnInit {
   userID_LocalStorage;
   user: UserData;
 
+  // Today's Game Data
+  todays_game_data: TodaysGameData;
+
 
   ngOnInit() {
     this.httpClient.get('/assets/word_list.txt', { responseType: 'text' })
@@ -223,7 +226,7 @@ export class AppComponent implements OnInit {
 
     if (!this.userID_LocalStorage) { // If user doesn't exist, create new one
       console.log('NEW USER FOUND');
-      let randomID = this.appSvc.generateRandomID();
+      let randomID = 'user_' + this.appSvc.generateRandomID();
       this.firebaseSvc.createNewUser(randomID);
       this.userID_LocalStorage = randomID;
       window.localStorage.setItem('userID_LocalStorage', JSON.stringify(this.userID_LocalStorage));
@@ -449,11 +452,11 @@ export class AppComponent implements OnInit {
   }
 
   chooseRandomWord() {
-    // return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
+    return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
     // return 'LCHFZ';
     // return 'WITCH';
     // return 'ZACUH';
-    return 'PAZZY'
+    // return 'PAZZY'
   }
 
   submitGuess(word: string, autoguess?: boolean) {
@@ -568,6 +571,8 @@ export class AppComponent implements OnInit {
       stats_modal.classList.add('modal_fadein');
       stats_modal.classList.add('modal_appear');
       stats_modal.classList.remove('modal_fadeout');
+
+      this.gameOver(losing_word);
     }
     else {
       this.you_lose_modal_open = false;
@@ -579,13 +584,12 @@ export class AppComponent implements OnInit {
       stats_modal.classList.remove('modal_appear');
       stats_modal.classList.add('modal_fadeout');
 
-      this.gameOver(losing_word);
+      let new_random_word = this.chooseRandomWord();
+      this.reset(new_random_word, true, false);
     }
   }
 
   async gameOver(losing_word: string) {
-    // this.youLoseModal(true, losing_word);
-
     await this.delay(300);
 
     let new_random_word = this.chooseRandomWord();
@@ -609,20 +613,15 @@ export class AppComponent implements OnInit {
     
     update_user.total_points_scored += this.final_score;
     update_user.average_score_per_game = Number((Math.round((update_user.total_points_scored / update_user.games_played.length) * 100) / 100).toFixed(2));
-    // this.saveToLocalStorage(update_user);
+
     await this.firebaseSvc.updateUserData(update_user);
 
-    this.reset(new_random_word, true, false);
+    // Add User ID to the Game Data and send to Firebase
+    game_data.id = this.userID_LocalStorage;
+    await this.firebaseSvc.updateGameLog(game_data);
+
+    this.todays_game_data = await this.firebaseSvc.getTodaysGamesData();
   }
-
-  // saveToLocalStorage(user: any) {
-  //   console.log('SAVED DATA TO LOCAL STORAGE', user);
-  //   window.localStorage.setItem('user', JSON.stringify(user));
-
-  //   // this.getUserData(user);
-
-  //   // await this.firebaseSvc.updateUserData(user);
-  // }
 
   generateWordListData(word_list: any) {
     let total_points = 0;

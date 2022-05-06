@@ -14,6 +14,14 @@ export class GameData {
     timestamp: string;
     correct_words: string[];
     score: number;
+    id?: string;
+}
+
+export class TodaysGameData {
+    today_word?: string;
+    games_played_num?: number;
+    total_points_scored?: number;
+    average_score?: number;
 }
 
 export class Letter {
