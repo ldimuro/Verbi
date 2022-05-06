@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, child, push, update, set, get } from "firebase/database";
 import { GameData, TodaysGameData, UserData } from '../app.model';
 import { AppService } from './app.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,8 @@ export class FirebaseService {
   database;
 
   constructor(
-    private appSvc: AppService
+    private appSvc: AppService,
+    private datepipe: DatePipe
   ) { }
 
   initializeApp() {
@@ -69,6 +71,7 @@ export class FirebaseService {
       console.error(error);
       return error;
     });
+    console.log('GET USER DATA');
 
     return retrieved_user;
   }
@@ -85,6 +88,7 @@ export class FirebaseService {
       total_points_scored: userData.total_points_scored,
       average_score_per_game: userData.average_score_per_game
     });
+    console.log('UPDATE USER DATA');
   }
 
   async updateGameLog(game_data: GameData) {
@@ -96,26 +100,32 @@ export class FirebaseService {
       score: game_data.score,
       correct_words: game_data.correct_words
     });
+    console.log('UPDATE GAME LOG');
 
     // Update TodaysGameData
-    let todays_game_data: TodaysGameData = await this.getTodaysGamesData();
+    let today = new Date();
+    let today_str;
+    today_str = this.datepipe.transform(today, 'yyyy-MM-dd');
+
+    let todays_game_data: TodaysGameData = await this.getTodaysGamesData(today_str);
     todays_game_data.games_played_num += 1;
     todays_game_data.total_points_scored += game_data.score;
     todays_game_data.average_score = Number((Math.round((todays_game_data.total_points_scored / todays_game_data.games_played_num) * 100) / 100).toFixed(2));;
 
-    await set(ref(this.database, '/todays_game_data/'), {
+    await set(ref(this.database, `/daily_game_data/${today_str}_game_data/`), {
       today_word: todays_game_data.today_word,
       games_played_num: todays_game_data.games_played_num,
       total_points_scored: todays_game_data.total_points_scored,
       average_score: todays_game_data.average_score
     });
+    console.log('UPDATE TODAYS GAME DATA');
   }
 
-  async getTodaysGamesData() {
+  async getTodaysGamesData(todays_date) {
     const dbRef = ref(this.database);
     let todays_game_data: UserData;
 
-    await get(child(dbRef, `/todays_game_data/`)).then((snapshot) => {
+    await get(child(dbRef, `/daily_game_data/${todays_date}_game_data/`)).then((snapshot) => {
       if (snapshot.exists()) {
         todays_game_data = snapshot.val();
       } else {
@@ -125,6 +135,7 @@ export class FirebaseService {
       console.error(error);
       return error;
     });
+    console.log('GET TODAYS GAME DATA');
 
     return todays_game_data;
   }

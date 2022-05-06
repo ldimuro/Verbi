@@ -149,6 +149,7 @@ export class AppComponent implements OnInit {
   losing_word = '';
   final_score;
   game_over_correct_words = [];
+  percent_difference_from_average;
 
   show_keyboard = true;
   letter_selected = false;
@@ -610,7 +611,7 @@ export class AppComponent implements OnInit {
     else {
       update_user.games_played.push(game_data);
     }
-    
+
     update_user.total_points_scored += this.final_score;
     update_user.average_score_per_game = Number((Math.round((update_user.total_points_scored / update_user.games_played.length) * 100) / 100).toFixed(2));
 
@@ -620,7 +621,7 @@ export class AppComponent implements OnInit {
     game_data.id = this.userID_LocalStorage;
     await this.firebaseSvc.updateGameLog(game_data);
 
-    this.todays_game_data = await this.firebaseSvc.getTodaysGamesData();
+    this.todays_game_data = await this.firebaseSvc.getTodaysGamesData(this.datepipe.transform(now, 'yyyy-MM-dd'));
   }
 
   generateWordListData(word_list: any) {
@@ -647,7 +648,6 @@ export class AppComponent implements OnInit {
     console.log(`Words with ${high_point_cutoff}+ points: ${high_scoring_words.sort()}`);
     console.log(`Highest scoring word: "${highest_scoring_word}" - ${this.calculateScore(highest_scoring_word)} points`);
   }
-
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
