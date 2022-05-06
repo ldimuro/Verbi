@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
     { name: 'P', opacity: this.key_opacity_free, enabled: true, points: 3, row: 'top', point_color: this.point3_color, font_color: 'white' }
   ];
 
-  keyboard_middle: Letter[]  = [
+  keyboard_middle: Letter[] = [
     { name: 'A', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'middle', point_color: this.point1_color, font_color: this.black },
     { name: 'S', opacity: this.key_opacity_free, enabled: true, points: 1, row: 'middle', point_color: this.point1_color, font_color: this.black },
     { name: 'D', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'middle', point_color: this.point2_color, font_color: this.black },
@@ -125,7 +125,7 @@ export class AppComponent implements OnInit {
     { name: 'L', opacity: this.key_opacity_free, enabled: true, points: 2, row: 'middle', point_color: this.point2_color, font_color: this.black }
   ];
 
-  keyboard_bottom: Letter[]  = [
+  keyboard_bottom: Letter[] = [
     { name: 'Z', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'bottom', point_color: this.point10_color, font_color: 'white' },
     { name: 'X', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'bottom', point_color: this.point10_color, font_color: 'white' },
     { name: 'C', opacity: this.key_opacity_free, enabled: true, points: 3, row: 'bottom', point_color: this.point3_color, font_color: 'white' },
@@ -179,6 +179,25 @@ export class AppComponent implements OnInit {
         if (data) {
           this.initial_word_list = data.split('\n');
           this.initialize();
+
+          
+          // let valid_words = [];
+          // let myString = "ZONAL";
+          // let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'V', 'Q', 'R', 'S', 'T', 'U', 'V', 'W'];
+          // for (let each of alphabet) {
+          //   for (let i = 0; i < myString.length; i++) {
+          //     let temp = this.setCharAt(myString, i, each);
+          //     let permutations = this.permut(temp);
+          //     for (let p of permutations) {
+          //       console.log(p);
+          //       if (this.word_list.includes(p)) {
+          //         valid_words.push(p);
+          //       }
+          //     }
+          //   }
+          // }
+
+          // console.log('POTENTIAL MOVES: ' + valid_words);
         }
       });
 
@@ -201,6 +220,30 @@ export class AppComponent implements OnInit {
     //     closeModal();
     //   }
     // })
+  }
+
+  permut(string) {
+    if (string.length < 2) return string; // This is our break condition
+
+    var permutations = []; // This array will hold our permutations
+    for (var i = 0; i < string.length; i++) {
+      var char = string[i];
+
+      // Cause we don't want any duplicates:
+      if (string.indexOf(char) != i) // if char was used already
+        continue; // skip it this time
+
+      var remainingString = string.slice(0, i) + string.slice(i + 1, string.length); //Note: you can concat Strings via '+' in JS
+
+      for (var subPermutation of this.permut(remainingString))
+        permutations.push(char + subPermutation)
+    }
+    return permutations;
+  }
+
+  setCharAt(str,index,chr) {
+    if(index > str.length-1) return str;
+    return str.substring(0,index) + chr + str.substring(index+1);
   }
 
   initialize() {
@@ -401,7 +444,7 @@ export class AppComponent implements OnInit {
       this.starting_word = new_word;
       this.total_score = 0;
     }
-    
+
     // APPLY ANIMATIONS
     if (animate) {
       // Apply BOUNCE animation to each letter with a 0.1s delay
@@ -538,7 +581,7 @@ export class AppComponent implements OnInit {
 
       // Give time for blur_out animation to perform
       await this.delay(200);
-      
+
       this.stats_modal_open = false;
     }
   }
