@@ -129,8 +129,8 @@
       <b>{{todays_game_data?.average_score}}</b>
     </div>
 
-    <div *ngIf="final_score !== undefined && percentile_data" style="text-align: center;font-size: 22px; padding: 10px;">Your Percentile:
-      <b>{{percentile_data.percentile}}%</b>
+    <div *ngIf="final_score !== undefined && percentile_data" style="text-align: center;font-size: 22px; padding: 10px;">You were better than
+      <b>{{percentile_data.percentile}}%</b> of players today
       <div style="text-align: center;font-size: 22px; padding: 10px;">
         {{percentile_data.percentile_graphic}}
       </div>
