@@ -22,6 +22,17 @@ export class TodaysGameData {
     games_played_num?: number;
     total_points_scored?: number;
     average_score?: number;
+    raw_scores?: any[];
+}
+
+export class PercentileData {
+    high_score: number;
+    low_score: number;
+    mean: number;
+    median: number;
+    mode: any;
+    percentile?: any;
+    percentile_graphic?: any;
 }
 
 export class Letter {

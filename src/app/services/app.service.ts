@@ -66,7 +66,94 @@ export class AppService {
     return str.substring(0, index) + chr + str.substring(index + 1);
   }
 
+  getMean(scores) {
+    let sum = 0;
+    scores.forEach(num => {
+      sum += num;
+    });
+    let mean = sum / scores.length;
 
+    return mean;
+  }
+
+  getMedian(scores: any) {
+    scores.sort(function (a, b) {
+      return a - b;
+    });
+
+    let median;
+    if (scores.length % 2 !== 0) {
+      median = scores[Math.floor(scores.length / 2)];
+    } else {
+      var mid1 = scores[(scores.length / 2) - 1];
+      var mid2 = scores[scores.length / 2];
+      median = (mid1 + mid2) / 2;
+    }
+
+    return median;
+  }
+
+  getMode(scores: any) {
+    let modes = [], count = [], i, number, maxIndex = 0;
+
+    for (i = 0; i < scores.length; i += 1) {
+      number = scores[i];
+      count[number] = (count[number] || 0) + 1;
+      if (count[number] > maxIndex) {
+        maxIndex = count[number];
+      }
+    }
+
+    for (i in count) {
+      if (count.hasOwnProperty(i)) {
+        if (count[i] === maxIndex) {
+          modes.push(Number(i));
+        }
+      }
+    }
+
+    return modes;
+  }
+
+  getPercentile(scores: any, user_score: any) {
+    return ((100 *
+      scores.reduce(
+        (acc, v) => acc + (v < user_score ? 1 : 0) + (v === user_score ? 0.5 : 0),
+        0
+      )) /
+    scores.length);
+  }
+
+  getPercentileGraphic(low_score: number, high_score: number, percentile: number) {
+    let graphic = low_score + ' pts ';
+    console.log('PERCENTILE: ' + percentile);
+    console.log('FORMAT: ' + (Math.round(percentile / 10) * 10));
+    let rounded_value = (Math.round(percentile / 10) * 10) / 10;
+    let color_value;
+
+    if (rounded_value <= 2) {
+      color_value = '🟥';
+    }
+    else if (rounded_value > 2 && rounded_value <= 6) {
+      color_value = '🟧';
+    }
+    else {
+      color_value = '🟩';
+    }
+
+    console.log(rounded_value);
+    for (let i = 0; i < 10; i++) {
+      if (i <= rounded_value - 1) {
+        graphic += color_value;
+      }
+      else {
+        graphic += '⬜️';
+      }
+    }
+    graphic += ' ' + high_score + ' pts';
+
+    return graphic;
+  }
 
 
 }

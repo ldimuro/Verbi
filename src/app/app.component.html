@@ -125,13 +125,15 @@
     <div style="text-align: center;font-size: 22px; padding: 10px;">Final Score: <b>{{final_score}}
         ({{game_over_correct_words.length}} word<span *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
 
-    <div style="text-align: center;font-size: 22px; padding: 10px;">Today's Average:
-      <b>{{todays_game_data?.average_score}}
-        <span *ngIf="final_score && todays_game_data"
-          [style.color]="final_score > todays_game_data?.average_score ? 'green' : 'red'"><span
-            *ngIf="final_score > todays_game_data?.average_score">+</span>({{((final_score -
-          todays_game_data?.average_score)/todays_game_data?.average_score)*100}}%)</span>
-      </b>
+    <div *ngIf="final_score !== undefined && todays_game_data" style="text-align: center;font-size: 22px; padding: 10px;">Today's Average:
+      <b>{{todays_game_data?.average_score}}</b>
+    </div>
+
+    <div *ngIf="final_score !== undefined && percentile_data" style="text-align: center;font-size: 22px; padding: 10px;">Your Percentile:
+      <b>{{percentile_data.percentile}}%</b>
+      <div style="text-align: center;font-size: 22px; padding: 10px;">
+        {{percentile_data.percentile_graphic}}
+      </div>
     </div>
 
     <br>

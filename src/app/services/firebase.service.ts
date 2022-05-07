@@ -102,26 +102,30 @@ export class FirebaseService {
     });
     console.log('UPDATE GAME LOG');
 
-    // Update TodaysGameData
+
     let today = new Date();
     let today_str;
     today_str = this.datepipe.transform(today, 'yyyy-MM-dd');
 
-    let todays_game_data: TodaysGameData = await this.getTodaysGamesData(today_str);
+    // Update data for Today in "daily_game_data"
+    let todays_game_data: TodaysGameData = await this.getTodaysGameData(today_str);
     todays_game_data.games_played_num += 1;
     todays_game_data.total_points_scored += game_data.score;
-    todays_game_data.average_score = Number((Math.round((todays_game_data.total_points_scored / todays_game_data.games_played_num) * 100) / 100).toFixed(2));;
+    todays_game_data.average_score = Number((Math.round((todays_game_data.total_points_scored / todays_game_data.games_played_num) * 100) / 100).toFixed(2));
+
+    !todays_game_data.raw_scores ? todays_game_data.raw_scores = [game_data.score] : todays_game_data.raw_scores.push(game_data.score);
 
     await set(ref(this.database, `/daily_game_data/${today_str}_game_data/`), {
       today_word: todays_game_data.today_word,
       games_played_num: todays_game_data.games_played_num,
       total_points_scored: todays_game_data.total_points_scored,
-      average_score: todays_game_data.average_score
+      average_score: todays_game_data.average_score,
+      raw_scores: todays_game_data.raw_scores
     });
     console.log('UPDATE TODAYS GAME DATA');
   }
 
-  async getTodaysGamesData(todays_date) {
+  async getTodaysGameData(todays_date) {
     const dbRef = ref(this.database);
     let todays_game_data: UserData;
 
@@ -138,6 +142,16 @@ export class FirebaseService {
     console.log('GET TODAYS GAME DATA');
 
     return todays_game_data;
+  }
+
+  async postNewDayGameData(todays_date: string, random_word: string) {
+    console.log('SET ' + todays_date);
+    set(ref(this.database, `/daily_game_data/${todays_date}_game_data`), {
+      today_word: random_word,
+      games_played_num: 0,
+      total_points_scored: 0,
+      average_score: 0
+    });
   }
 
 }

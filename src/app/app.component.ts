@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cell, GameData, Letter, TodaysGameData, UserData } from './app.model';
+import { Cell, GameData, Letter, PercentileData, TodaysGameData, UserData } from './app.model';
 import { DatePipe } from '@angular/common';
 import { FirebaseService } from './services/firebase.service';
 import { AppService } from './services/app.service';
@@ -165,8 +165,22 @@ export class AppComponent implements OnInit {
   // Today's Game Data
   todays_game_data: TodaysGameData;
 
+  // PercentileData
+  percentile_data: PercentileData = {
+    high_score: 0,
+    low_score: 0,
+    mean: 0,
+    median: 0,
+    mode: [],
+    percentile: 0,
+    percentile_graphic: ''
+  };
 
-  ngOnInit() {
+
+  async ngOnInit() {
+    // Initialize Firebase
+    await this.firebaseSvc.initializeApp();
+
     this.httpClient.get('/assets/word_list.txt', { responseType: 'text' })
       .subscribe(data => {
         if (data) {
@@ -180,21 +194,46 @@ export class AppComponent implements OnInit {
       .subscribe(data => {
         if (data) {
           this.initial_word_list = data.split('\n');
-          this.initialize();
+          // this.initialize();
         }
       });
 
-    const you_lost_modal = document.querySelector('.you_lose_modal');
-    const stats_modal = document.querySelector('.stats_modal');
-    window.onclick = (event: any) => {
-      // console.log(event);
-      if (event.target !== you_lost_modal && this.you_lose_modal_open) {
-        // console.log('CLICKED OUTSIDE YOU_LOST');
-      }
-      else if (event.target !== stats_modal && this.stats_modal_open) {
-        // console.log('CLICKED OUTSIDE STATS_MODAL');
-      }
+    // TODO: Check to see if today's day is present in the "daily_game_data" tree,
+    // and if it isn't, get new random word and create new "[insert data]_game_data" object
+    // and post to Firebase.
+
+    let now = new Date();
+    let now_str = this.datepipe.transform(now, 'yyyy-MM-dd');
+    let test_str = '2022-05-07';
+    this.todays_game_data = await this.firebaseSvc.getTodaysGameData(now_str);
+    console.log('GOT TODAY DATA');
+
+    console.log(this.todays_game_data);
+
+    if (!this.todays_game_data) {
+      // Create new object in "daily_game_data" in Firebase
+      console.log('NEW DAY');
+      await this.firebaseSvc.postNewDayGameData(now_str, this.chooseRandomWord());
+      this.todays_game_data = await this.firebaseSvc.getTodaysGameData(now_str);
     }
+
+    this.initialize();
+
+
+
+
+
+    // const you_lost_modal = document.querySelector('.you_lose_modal');
+    // const stats_modal = document.querySelector('.stats_modal');
+    // window.onclick = (event: any) => {
+    //   // console.log(event);
+    //   if (event.target !== you_lost_modal && this.you_lose_modal_open) {
+    //     // console.log('CLICKED OUTSIDE YOU_LOST');
+    //   }
+    //   else if (event.target !== stats_modal && this.stats_modal_open) {
+    //     // console.log('CLICKED OUTSIDE STATS_MODAL');
+    //   }
+    // }
 
     // console.log(modalOuter);
     // modalOuter.classList.addEventListener('click', function(event) {
@@ -206,10 +245,9 @@ export class AppComponent implements OnInit {
   }
 
   async initialize() {
-    // Initialize Firebase
-    this.firebaseSvc.initializeApp();
+    // const random_word: any = this.chooseRandomWord();
+    const random_word: any = this.todays_game_data.today_word;
 
-    const random_word: any = this.chooseRandomWord();
     this.current_word = random_word;
     this.starting_word = random_word;
 
@@ -621,7 +659,19 @@ export class AppComponent implements OnInit {
     game_data.id = this.userID_LocalStorage;
     await this.firebaseSvc.updateGameLog(game_data);
 
-    this.todays_game_data = await this.firebaseSvc.getTodaysGamesData(this.datepipe.transform(now, 'yyyy-MM-dd'));
+    this.todays_game_data = await this.firebaseSvc.getTodaysGameData(this.datepipe.transform(now, 'yyyy-MM-dd'));
+
+    // Calculate score percentile from all scores for today's word
+    let sorted_raw_scores = this.todays_game_data.raw_scores.sort((a, b) => a - b);
+    this.percentile_data.high_score = sorted_raw_scores[sorted_raw_scores.length - 1];
+    this.percentile_data.low_score = sorted_raw_scores[0];
+    this.percentile_data.mean = this.appSvc.getMean(sorted_raw_scores);
+    this.percentile_data.median = this.appSvc.getMedian(sorted_raw_scores);
+    this.percentile_data.mode = this.appSvc.getMode(sorted_raw_scores);
+    this.percentile_data.percentile = this.appSvc.getPercentile(sorted_raw_scores, this.final_score).toFixed(2);
+    this.percentile_data.percentile_graphic = this.appSvc.getPercentileGraphic(this.percentile_data.low_score, this.percentile_data.high_score, this.final_score);
+
+    console.log(this.percentile_data);
   }
 
   generateWordListData(word_list: any) {
