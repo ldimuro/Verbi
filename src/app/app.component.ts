@@ -669,7 +669,7 @@ export class AppComponent implements OnInit {
     this.percentile_data.median = this.appSvc.getMedian(sorted_raw_scores);
     this.percentile_data.mode = this.appSvc.getMode(sorted_raw_scores);
     this.percentile_data.percentile = this.appSvc.getPercentile(sorted_raw_scores, this.final_score).toFixed(2);
-    this.percentile_data.percentile_graphic = this.appSvc.getPercentileGraphic(this.percentile_data.low_score, this.percentile_data.high_score, this.final_score);
+    this.percentile_data.percentile_graphic = this.appSvc.getPercentileGraphic(this.percentile_data.low_score, this.percentile_data.high_score, this.percentile_data.percentile);
 
     console.log(this.percentile_data);
   }
