@@ -18,12 +18,21 @@
   <div class="data">
     <div class="correct_words">
       <div style="font-size: 40px;"><b>{{starting_word}}</b></div>
-      Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span>
+      <!-- Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span> -->
+      <!-- <mat-label>Correct words</mat-label>
+      <mat-select>
+        <mat-option value="html"> HTML </mat-option>
+        <mat-option value="css" disabled>CSS (disabled)</mat-option>
+        <mat-option value="js">JAVASCRIPT</mat-option>
+      </mat-select> -->
+
+      <!-- <textarea id="textarea"></textarea> -->
     </div>
 
     <div class="used_letters">
       <div class="used_letter_row">
-        Used Letters:&nbsp;
+        <!-- Used Letters:&nbsp; -->
+        <!-- <br> -->
         <div *ngFor="let letter of used_letters">
           <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
             {{letter.name}}</div>
@@ -33,9 +42,11 @@
 
     <br />
 
-    <div class="score">SCORE: <b>{{total_score}}</b></div>
+    <div class="score" style="text-align: center;"><b>{{total_score}}</b></div>
 
-    <div *ngIf="user?.high_score !== undefined" class="high_score">HIGH SCORE: <b>{{user?.high_score}}</b></div>
+    <div *ngIf="user?.high_score !== undefined" class="high_score" style="text-align: center;">BEST:
+      <b>{{user?.high_score}}</b>
+    </div>
 
   </div>
 
@@ -54,12 +65,21 @@
     </div>
   </div>
 
+  <!-- REMOVE -->
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <!-- END REMOVE -->
+
 
   <!-- KEYBOARD -->
-  <div *ngIf="show_keyboard" id="keyboard" [style.opacity]="keyboard_opacity"
+  <div *ngIf="show_keyboard" id="keyboard" style="margin-left: 8px;" [style.opacity]="keyboard_opacity"
     [style.pointer-events]="keyboard_opacity === '1.0' ? 'auto' : 'none'" class="keyboard">
 
-    <div style="display: flex; justify-content: center; margin-top: 55px;">
+    <div style="display: flex; justify-content: center; margin-top: 30px;">
       <div *ngFor="let key of keyboard_top;">
         <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open"
           [style.background-color]="key.point_color" [style.opacity]="key.opacity" [style.color]="key.font_color"
@@ -107,9 +127,9 @@
   </div>
 
 
-  <div class="footer">
+  <!-- <div class="footer">
     <div style="display: flex;">Created by Lou DiMuro</div>
-  </div>
+  </div> -->
 
 </div>
 
@@ -125,18 +145,21 @@
     <div style="text-align: center;font-size: 22px; padding: 10px;">Final Score: <b>{{final_score}}
         ({{game_over_correct_words.length}} word<span *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
 
-    <div *ngIf="final_score !== undefined && todays_game_data" style="text-align: center;font-size: 22px; padding: 10px;">Today's Average:
+    <div *ngIf="final_score !== undefined && todays_game_data"
+      style="text-align: center;font-size: 22px; padding: 10px;">Today's Average:
       <b>{{todays_game_data?.average_score}}</b>
     </div>
 
-    <div *ngIf="final_score !== undefined && percentile_data" style="text-align: center;font-size: 22px; padding: 10px;">You were better than
+    <br>
+
+    <div *ngIf="final_score !== undefined && percentile_data"
+      style="text-align: center;font-size: 22px; padding: 10px;">You were better than
       <b>{{percentile_data.percentile}}%</b> of players today
       <div style="text-align: center;font-size: 22px; padding: 10px;">
         {{percentile_data.percentile_graphic}}
       </div>
     </div>
 
-    <br>
     <br>
 
     <button (click)="youLoseModal(false)" style="font-size: 20px; border-width: 2px; margin:0 auto; display:block;"

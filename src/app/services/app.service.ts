@@ -125,7 +125,7 @@ export class AppService {
   }
 
   getPercentileGraphic(low_score: number, high_score: number, percentile: number) {
-    let graphic = low_score + ' pts ';
+    let graphic = low_score + ' ';
     let rounded_value = (Math.round(percentile / 10) * 10) / 10;
     let color_value;
 
@@ -142,6 +142,7 @@ export class AppService {
     // If high score === low score, that means the user is the first to play
     if (high_score === low_score) {
       rounded_value = 10;
+      color_value = '🟩';
     }
 
     console.log(rounded_value);
@@ -153,7 +154,7 @@ export class AppService {
         graphic += '⬜️';
       }
     }
-    graphic += ' ' + high_score + ' pts';
+    graphic += ' ' + high_score + '';
 
     return graphic;
   }

@@ -1,11 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+.app {
+    position: absolute; /*Can also be `fixed`*/
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
+    max-width: 101%;
+    max-height: 101%;
+    overflow: auto;
+}
+
 .correct_words,
 .used_letters,
 .score,
 .high_score,
 .highest_scoring_word {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Roboto", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
     color: #4d4749;
+}
+
+.score {
+    font-size: 65px;
+    margin-top: 50px;
+}
+
+textarea {
+    font-size: 14px;
+    width: 95%; 
+    display: flex; 
+    justify-content: center; 
+    resize: none; 
+    border-color:lightgray;
 }
 
 .butt {
@@ -15,11 +44,12 @@
     border-radius: 10px;
 
     background-color: white;
-    height: 150px;
-    width: 150px;
+    height: 80px; // 150px for desktop, 100px for mobile
+    width: 80px; //150px for desktop, 100px for mobile
+    margin-top: 60px; // for mobile
     cursor: pointer;
-    margin-right: 7px;
-    font-size: 60px;
+    // margin-right: 7px;
+    font-size: 50px;
     color: white;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -33,15 +63,19 @@
 }
 
 .user_letters {
-    border: none;
-    border-radius: 5px;
+    // border: none;
+    // border-radius: 5px;
+
+    border: 1px outset white;
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 10px;
 
     background-color: rgb(160, 160, 160);
-    height: 150px;
-    width: 150px;
+    height: 80px;
+    width: 80px;
     cursor: pointer;
-    margin-right: 7px;
-    font-size: 60px;
+    font-size: 50px;
     color: rgb(92, 92, 92);
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -50,8 +84,8 @@
     border: none;
     border-radius: 7px;
     background-color: rgb(224, 224, 224);
-    height: 80px;
-    width: 60px;
+    height: 80px; // 80px for desktop
+    width: 33px; //60px for desktop
     margin-right: 8px;
     font-size: 20px;
 }
@@ -105,7 +139,7 @@
 .stats_modal {
     position: fixed;
     height: 450px;
-    width: 400px;
+    width: 360px;
     top: 50%;
     left: 50%;
     background-color: white;
@@ -127,8 +161,8 @@
 
 .you_lose_modal {
     position: fixed;
-    height: 420px;
-    width: 450px;
+    height: 450px;
+    width: 360px;
     top: 50%;
     left: 50%;
     background-color: white;

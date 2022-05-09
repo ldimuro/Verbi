@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material';
 import { DatePipe } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material'; 
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { DatePipe } from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

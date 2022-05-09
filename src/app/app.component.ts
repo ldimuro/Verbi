@@ -181,6 +181,8 @@ export class AppComponent implements OnInit {
     // Initialize Firebase
     await this.firebaseSvc.initializeApp();
 
+    // (document.getElementById('textarea') as HTMLInputElement).value = 'test\ttest2\ttest3\ttest4\tetst5\ttest6\ttest7';
+
     this.httpClient.get('/assets/word_list.txt', { responseType: 'text' })
       .subscribe(data => {
         if (data) {
@@ -629,7 +631,7 @@ export class AppComponent implements OnInit {
   }
 
   async gameOver(losing_word: string) {
-    await this.delay(300);
+    // await this.delay(300);
 
     let new_random_word = this.chooseRandomWord();
 
