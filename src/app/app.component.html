@@ -69,7 +69,7 @@
   <br>
   <br>
   <br>
-  <br>
+  <span>THIS IS A TEST</span>
   <br>
   <br>
   <!-- END REMOVE -->
@@ -120,6 +120,9 @@
           (click)="controlClicked(control.id)">{{control.display}}</button>
         <button *ngIf="control.id === 'delete'" class="control" [disabled]="cells[0].value === ''"
           (click)="controlClicked(control.id)">
+          {{control.display}}
+        </button>
+        <button *ngIf="control.id === 'goBack'" class="control" (click)="controlClicked(control.id)">
           {{control.display}}
         </button>
       </div>

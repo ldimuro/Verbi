@@ -62,8 +62,9 @@ export class AppComponent implements OnInit {
   ];
 
   user_letter_controls = [
+    { display: 'GO BACK', id: 'goBack', color: '#ffffff' },
     { display: 'ENTER', id: 'enter', color: '#ffffff' },
-    { display: 'DELETE', id: 'delete', color: '#ffffff' }
+    { display: 'DELETE', id: 'delete', color: '#ffffff' },
   ];
 
   // MULT-COLOR
@@ -346,16 +347,16 @@ export class AppComponent implements OnInit {
 
     this.updateUserLetters();
 
-    if (this.word_list.includes(string)) {
-      let submission_successful = this.submitGuess(string, true);
+    // if (this.word_list.includes(string)) {
+    //   let submission_successful = this.submitGuess(string/*, true*/);
 
-      // Show keyboard letter and remove from used_letters if auto-guess contains word that already exists
-      if (!submission_successful) {
-        char.opacity = this.key_opacity_free;
-        char.enabled = true;
-        this.used_letters.pop();
-      }
-    }
+    //   // Show keyboard letter and remove from used_letters if auto-guess contains word that already exists
+    //   if (!submission_successful) {
+    //     char.opacity = this.key_opacity_free;
+    //     char.enabled = true;
+    //     this.used_letters.pop();
+    //   }
+    // }
   }
 
   updateUserLetters() {
@@ -408,6 +409,16 @@ export class AppComponent implements OnInit {
       });
 
       this.submitGuess(submitted_word);
+    }
+    else if (control === 'goBack') {
+      console.log('PREVIOUS WORD: ' + this.current_word);
+      this.reset(this.current_word, false, false);
+
+      // Reset most recently selected letter
+      let most_recent_char = this.used_letters[this.used_letters.length - 1];
+      most_recent_char.opacity = this.key_opacity_free;
+      most_recent_char.enabled = true;
+      this.used_letters.pop();
     }
   }
 
@@ -504,9 +515,10 @@ export class AppComponent implements OnInit {
     if (this.correct_words.includes(word) || word === this.starting_word) {
       alert('Word already guessed');
 
-      if (autoguess) {
-        this.reset(this.current_word, false, false);
-      }
+      // if (autoguess) {
+      //   console.log('');
+      //   this.reset(this.current_word, false, false);
+      // }
 
       return false;
     }
