@@ -117,13 +117,13 @@
 
     <div style="display: flex; justify-content: center; margin-top: 20px;">
       <div *ngFor="let control of user_letter_controls">
-        <button *ngIf="control.id === 'enter'" class="control" [disabled]="cells[4].value === ''"
+        <button *ngIf="control.id === 'ENTER'" class="control" [disabled]="cells[4].value === ''"
           (click)="controlClicked(control.id)">{{control.display}}</button>
-        <button *ngIf="control.id === 'delete'" class="control" [disabled]="cells[0].value === ''"
+        <button *ngIf="control.id === 'BACKSPACE'" class="control" [disabled]="cells[0].value === ''"
           (click)="controlClicked(control.id)">
           {{control.display}}
         </button>
-        <button *ngIf="control.id === 'goBack'" class="control" (click)="controlClicked(control.id)">
+        <button *ngIf="control.id === 'GO-BACK'" class="control" (click)="controlClicked(control.id)">
           {{control.display}}
         </button>
       </div>

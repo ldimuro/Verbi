@@ -17,17 +17,21 @@ export class AppComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.key) {
-      let current_letters = '';
-      this.user_letters.forEach(letter => {
-        current_letters += letter.value;
-      });
+      let entered_key = event.key.toUpperCase();
 
-      console.log(event.key.toUpperCase());
-
-      console.log(current_letters);
-
-      if (current_letters.includes(event.key.toUpperCase())) {
-        this.keyboardClicked(event.key.toUpperCase());
+      if (!this.used_letters.includes(entered_key)) {
+        if (this.keyboard_enabled) { // If user is in letter selection mode
+          this.keyboardClicked(event.key.toUpperCase());
+        }
+        else { // If user is in word construction mode
+          let letter_index = this.user_letters.findIndex(letter => letter.value === entered_key);
+          if (entered_key === 'BACKSPACE' || entered_key === 'ENTER') {
+            this.controlClicked(entered_key);
+          }
+          if (letter_index > -1) {
+            this.userLetterClicked(letter_index);
+          }
+        }
       }
     }
   }
@@ -62,9 +66,9 @@ export class AppComponent implements OnInit {
   ];
 
   user_letter_controls = [
-    { display: 'GO BACK', id: 'goBack', color: '#ffffff' },
-    { display: 'ENTER', id: 'enter', color: '#ffffff' },
-    { display: 'DELETE', id: 'delete', color: '#ffffff' },
+    { display: 'GO BACK', id: 'GO-BACK', color: '#ffffff' },
+    { display: 'ENTER', id: 'ENTER', color: '#ffffff' },
+    { display: 'DELETE', id: 'BACKSPACE', color: '#ffffff' },
   ];
 
   // MULT-COLOR
@@ -330,6 +334,7 @@ export class AppComponent implements OnInit {
 
   keyboardClicked(letter: any) {
     let char = this.findLetter(letter);
+    console.log('SELECTED CHAR: ' + char);
     this.cells[this.selected_cell].value = char.name;
     this.cells[this.selected_cell].color = char.point_color;
     this.cells[this.selected_cell].font_color = char.font_color;
@@ -396,7 +401,7 @@ export class AppComponent implements OnInit {
   }
 
   controlClicked(control: any) {
-    if (control === 'delete') {
+    if (control === 'BACKSPACE' && this.cells[0].value !== '') {
       for (let i = this.cells.length - 1; i >= 0; i--) {
         if (this.cells[i].value !== '') {
           this.user_letters[this.cells[i].user_letter_index].color = this.cells[i].color;
@@ -408,7 +413,7 @@ export class AppComponent implements OnInit {
         }
       }
     }
-    else if (control === 'enter') {
+    else if (control === 'ENTER' && this.cells[4].value !== '') {
       let submitted_word = '';
       this.cells.forEach(cell => {
         submitted_word += cell.value;
@@ -416,7 +421,7 @@ export class AppComponent implements OnInit {
 
       this.submitGuess(submitted_word);
     }
-    else if (control === 'goBack') {
+    else if (control === 'GO-BACK') {
       this.reset(this.current_word, false, false);
 
       // Reset most recently selected letter
