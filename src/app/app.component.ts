@@ -16,32 +16,28 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if (event.key) {
-      let entered_key = event.key.toUpperCase();
-
-      if (this.keyboard_enabled) { // If user is in letter selection mode
-        if (this.used_letters.findIndex(letter => letter.name === entered_key) === -1) {
-          this.keyboardClicked(event.key.toUpperCase());
+    try {
+      if (event.key) {
+        let entered_key = event.key.toUpperCase();
+  
+        if (this.keyboard_enabled) { // If user is in letter selection mode
+          if (this.used_letters.findIndex(letter => letter.name === entered_key) === -1) {
+            this.keyboardClicked(event.key.toUpperCase());
+          }
         }
-      }
-      else { // If user is in word construction mode
-        if (entered_key === 'BACKSPACE' || entered_key === 'ENTER') {
-          this.controlClicked(entered_key);
-        }
-
-        // let indices = [];
-        // for (let x in this.user_letters) {
-        //   if (this.user_letters[x].value && this.user_letters[x].enabled) {
-        //     indices.push(x);
-        //   }
-        // }
-        // console.log(this.user_letters);
-        let letter_index = this.user_letters.findIndex(letter => letter.value === entered_key && letter.enabled);
-        if (letter_index > -1 && this.user_letters[letter_index].enabled) {
-          this.userLetterClicked(letter_index);
+        else { // If user is in word construction mode
+          if ((entered_key === 'BACKSPACE' || entered_key === 'ENTER') && !this.you_lose_modal_open) {
+            this.controlClicked(entered_key);
+          }
+  
+          let letter_index = this.user_letters.findIndex(letter => letter.value === entered_key && letter.enabled);
+          if (letter_index > -1 && this.user_letters[letter_index].enabled) {
+            this.userLetterClicked(letter_index);
+          }
         }
       }
     }
+    catch (ex) { }
   }
 
   constructor(
@@ -539,6 +535,7 @@ export class AppComponent implements OnInit {
     }
     else {
       this.game_over_correct_words = this.correct_words;
+      this.keyboard_enabled = false;
 
       this.youLoseModal(true, word);
       return false;
