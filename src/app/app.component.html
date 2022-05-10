@@ -33,7 +33,7 @@
       <div class="used_letter_row">
         <!-- Used Letters:&nbsp; -->
         <!-- <br> -->
-        <div *ngFor="let letter of used_letters">
+        <div *ngFor="let letter of used_letters;">
           <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
             {{letter.name}}</div>
         </div>
@@ -69,7 +69,8 @@
   <br>
   <br>
   <br>
-  <span>THIS IS A TEST</span>
+  <span style="display: flex; justify-content: center; margin-top:20px;" id="console"
+    [style.visibility]="console_text_hidden ? 'hidden' : 'visible'">{{console_text}}</span>
   <br>
   <br>
   <!-- END REMOVE -->

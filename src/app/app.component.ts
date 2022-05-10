@@ -152,6 +152,9 @@ export class AppComponent implements OnInit {
   game_over_correct_words = [];
   percent_difference_from_average;
 
+  console_text = 'placeholder';
+  console_text_hidden = false;
+
   show_keyboard = true;
   letter_selected = false;
   selected_cell;
@@ -411,7 +414,6 @@ export class AppComponent implements OnInit {
       this.submitGuess(submitted_word);
     }
     else if (control === 'goBack') {
-      console.log('PREVIOUS WORD: ' + this.current_word);
       this.reset(this.current_word, false, false);
 
       // Reset most recently selected letter
@@ -513,12 +515,27 @@ export class AppComponent implements OnInit {
 
   submitGuess(word: string, autoguess?: boolean) {
     if (this.correct_words.includes(word) || word === this.starting_word) {
-      alert('Word already guessed');
+      // alert('Word already guessed');
+
+      this.console_text = 'Word already guessed';
+      this.console_text_hidden = false;
+
+      document.getElementById(`console`).classList.add('console_animation');
+      // document.getElementById(`console`).classList.remove('modal-fadeout');
+      // document.getElementById(`console`).classList.add('fadein');
+
+      // this.delay(1000);
+
+      // document.getElementById(`console`).classList.remove('console_animation');
+      // document.getElementById(`console`).classList.remove('fadein');
+      // document.getElementById(`console`).classList.add('modal-fadeout');
 
       // if (autoguess) {
       //   console.log('');
       //   this.reset(this.current_word, false, false);
       // }
+
+      this.console_text = 'Word already guessed';
 
       return false;
     }

@@ -242,6 +242,9 @@ header {
 a:hover {
     cursor: pointer;
     filter: brightness(150%);
+    -webkit-filter: brightness(150%);
+    -o-filter: brightness(150%);
+    -moz-filter: brightness(150%);
 }
 
 .item {
@@ -270,38 +273,73 @@ a:hover {
 .blur-background_in {
     filter: blur(30px);
     -webkit-filter: blur(30px);
+    -o-filter: blur(30px);
+    -moz-filter: blur(30px);
+
     pointer-events: none;
-    -webkit-transition: all 0.1s ease-in;
+
     transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -moz-transition: all 0.1s ease-in;
 }
 
 .in {
     animation: blurin 0.3s, linear forwards;
+    -o-animation: blurin 0.3s, linear forwards;
+    -moz-animation: blurin 0.3s, linear forwards;
+    -webkit-animation: blurin 0.3s, linear forwards;
 }
 
 .blur-background_out {
     animation: blurout 0.3s, linear forwards;
+    -o-animation: blurout 0.3s, linear forwards;
+    -moz-animation: blurout 0.3s, linear forwards;
+    -webkit-animation: blurout 0.3s, linear forwards;
 }
 
 .bounce {
     animation: bounce 1s ease infinite;
+    -o-animation: bounce 1s ease infinite;
+    -moz-animation: bounce 1s ease infinite;
+    -webkit-animation: bounce 1s ease infinite;
 }
 
 .point_animation {
     opacity: 1;
     animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
+    -o-animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
+    -moz-animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
+    -webkit-animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
+}
+
+.console_animation {
+    opacity: 1;
+    animation: fadein 3s linear forwards, fadeout 1s linear forwards;
+    -o-animation: fadein 3s linear forwards, fadeout 1s linear forwards;
+    -moz-animation: fadein 3s linear forwards, fadeout 1s linear forwards;
+    -webkit-animation: fadein 3s linear forwards, fadeout 1s linear forwards;
 }
 
 .fadein {
     animation: fadein 0.5s;
+    -o-animation: fadein 0.5s;
+    -moz-animation: fadein 0.5s;
+    -webkit-animation: fadein 0.5s;
 }
 
 .modal_fadein {
     animation: fadein 0.3s linear forwards;
+    -o-animation: fadein 0.3s linear forwards;
+    -moz-animation: fadein 0.3s linear forwards;
+    -webkit-animation: fadein 0.3s linear forwards;
 }
 
 .modal_fadeout {
     animation: fadeout 0.5s linear forwards;
+    -o-animation: fadeout 0.5s linear forwards;
+    -moz-animation: fadeout 0.5s linear forwards;
+    -webkit-animation: fadeout 0.5s linear forwards;
 }
 
 // .modal_appear {
@@ -309,6 +347,72 @@ a:hover {
 // }
 
 @keyframes bounce {
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+    10% {
+        transform: scale(1, 1) translateY(0);
+    }
+    30% {
+        transform: scale(1, 1) translateY(-55px);
+    }
+    50% {
+        transform: scale(1, 1) translateY(0);
+    }
+    // 58%  { transform: scale(1,1) translateY(-7px); }
+    65% {
+        transform: scale(1, 1) translateY(0);
+    }
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
+}
+
+@-o-keyframes bounce {
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+    10% {
+        transform: scale(1, 1) translateY(0);
+    }
+    30% {
+        transform: scale(1, 1) translateY(-55px);
+    }
+    50% {
+        transform: scale(1, 1) translateY(0);
+    }
+    // 58%  { transform: scale(1,1) translateY(-7px); }
+    65% {
+        transform: scale(1, 1) translateY(0);
+    }
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
+}
+
+@-moz-keyframes bounce {
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+    10% {
+        transform: scale(1, 1) translateY(0);
+    }
+    30% {
+        transform: scale(1, 1) translateY(-55px);
+    }
+    50% {
+        transform: scale(1, 1) translateY(0);
+    }
+    // 58%  { transform: scale(1,1) translateY(-7px); }
+    65% {
+        transform: scale(1, 1) translateY(0);
+    }
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
+}
+
+@-webkit-keyframes bounce {
     0% {
         transform: scale(1, 1) translateY(0);
     }
@@ -352,7 +456,100 @@ a:hover {
     }
 }
 
+@-o-keyframes rise {
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+    10% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    30% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    50% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    // 58%  { transform: scale(1,1) translateY(-7px); }
+    65% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
+}
+
+@-webkit-keyframes rise {
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+    10% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    30% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    50% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    // 58%  { transform: scale(1,1) translateY(-7px); }
+    65% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
+}
+
+@-moz-keyframes rise {
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+    10% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    30% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    50% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    // 58%  { transform: scale(1,1) translateY(-7px); }
+    65% {
+        transform: scale(1, 1) translateY(-40px);
+    }
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
+}
+
 @keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein {
     from {
         opacity: 0;
     }
@@ -374,6 +571,45 @@ a:hover {
     }
 }
 
+@-o-keyframes fadeout {
+    // 0%,50% {
+    //     opacity: 0;
+    // }
+    50% {
+        opacity: 1;
+    }
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeout {
+    // 0%,50% {
+    //     opacity: 0;
+    // }
+    50% {
+        opacity: 1;
+    }
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    // 0%,50% {
+    //     opacity: 0;
+    // }
+    50% {
+        opacity: 1;
+    }
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
 @keyframes blurout {
     from {
         filter: blur(30px);
@@ -383,7 +619,61 @@ a:hover {
     }
 }
 
+@-o-keyframes blurout {
+    from {
+        filter: blur(30px);
+    }
+    to {
+        filter: none;
+    }
+}
+
+@-moz-keyframes blurout {
+    from {
+        filter: blur(30px);
+    }
+    to {
+        filter: none;
+    }
+}
+
+@-webkit-keyframes blurout {
+    from {
+        filter: blur(30px);
+    }
+    to {
+        filter: none;
+    }
+}
+
 @keyframes blurin {
+    from {
+        filter: none;
+    }
+    to {
+        filter: blur(30px);
+    }
+}
+
+@-o-keyframes blurin {
+    from {
+        filter: none;
+    }
+    to {
+        filter: blur(30px);
+    }
+}
+
+@-webkit-keyframes blurin {
+    from {
+        filter: none;
+    }
+    to {
+        filter: blur(30px);
+    }
+}
+
+@-moz-keyframes blurin {
     from {
         filter: none;
     }
