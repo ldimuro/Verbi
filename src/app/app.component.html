@@ -7,8 +7,7 @@
         <mat-icon style="font-size:40px;padding-right:20px;">equalizer</mat-icon>
       </a>
       <mat-icon style="font-size:40px;padding-right:20px;">settings</mat-icon>
-      <!-- <span class="item">STATS</span>
-      <span class="item">SETTINGS</span> -->
+      <mat-icon stlye="font-size:40px;padding-right:20px;">bubble_chart</mat-icon>
     </div>
   </header>
 
@@ -55,7 +54,7 @@
   <div class="container">
     <div *ngFor="let cell of cells; let i = index" class="letters">
       <div class="point_value" id="point_value_{{cell.name}}"
-        [style.margin-left]="cell.point_value === 10 ? '53px' : '66px'" [style.color]="cell.color">
+        [style.margin-left]="cell.point_value === 10 ? '21px' : '32px'" [style.color]="cell.color">
         <b>{{cell.point_value}}</b>
       </div>
       <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"

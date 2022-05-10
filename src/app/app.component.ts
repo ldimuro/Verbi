@@ -19,18 +19,18 @@ export class AppComponent implements OnInit {
     if (event.key) {
       let entered_key = event.key.toUpperCase();
 
-      if (!this.used_letters.includes(entered_key)) {
-        if (this.keyboard_enabled) { // If user is in letter selection mode
+      if (this.keyboard_enabled) { // If user is in letter selection mode
+        if (this.used_letters.findIndex(letter => letter.name === entered_key) === -1) {
           this.keyboardClicked(event.key.toUpperCase());
         }
-        else { // If user is in word construction mode
-          let letter_index = this.user_letters.findIndex(letter => letter.value === entered_key);
-          if (entered_key === 'BACKSPACE' || entered_key === 'ENTER') {
-            this.controlClicked(entered_key);
-          }
-          if (letter_index > -1) {
-            this.userLetterClicked(letter_index);
-          }
+      }
+      else { // If user is in word construction mode
+        let letter_index = this.user_letters.findIndex(letter => letter.value === entered_key);
+        if (entered_key === 'BACKSPACE' || entered_key === 'ENTER') {
+          this.controlClicked(entered_key);
+        }
+        if (letter_index > -1 && this.user_letters[letter_index].enabled) {
+          this.userLetterClicked(letter_index);
         }
       }
     }
@@ -514,7 +514,8 @@ export class AppComponent implements OnInit {
   }
 
   chooseRandomWord() {
-    return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
+    // return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
+    return 'CONES';
     // return 'LCHFZ';
     // return 'WITCH';
     // return 'ZACUH';
