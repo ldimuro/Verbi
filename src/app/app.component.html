@@ -78,7 +78,7 @@
 
   <!-- KEYBOARD -->
   <div *ngIf="show_keyboard" id="keyboard" style="margin-left: 8px;" [style.opacity]="keyboard_opacity"
-    [style.pointer-events]="keyboard_opacity === '1.0' ? 'auto' : 'none'" class="keyboard">
+    [style.pointer-events]="((keyboard_opacity === '1.0' && keyboard_enabled) ? 'auto' : 'none')" class="keyboard">
 
     <div style="display: flex; justify-content: center; margin-top: 30px;">
       <div *ngFor="let key of keyboard_top;">

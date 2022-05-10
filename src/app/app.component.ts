@@ -104,6 +104,7 @@ export class AppComponent implements OnInit {
   key_free = '#e0e0e0';
   key_opacity_free = '1.0';
   key_opacity_used = '0.0'; // 0.18
+  keyboard_enabled = false;
   keyboard_top: Letter[] = [
     { name: 'Q', opacity: this.key_opacity_free, enabled: true, points: 10, row: 'top', point_color: this.point10_color, font_color: 'white' },
     { name: 'W', opacity: this.key_opacity_free, enabled: true, points: 5, row: 'top', point_color: this.point5_color, font_color: 'white' },
@@ -307,6 +308,7 @@ export class AppComponent implements OnInit {
   cellClicked(index: any) {
     this.selected_cell = index;
     this.keyboard_opacity = '1.0';
+    this.keyboard_enabled = true;
     this.most_recently_selected_letter_index = index;
 
     let letter = this.findLetter(this.cells[this.most_recently_selected_letter_index].value);
@@ -334,6 +336,7 @@ export class AppComponent implements OnInit {
     this.cells[this.selected_cell].point_value = char.points;
 
     this.show_keyboard = false;
+    this.keyboard_enabled = false;
     this.letter_selected = true;
 
     this.used_letters.push(char);
@@ -343,10 +346,10 @@ export class AppComponent implements OnInit {
     char.enabled = false;
 
     // Check to see if arrangement of new letters is a word
-    let string = '';
-    this.cells.forEach(cell => {
-      string += cell.value;
-    });
+    // let string = '';
+    // this.cells.forEach(cell => {
+    //   string += cell.value;
+    // });
 
     this.updateUserLetters();
 

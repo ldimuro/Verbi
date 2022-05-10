@@ -315,10 +315,10 @@ a:hover {
 
 .console_animation_in {
     opacity: 1;
-    animation: fadein 1.0s linear forwards;
-    -o-animation: fadein 1.0s linear forwards;
-    -moz-animation: fadein 1.0s linear forwards;
-    -webkit-animation: fadein 1.0s linear forwards;
+    animation: fadein 0.5s linear forwards;
+    -o-animation: fadein 0.5s linear forwards;
+    -moz-animation: fadein 0.5s linear forwards;
+    -webkit-animation: fadein 0.5s linear forwards;
 }
 
 .console_animation_out {
