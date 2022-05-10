@@ -140,12 +140,11 @@ export class AppService {
     }
 
     // If high score === low score, that means the user is the first to play
-    if (high_score === low_score) {
+    if (high_score === low_score || percentile === 100) {
       rounded_value = 10;
       color_value = '🟩';
     }
 
-    console.log(rounded_value);
     for (let i = 0; i < 10; i++) {
       if (i <= rounded_value - 1) {
         graphic += color_value;

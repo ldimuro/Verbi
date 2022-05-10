@@ -334,7 +334,6 @@ export class AppComponent implements OnInit {
 
   keyboardClicked(letter: any) {
     let char = this.findLetter(letter);
-    console.log('SELECTED CHAR: ' + char);
     this.cells[this.selected_cell].value = char.name;
     this.cells[this.selected_cell].color = char.point_color;
     this.cells[this.selected_cell].font_color = char.font_color;
@@ -350,24 +349,7 @@ export class AppComponent implements OnInit {
     char.opacity = this.key_opacity_used;
     char.enabled = false;
 
-    // Check to see if arrangement of new letters is a word
-    // let string = '';
-    // this.cells.forEach(cell => {
-    //   string += cell.value;
-    // });
-
     this.updateUserLetters();
-
-    // if (this.word_list.includes(string)) {
-    //   let submission_successful = this.submitGuess(string/*, true*/);
-
-    //   // Show keyboard letter and remove from used_letters if auto-guess contains word that already exists
-    //   if (!submission_successful) {
-    //     char.opacity = this.key_opacity_free;
-    //     char.enabled = true;
-    //     this.used_letters.pop();
-    //   }
-    // }
   }
 
   updateUserLetters() {
@@ -514,8 +496,7 @@ export class AppComponent implements OnInit {
   }
 
   chooseRandomWord() {
-    // return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
-    return 'CONES';
+    return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
     // return 'LCHFZ';
     // return 'WITCH';
     // return 'ZACUH';
@@ -663,10 +644,6 @@ export class AppComponent implements OnInit {
   }
 
   async gameOver(losing_word: string) {
-    // await this.delay(300);
-
-    let new_random_word = this.chooseRandomWord();
-
     // Add game session to LocalStorage
     let now = new Date();
     let game_data: GameData = {
