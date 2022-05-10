@@ -313,12 +313,20 @@ a:hover {
     -webkit-animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
 }
 
-.console_animation {
+.console_animation_in {
     opacity: 1;
-    animation: fadein 3s linear forwards, fadeout 1s linear forwards;
-    -o-animation: fadein 3s linear forwards, fadeout 1s linear forwards;
-    -moz-animation: fadein 3s linear forwards, fadeout 1s linear forwards;
-    -webkit-animation: fadein 3s linear forwards, fadeout 1s linear forwards;
+    animation: fadein 1.0s linear forwards;
+    -o-animation: fadein 1.0s linear forwards;
+    -moz-animation: fadein 1.0s linear forwards;
+    -webkit-animation: fadein 1.0s linear forwards;
+}
+
+.console_animation_out {
+    opacity: 1;
+    animation: fadeout 1.0s linear forwards;
+    -o-animation: fadeout 1.0s linear forwards;
+    -moz-animation: fadeout 1.0s linear forwards;
+    -webkit-animation: fadeout 1.0s linear forwards;
 }
 
 .fadein {

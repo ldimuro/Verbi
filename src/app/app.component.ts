@@ -153,7 +153,7 @@ export class AppComponent implements OnInit {
   percent_difference_from_average;
 
   console_text = 'placeholder';
-  console_text_hidden = false;
+  console_text_hidden = true;
 
   show_keyboard = true;
   letter_selected = false;
@@ -513,29 +513,24 @@ export class AppComponent implements OnInit {
     // return 'PAZZY'
   }
 
-  submitGuess(word: string, autoguess?: boolean) {
+  async submitGuess(word: string, autoguess?: boolean) {
     if (this.correct_words.includes(word) || word === this.starting_word) {
-      // alert('Word already guessed');
 
       this.console_text = 'Word already guessed';
       this.console_text_hidden = false;
 
-      document.getElementById(`console`).classList.add('console_animation');
-      // document.getElementById(`console`).classList.remove('modal-fadeout');
-      // document.getElementById(`console`).classList.add('fadein');
+      document.getElementById(`console`).classList.add('console_animation_in');
+      document.getElementById(`console`).classList.remove('console_animation_out');
 
-      // this.delay(1000);
+      await this.delay(2000);
 
-      // document.getElementById(`console`).classList.remove('console_animation');
-      // document.getElementById(`console`).classList.remove('fadein');
-      // document.getElementById(`console`).classList.add('modal-fadeout');
+      document.getElementById(`console`).classList.remove('console_animation_in');
+      document.getElementById(`console`).classList.add('console_animation_out');
 
       // if (autoguess) {
       //   console.log('');
       //   this.reset(this.current_word, false, false);
       // }
-
-      this.console_text = 'Word already guessed';
 
       return false;
     }
@@ -544,7 +539,6 @@ export class AppComponent implements OnInit {
       return true;
     }
     else {
-      // alert(`\'${word}\' is not a word. You Lose!\nSCORE: ${this.total_score}`);
       this.game_over_correct_words = this.correct_words;
 
       this.youLoseModal(true, word);
