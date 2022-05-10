@@ -539,9 +539,8 @@ export class AppComponent implements OnInit {
   async successfulGuess(word: string) {
     this.correct_words.push(word);
     this.current_word = word;
-
     let points = this.calculateScore(word);
-    this.total_score += points;
+    // this.total_score += points;
 
     // Check to see if submitted word has a higher score than the user's record
     let highest_word_updated = false;
@@ -567,6 +566,12 @@ export class AppComponent implements OnInit {
     }
 
     this.reset(word, false, true);
+
+    // ANIMATE SCORE GOING UP
+    for (let i = 0; i < points; i++) {
+      this.total_score++;
+      await this.delay(70);
+    }
   }
 
   findLetter(char: string) {
