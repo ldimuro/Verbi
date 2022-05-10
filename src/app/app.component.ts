@@ -25,10 +25,18 @@ export class AppComponent implements OnInit {
         }
       }
       else { // If user is in word construction mode
-        let letter_index = this.user_letters.findIndex(letter => letter.value === entered_key);
         if (entered_key === 'BACKSPACE' || entered_key === 'ENTER') {
           this.controlClicked(entered_key);
         }
+
+        // let indices = [];
+        // for (let x in this.user_letters) {
+        //   if (this.user_letters[x].value && this.user_letters[x].enabled) {
+        //     indices.push(x);
+        //   }
+        // }
+        // console.log(this.user_letters);
+        let letter_index = this.user_letters.findIndex(letter => letter.value === entered_key && letter.enabled);
         if (letter_index > -1 && this.user_letters[letter_index].enabled) {
           this.userLetterClicked(letter_index);
         }
@@ -196,7 +204,7 @@ export class AppComponent implements OnInit {
       .subscribe(data => {
         if (data) {
           this.word_list = data.split('\n');
-          this.initial_word_list = this.word_list;
+          // this.initial_word_list = this.word_list;
           // this.initialize();
         }
       });
@@ -209,10 +217,10 @@ export class AppComponent implements OnInit {
         }
       });
 
-    // TODO: Check to see if today's day is present in the "daily_game_data" tree,
+
+    // Check to see if today's day is present in the "daily_game_data" tree,
     // and if it isn't, get new random word and create new "[insert data]_game_data" object
     // and post to Firebase.
-
     let now = new Date();
     let now_str = this.datepipe.transform(now, 'yyyy-MM-dd');
     let test_str = '2022-05-07';
@@ -497,6 +505,7 @@ export class AppComponent implements OnInit {
 
   chooseRandomWord() {
     return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
+    // return 'TAKES';
     // return 'LCHFZ';
     // return 'WITCH';
     // return 'ZACUH';
@@ -694,7 +703,7 @@ export class AppComponent implements OnInit {
     let total_points = 0;
     let high_scoring_words = [];
     let highest_scoring_word = '';
-    let high_point_cutoff = 18;
+    let high_point_cutoff = 25;
     word_list.forEach(word => {
       let score = this.calculateScore(word)
       total_points += score;

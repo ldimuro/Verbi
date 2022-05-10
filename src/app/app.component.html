@@ -4,10 +4,11 @@
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <!-- <button></button> -->
       <a (click)="statsModal(true)">
-        <mat-icon style="font-size:40px;padding-right:20px;">equalizer</mat-icon>
+        <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">equalizer</mat-icon>
       </a>
-      <mat-icon style="font-size:40px;padding-right:20px;">settings</mat-icon>
-      <mat-icon stlye="font-size:40px;padding-right:20px;">bubble_chart</mat-icon>
+      <mat-icon style="font-size:30px;padding-right:20px;margin-top:5px;">settings</mat-icon>
+      <!-- <mat-icon stlye="font-size:40px;padding-right:20px;">bubble_chart</mat-icon> -->
+      <!-- <span style="font-size:40px;padding-right:20px;">?</span> -->
     </div>
   </header>
 
@@ -16,7 +17,7 @@
 
   <div class="data">
     <div class="correct_words">
-      <div style="font-size: 40px;"><b>{{starting_word}}</b></div>
+      <div style="font-size: 40px; text-align: center; font-family: 'Co'"><b>{{starting_word}}</b></div>
       <!-- Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span> -->
       <!-- <mat-label>Correct words</mat-label>
       <mat-select>
@@ -140,7 +141,7 @@
 <!-- YOU LOSE MODAL -->
 <div [hidden]="!you_lose_modal_open" class="you_lose_modal" id="you_lose_modal">
   <div>
-    <div style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px;"><b>YOU LOSE!</b></div>
+    <div style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px; font-family: 'Co'"><b>YOU LOSE!</b></div>
     <div style="text-align: center;font-size: 18px;">"{{losing_word}}" is not a word</div>
 
     <br>
@@ -179,7 +180,7 @@
         <mat-icon style="font-size: 30px; padding-right:15px; padding-top: 10px;">close</mat-icon>
       </a>
     </div>
-    <div style="font-size: 30px; text-align: center"><b>STATISTICS</b></div>
+    <div style="font-size: 30px; text-align: center; font-family: 'Co'"><b>STATISTICS</b></div>
   </div>
 
   <div *ngIf="stats_modal_open" style="margin-top: 20px; padding: 10px;">
