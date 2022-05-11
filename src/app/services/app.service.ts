@@ -187,11 +187,11 @@ export class AppService {
       color_value = '💀';
     }
     else if (high_score === final_score) {
-      rounded_value = 9;
+      rounded_value = 10;
       color_value = '⭐️';
     }
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 1; i < 10; i++) {
       if (i === rounded_value/*i <= rounded_value - 1*/) {
         graphic += color_value;
       }
