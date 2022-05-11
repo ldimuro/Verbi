@@ -177,6 +177,7 @@ export class AppComponent implements OnInit {
   // USER LocalStorage data
   userID_LocalStorage;
   user: UserData;
+  played_before;
 
   // Today's Game Data
   todays_game_data: TodaysGameData;
@@ -235,6 +236,8 @@ export class AppComponent implements OnInit {
       this.todays_game_data = await this.firebaseSvc.getTodaysGameData(now_str);
     }
 
+
+
     this.initialize();
 
 
@@ -280,6 +283,7 @@ export class AppComponent implements OnInit {
 
     // Get User Credentials
     this.userID_LocalStorage = JSON.parse(window.localStorage.getItem('userID_LocalStorage'));
+    this.played_before = JSON.parse(window.localStorage.getItem('played_before'));
 
     if (!this.userID_LocalStorage) { // If user doesn't exist, create new one
       console.log('NEW USER FOUND');
@@ -314,7 +318,16 @@ export class AppComponent implements OnInit {
       // console.log('REMOVED');
       // window.localStorage.removeItem('userID_LocalStorage');
     }
+
+    // If User has never played before, automatically open Tutorial
+    if (!this.played_before) {
+      window.localStorage.setItem('played_before', 'true');
+      this.tutorialModal(true);
+    }
+
   }
+  
+  
 
   cellClicked(index: any) {
     this.selected_cell = index;
