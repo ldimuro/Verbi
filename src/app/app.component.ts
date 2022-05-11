@@ -634,7 +634,6 @@ export class AppComponent implements OnInit {
     else {
       this.tutorial_step_num--;
     }
-    console.log('STEP #: ' + this.tutorial_step_num);
   }
 
   async statsModal(open: boolean) {
