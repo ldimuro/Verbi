@@ -187,7 +187,7 @@ export class AppService {
       color_value = '💀';
     }
     else if (high_score === final_score) {
-      rounded_value = 10;
+      rounded_value = 9;
       color_value = '⭐️';
     }
 
