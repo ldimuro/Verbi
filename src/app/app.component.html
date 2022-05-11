@@ -17,7 +17,7 @@
 
   <div class="data">
     <div class="correct_words">
-      <div style="font-size: 40px; text-align: center; font-family: 'Co'"><b>{{starting_word}}</b></div>
+      <div style="font-size: 40px; text-align: center; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b></div>
       <!-- Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span> -->
       <!-- <mat-label>Correct words</mat-label>
       <mat-select>
@@ -141,28 +141,43 @@
 <!-- YOU LOSE MODAL -->
 <div [hidden]="!you_lose_modal_open" class="you_lose_modal" id="you_lose_modal">
   <div>
-    <div style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px; font-family: 'Co'"><b>YOU LOSE!</b></div>
+    <div style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px; font-family: 'Co'"><b>YOU
+        LOSE!</b></div>
     <div style="text-align: center;font-size: 18px;">"{{losing_word}}" is not a word</div>
 
     <br>
 
-    <div style="text-align: center;font-size: 22px; padding: 10px;">Final Score: <b>{{final_score}}
-        ({{game_over_correct_words.length}} word<span *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
+    <div style="text-align: center;font-size: 22px; padding: 10px;">
+      <div class="modal_text" style="font-family: 'Co';"><b>Final Score</b></div>
+      <div class="modal_text" style="font-size:25px"><b>{{final_score}} ({{game_over_correct_words.length}} word<span
+            *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
+    </div>
 
     <div *ngIf="final_score !== undefined && todays_game_data"
-      style="text-align: center;font-size: 22px; padding: 10px;">Today's Average:
-      <b>{{todays_game_data?.average_score}}</b>
+      style="text-align: center;font-size: 22px; padding: 10px;">
+      <div class="modal_text" style="font-family: 'Co';"><b>Today's Average</b></div>
+      <div class="modal_text" style="font-size:25px"><b>{{todays_game_data?.average_score}}</b></div>
     </div>
 
-    <br>
-
-    <div *ngIf="final_score !== undefined && percentile_data"
-      style="text-align: center;font-size: 22px; padding: 10px;">You were better than
-      <b>{{percentile_data.percentile}}%</b> of players today
-      <div style="text-align: center;font-size: 22px; padding: 10px;">
-        {{percentile_data.percentile_graphic}}
+    <div *ngIf="final_score !== undefined && percentile_data && todays_game_data.raw_scores?.length > 1; else elseBlock"
+      style="text-align: center;font-size: 22px; padding: 10px;">
+      <div *ngIf="!percentile_data.special_case?.message; else specialCase">
+        You were better than<b> {{percentile_data.percentile}}%</b> of players today
+        <div style="text-align: center;font-size: 22px; padding: 10px;">
+          {{percentile_data.percentile_graphic}}
+        </div>
       </div>
+      <ng-template #specialCase>
+        <div [style.color]="percentile_data.special_case?.color" style="margin-bottom: 50px;">
+          <b>{{percentile_data.special_case.message}}</b>
+        </div>
+      </ng-template>
     </div>
+    <ng-template #elseBlock style="text-align: center;font-size: 22px; padding: 10px;">
+      <div style="text-align: center;font-size: 22px; padding: 10px;">
+        You are today's first player! Check back later for updated results
+      </div>
+    </ng-template>
 
     <br>
 
@@ -184,23 +199,23 @@
   </div>
 
   <div *ngIf="stats_modal_open" style="margin-top: 20px; padding: 10px;">
-    <div class="modal_text"><b>High Score</b></div>
+    <div class="modal_text" style="font-family: 'Co';"><b>High Score</b></div>
     <div class="modal_text" style="font-size:25px"><b>{{user?.high_score}}</b></div>
 
     <br>
 
-    <div class="modal_text"><b>Highest Scoring Word</b></div>
+    <div class="modal_text" style="font-family: 'Co';"><b>Highest Scoring Word</b></div>
     <div class="modal_text" style="font-size:25px"><b>"{{user.highest_scoring_word.word}}" -
         {{user.highest_scoring_word.score}} points</b></div>
 
     <br>
 
-    <div class="modal_text"><b>Games Played</b></div>
+    <div class="modal_text" style="font-family: 'Co';"><b>Games Played</b></div>
     <div class="modal_text" style="font-size:25px"><b>{{user.games_played.length}}</b></div>
 
     <br>
 
-    <div class="modal_text"><b>Average Score per Game</b></div>
+    <div class="modal_text" style="font-family: 'Co';"><b>Average Score per Game</b></div>
     <div class="modal_text" style="font-size:25px"><b>{{user.average_score_per_game}} points</b></div>
   </div>
 </div>

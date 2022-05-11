@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PercentileData } from '../app.model';
 
 @Injectable({
   providedIn: 'root'
@@ -116,12 +117,48 @@ export class AppService {
   }
 
   getPercentile(scores: any, user_score: any) {
+    // Remove user_score from raw_scores
+    const index = scores.indexOf(5);
+    if (index > -1) {
+      scores.splice(index, 1);
+    }
+
     return ((100 *
       scores.reduce(
         (acc, v) => acc + (v < user_score ? 1 : 0) + (v === user_score ? 0.5 : 0),
         0
       )) /
-    scores.length);
+      scores.length);
+  }
+
+  getPercentileData(sorted_raw_scores: any, final_score: any) {
+    let percentile_data: PercentileData = {
+      high_score: 0,
+      low_score: 0,
+      mean: 0,
+      median: 0,
+      mode: [],
+      percentile: 0,
+      percentile_graphic: ''
+    };
+
+    percentile_data.mean = this.getMean(sorted_raw_scores);
+    percentile_data.median = this.getMedian(sorted_raw_scores);
+    percentile_data.mode = this.getMode(sorted_raw_scores);
+
+    // Remove user_score from raw_scores
+    // const index = sorted_raw_scores.indexOf(final_score);
+    // if (index > -1) {
+    //   sorted_raw_scores.splice(index, 1);
+    // }
+
+    percentile_data.high_score = sorted_raw_scores[sorted_raw_scores.length - 1];
+    percentile_data.low_score = sorted_raw_scores[0];
+    percentile_data.percentile = this.getPercentile(sorted_raw_scores, final_score).toFixed(1);
+    percentile_data.percentile_graphic = this.getPercentileGraphic(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile);
+    percentile_data.special_case = this.getSpecialCase(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
+
+    return percentile_data;
   }
 
   getPercentileGraphic(low_score: number, high_score: number, percentile: number) {
@@ -140,10 +177,10 @@ export class AppService {
     }
 
     // If high score === low score, that means the user is the first to play
-    if (high_score === low_score || percentile === 100) {
-      rounded_value = 10;
-      color_value = '🟩';
-    }
+    // if (high_score === low_score || percentile === 100) {
+    //   rounded_value = 10;
+    //   color_value = '🟩';
+    // }
 
     for (let i = 0; i < 10; i++) {
       if (i <= rounded_value - 1) {
@@ -156,6 +193,33 @@ export class AppService {
     graphic += ' ' + high_score + '';
 
     return graphic;
+  }
+
+  getSpecialCase(low_score: number, high_score: number, percentile: number, final_score: number) {
+    let special_case = {
+      message: null,
+      color: null
+    };
+
+    if (percentile === 0.00) {
+      special_case.message = 'You currently have the lowest score for today\'s word';
+      special_case.color = 'red';
+    }
+    else if (final_score === low_score) {
+      special_case.message = 'You currently are tied for the lowest score for today\'s word';
+      special_case.color = 'red';
+    }
+    else if (percentile === 100.00) {
+      special_case.message = 'You currently have the highest score for today\'s word!!';
+      special_case.color = 'green';
+    }
+    else if (final_score === high_score) {
+      special_case.message = 'You are currently tied for the highest score for today\'s word!!';
+      special_case.color = 'green';
+    }
+
+    console.log(special_case);
+    return special_case;
   }
 
 

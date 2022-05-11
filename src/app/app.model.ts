@@ -33,6 +33,7 @@ export class PercentileData {
     mode: any;
     percentile?: any;
     percentile_graphic?: any;
+    special_case?: any;
 }
 
 export class Letter {

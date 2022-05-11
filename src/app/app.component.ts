@@ -104,8 +104,8 @@ export class AppComponent implements OnInit {
   point2_color = '#f29c91';
   point3_color = '#de5445';
   point4_color = '#b31e0e';
-  point5_color = '#8a1101';
-  point10_color = '#470000';
+  point5_color = '#700e01';
+  point10_color = '#240000';
 
   keyboard_opacity = '1.0'; // 0.5
   key_used = '#8a8a8a';
@@ -213,15 +213,15 @@ export class AppComponent implements OnInit {
         }
       });
 
+    console.log('PERCENTILE: ' + this.appSvc.getPercentile([0, 3, 4, 4, 5, 7, 8], 8));
+
 
     // Check to see if today's day is present in the "daily_game_data" tree,
     // and if it isn't, get new random word and create new "[insert data]_game_data" object
     // and post to Firebase.
     let now = new Date();
     let now_str = this.datepipe.transform(now, 'yyyy-MM-dd');
-    let test_str = '2022-05-07';
     this.todays_game_data = await this.firebaseSvc.getTodaysGameData(now_str);
-    console.log('GOT TODAY DATA');
 
     console.log(this.todays_game_data);
 
@@ -682,17 +682,14 @@ export class AppComponent implements OnInit {
     await this.firebaseSvc.updateGameLog(game_data);
 
     this.todays_game_data = await this.firebaseSvc.getTodaysGameData(this.datepipe.transform(now, 'yyyy-MM-dd'));
+    console.log(this.todays_game_data);
 
     // Calculate score percentile from all scores for today's word
-    let sorted_raw_scores = this.todays_game_data.raw_scores.sort((a, b) => a - b);
-    this.percentile_data.high_score = sorted_raw_scores[sorted_raw_scores.length - 1];
-    this.percentile_data.low_score = sorted_raw_scores[0];
-    this.percentile_data.mean = this.appSvc.getMean(sorted_raw_scores);
-    this.percentile_data.median = this.appSvc.getMedian(sorted_raw_scores);
-    this.percentile_data.mode = this.appSvc.getMode(sorted_raw_scores);
-    this.percentile_data.percentile = this.appSvc.getPercentile(sorted_raw_scores, this.final_score).toFixed(2);
-    this.percentile_data.percentile_graphic = this.appSvc.getPercentileGraphic(this.percentile_data.low_score, this.percentile_data.high_score, this.percentile_data.percentile);
-
+    let sorted_raw_scores = [];
+    if (this.todays_game_data.raw_scores) {
+      sorted_raw_scores = this.todays_game_data.raw_scores.sort((a, b) => a - b);
+    }
+    this.percentile_data = this.appSvc.getPercentileData(sorted_raw_scores, this.final_score);
     console.log(this.percentile_data);
   }
 
