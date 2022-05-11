@@ -6,7 +6,10 @@
       <a (click)="statsModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">equalizer</mat-icon>
       </a>
-      <mat-icon style="font-size:30px;padding-right:20px;margin-top:5px;">settings</mat-icon>
+      <a (click)="tutorialModal(true)">
+        <span style="font-size:35px;padding-right:20px;margin-top:2px;">?</span>
+      </a>
+      <!-- <mat-icon style="font-size:30px;padding-right:20px;margin-top:5px;">settings</mat-icon> -->
       <!-- <mat-icon stlye="font-size:40px;padding-right:20px;">bubble_chart</mat-icon> -->
       <!-- <span style="font-size:40px;padding-right:20px;">?</span> -->
     </div>
@@ -17,7 +20,8 @@
 
   <div class="data">
     <div class="correct_words">
-      <div style="font-size: 40px; text-align: center; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b></div>
+      <div style="font-size: 40px; text-align: center; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b>
+      </div>
       <!-- Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span> -->
       <!-- <mat-label>Correct words</mat-label>
       <mat-select>
@@ -29,16 +33,14 @@
       <!-- <textarea id="textarea"></textarea> -->
     </div>
 
-    <div class="used_letters">
+    <!-- <div class="used_letters">
       <div class="used_letter_row">
-        <!-- Used Letters:&nbsp; -->
-        <!-- <br> -->
         <div *ngFor="let letter of used_letters;">
           <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
             {{letter.name}}</div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <br />
 
@@ -54,8 +56,7 @@
   <!-- CELLS -->
   <div class="container">
     <div *ngFor="let cell of cells; let i = index" class="letters">
-      <div class="point_value" id="point_value_{{cell.name}}"
-        [style.margin-left]="cell.point_value === 10 ? '21px' : '32px'" [style.color]="cell.color">
+      <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color">
         <b>{{cell.point_value}}</b>
       </div>
       <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
@@ -80,7 +81,7 @@
   <div *ngIf="show_keyboard" id="keyboard" style="margin-left: 8px;" [style.opacity]="keyboard_opacity"
     [style.pointer-events]="((keyboard_opacity === '1.0' && keyboard_enabled) ? 'auto' : 'none')" class="keyboard">
 
-    <div style="display: flex; justify-content: center; margin-top: 30px;">
+    <div style="display: flex; justify-content: center;">
       <div *ngFor="let key of keyboard_top;">
         <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open"
           [style.background-color]="key.point_color" [style.opacity]="key.opacity" [style.color]="key.font_color"
@@ -161,17 +162,21 @@
 
     <div *ngIf="final_score !== undefined && percentile_data && todays_game_data.raw_scores?.length > 1; else elseBlock"
       style="text-align: center;font-size: 22px; padding: 10px;">
-      <div *ngIf="!percentile_data.special_case?.message; else specialCase">
-        You were better than<b> {{percentile_data.percentile}}%</b> of players today
+      <div>
+        <div *ngIf="!percentile_data.special_case?.message; else specialCase">
+          You were better than<b> {{percentile_data.percentile}}%</b> of players today
+        </div>
+        <ng-template #specialCase>
+          <div [style.color]="percentile_data.special_case?.color">
+            <b>{{percentile_data.special_case.message}}</b>
+          </div>
+        </ng-template>
+
         <div style="text-align: center;font-size: 22px; padding: 10px;">
           {{percentile_data.percentile_graphic}}
         </div>
       </div>
-      <ng-template #specialCase>
-        <div [style.color]="percentile_data.special_case?.color" style="margin-bottom: 50px;">
-          <b>{{percentile_data.special_case.message}}</b>
-        </div>
-      </ng-template>
+
     </div>
     <ng-template #elseBlock style="text-align: center;font-size: 22px; padding: 10px;">
       <div style="text-align: center;font-size: 22px; padding: 10px;">
@@ -217,6 +222,66 @@
 
     <div class="modal_text" style="font-family: 'Co';"><b>Average Score per Game</b></div>
     <div class="modal_text" style="font-size:25px"><b>{{user.average_score_per_game}} points</b></div>
+  </div>
+</div>
+
+<!-- TUTORIAL MODAL -->
+<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal">
+  <div>
+    <div class="header_items" style="display: flex;justify-content: flex-end;">
+      <a (click)="tutorialModal(false)">
+        <mat-icon style="font-size: 30px; padding-right:15px; padding-top: 10px;">close</mat-icon>
+      </a>
+    </div>
+    <div style="font-size: 30px; text-align: center; font-family: 'Co'"><b>RULES</b></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div *ngIf="tutorial_step_num === 1" id="step_1">
+    <div style="display: flex; justify-content:center;margin-top:10px;">
+      <img src="/assets/correct_word.gif" alt="image"
+        style="width: 80%; height: auto; border: 1px solid gray;border-radius: 5px;">
+    </div>
+    <div style="display: flex; justify-content:center">
+      <div style="padding: 13px;margin-top: 7px; width: 80%; font-size: 18px;">
+        Create words by switching out letters one at a time and rearranging them
+      </div>
+    </div>
+  </div>
+  
+  <!-- STEP 2 -->
+  <div *ngIf="tutorial_step_num === 2" id="step_2">
+    <div style="display: flex; justify-content:center;margin-top:10px;">
+      <img src="/assets/incorrect_word.gif" alt="image"
+        style="width: 80%; height: auto; border: 1px solid gray;border-radius: 5px;">
+    </div>
+    <div style="display: flex; justify-content:center">
+      <div style="padding: 13px;margin-top: 7px; width: 80%; font-size: 18px;">
+        If you enter a word that doesn't exist, the game is over
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div *ngIf="tutorial_step_num === 3" id="step_3">
+    <div style="display: flex; justify-content:center;margin-top:10px;">
+      <img src="/assets/incorrect_word.gif" alt="image"
+        style="width: 80%; height: auto; border: 1px solid gray;border-radius: 5px;">
+    </div>
+    <div style="display: flex; justify-content:center">
+      <div style="padding: 13px;margin-top: 7px; width: 80%; font-size: 18px;">
+        The darker the color shade, the more points they are worth
+      </div>
+    </div>
+  </div>
+  
+
+  <br>
+
+  <div style="display: flex; justify-content:center">
+    <button *ngIf="tutorial_step_num > 1" class="control" (click)="navigateTutorialModalStep(false)">&#60; BACK</button>
+    <button *ngIf="tutorial_step_num !== 3" class="control" (click)="navigateTutorialModalStep(true)">NEXT ></button>
+    <button *ngIf="tutorial_step_num === 3" class="control" (click)="tutorialModal(false)">DONE</button>
   </div>
 </div>
 

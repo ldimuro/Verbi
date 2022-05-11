@@ -169,7 +169,10 @@ export class AppComponent implements OnInit {
   selected_cell;
 
   stats_modal_open = false;
+  tutorial_modal_open = false;
   you_lose_modal_open = false;
+
+  tutorial_step_num = 1;
 
   // USER LocalStorage data
   userID_LocalStorage;
@@ -594,6 +597,44 @@ export class AppComponent implements OnInit {
     else if (find_bottom) {
       return find_bottom;
     }
+  }
+
+  async tutorialModal(open: boolean) {
+    if (open) {
+      this.tutorial_modal_open = true;
+      document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_out');
+
+      let tutorial_modal = document.getElementById('tutorial_modal');
+      tutorial_modal.classList.add('modal_fadein');
+      tutorial_modal.classList.add('modal_appear');
+      tutorial_modal.classList.remove('modal_fadeout');
+    }
+    else {
+      document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_out');
+
+      let tutorial_modal = document.getElementById('tutorial_modal');
+      tutorial_modal.classList.remove('modal_fadein');
+      tutorial_modal.classList.remove('modal_appear');
+      tutorial_modal.classList.add('modal_fadeout');
+
+      // Give time for blur_out animation to perform
+      await this.delay(200);
+
+      this.tutorial_modal_open = false;
+      this.tutorial_step_num = 1;
+    }
+  }
+
+  navigateTutorialModalStep(next: boolean) {
+    if (next) {
+      this.tutorial_step_num++;
+    }
+    else {
+      this.tutorial_step_num--;
+    }
+    console.log('STEP #: ' + this.tutorial_step_num);
   }
 
   async statsModal(open: boolean) {

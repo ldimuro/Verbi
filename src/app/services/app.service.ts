@@ -155,13 +155,13 @@ export class AppService {
     percentile_data.high_score = sorted_raw_scores[sorted_raw_scores.length - 1];
     percentile_data.low_score = sorted_raw_scores[0];
     percentile_data.percentile = this.getPercentile(sorted_raw_scores, final_score).toFixed(1);
-    percentile_data.percentile_graphic = this.getPercentileGraphic(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile);
+    percentile_data.percentile_graphic = this.getPercentileGraphic(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
     percentile_data.special_case = this.getSpecialCase(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
 
     return percentile_data;
   }
 
-  getPercentileGraphic(low_score: number, high_score: number, percentile: number) {
+  getPercentileGraphic(low_score: number, high_score: number, percentile: number, final_score: number) {
     let graphic = low_score + ' ';
     let rounded_value = (Math.round(percentile / 10) * 10) / 10;
     let color_value;
@@ -182,8 +182,17 @@ export class AppService {
     //   color_value = '🟩';
     // }
 
+    if (low_score === final_score) {
+      rounded_value = 0;
+      color_value = '💀';
+    }
+    else if (high_score === final_score) {
+      rounded_value = 10;
+      color_value = '⭐️';
+    }
+
     for (let i = 0; i < 10; i++) {
-      if (i <= rounded_value - 1) {
+      if (i === rounded_value/*i <= rounded_value - 1*/) {
         graphic += color_value;
       }
       else {
