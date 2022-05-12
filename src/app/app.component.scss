@@ -30,11 +30,11 @@
 
 textarea {
     font-size: 14px;
-    width: 95%; 
-    display: flex; 
-    justify-content: center; 
-    resize: none; 
-    border-color:lightgray;
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    resize: none;
+    border-color: lightgray;
 }
 
 .butt {
@@ -52,7 +52,7 @@ textarea {
     font-size: 50px;
     color: white;
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-family: 'Co';
+    font-family: "Co";
 }
 
 .butt:hover:enabled,
@@ -79,7 +79,7 @@ textarea {
     font-size: 50px;
     color: rgb(92, 92, 92);
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-family: 'Co';
+    font-family: "Co";
 }
 
 .butt-sm {
@@ -140,7 +140,7 @@ textarea {
 
 .stats_modal {
     position: fixed;
-    height: 450px;
+    height: 500px;
     width: 360px;
     top: 50%;
     left: 50%;
@@ -290,6 +290,49 @@ a:hover {
     // text-align: center;
 }
 
+/* unvisited link */
+// a:link {
+//     background-color: red;
+// }
+
+// /* visited link */
+// a:visited {
+//     background-color: green;
+// }
+
+// /* mouse over link */
+a:hover {
+    background-color: #de5445;
+    color: white;
+    filter: none;
+}
+
+/* selected link */
+a:active {
+    background-color: #de5445;
+    color: white;
+    filter: none;
+}
+
+.tabs {
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid rgb(160, 160, 160);
+    width: 20%;
+    text-align: center;
+}
+
+.tabs_active {
+    background-color: #de5445;
+    color: white;
+    // border-top-left-radius: 8px;
+    // border-top-right-radius: 8px;
+    pointer-events: none;
+    font-weight: bold;
+    border: none;
+    filter: none;
+}
+
 .blur-background_in {
     filter: blur(30px);
     -webkit-filter: blur(30px);
@@ -343,10 +386,10 @@ a:hover {
 
 .console_animation_out {
     opacity: 1;
-    animation: fadeout 1.0s linear forwards;
-    -o-animation: fadeout 1.0s linear forwards;
-    -moz-animation: fadeout 1.0s linear forwards;
-    -webkit-animation: fadeout 1.0s linear forwards;
+    animation: fadeout 1s linear forwards;
+    -o-animation: fadeout 1s linear forwards;
+    -moz-animation: fadeout 1s linear forwards;
+    -webkit-animation: fadeout 1s linear forwards;
 }
 
 .fadein {

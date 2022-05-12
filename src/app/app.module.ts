@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material'; 
 
@@ -20,7 +20,8 @@ import { MatSelectModule } from '@angular/material';
     HttpClientModule,
     MatIconModule,
     BrowserAnimationsModule,
-    MatSelectModule
+    MatSelectModule,
+    CommonModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

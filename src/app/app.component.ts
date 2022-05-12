@@ -173,6 +173,7 @@ export class AppComponent implements OnInit {
   you_lose_modal_open = false;
 
   tutorial_step_num = 1;
+  stats_step_num = 1;
 
   // USER LocalStorage data
   userID_LocalStorage;
@@ -641,12 +642,12 @@ export class AppComponent implements OnInit {
   }
 
   navigateTutorialModalStep(next: boolean) {
-    if (next) {
-      this.tutorial_step_num++;
-    }
-    else {
-      this.tutorial_step_num--;
-    }
+    next ? this.tutorial_step_num++ : this.tutorial_step_num--;
+  }
+
+  navigateStatsModalTabs(next: boolean) {
+    next ? this.stats_step_num++ : this.stats_step_num--;
+    console.log(this.stats_step_num);
   }
 
   async statsModal(open: boolean) {
@@ -673,6 +674,7 @@ export class AppComponent implements OnInit {
       await this.delay(200);
 
       this.stats_modal_open = false;
+      this.stats_step_num = 1;
     }
   }
 

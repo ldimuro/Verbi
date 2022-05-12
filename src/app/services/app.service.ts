@@ -183,7 +183,7 @@ export class AppService {
     // }
 
     if (low_score === final_score) {
-      rounded_value = 0;
+      rounded_value = 1;
       color_value = '💀';
     }
     else if (high_score === final_score) {

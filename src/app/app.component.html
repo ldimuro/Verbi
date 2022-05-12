@@ -33,14 +33,14 @@
       <!-- <textarea id="textarea"></textarea> -->
     </div>
 
-    <!-- <div class="used_letters">
+    <div class="used_letters">
       <div class="used_letter_row">
         <div *ngFor="let letter of used_letters;">
           <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
             {{letter.name}}</div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <br />
 
@@ -203,26 +203,51 @@
     <div style="font-size: 30px; text-align: center; font-family: 'Co'"><b>STATISTICS</b></div>
   </div>
 
-  <div *ngIf="stats_modal_open" style="margin-top: 20px; padding: 10px;">
-    <div class="modal_text" style="font-family: 'Co';"><b>High Score</b></div>
-    <div class="modal_text" style="font-size:25px"><b>{{user?.high_score}}</b></div>
 
-    <br>
 
-    <div class="modal_text" style="font-family: 'Co';"><b>Highest Scoring Word</b></div>
-    <div class="modal_text" style="font-size:25px"><b>"{{user.highest_scoring_word.word}}" -
-        {{user.highest_scoring_word.score}} points</b></div>
-
-    <br>
-
-    <div class="modal_text" style="font-family: 'Co';"><b>Games Played</b></div>
-    <div class="modal_text" style="font-size:25px"><b>{{user.games_played.length}}</b></div>
-
-    <br>
-
-    <div class="modal_text" style="font-family: 'Co';"><b>Average Score per Game</b></div>
-    <div class="modal_text" style="font-size:25px"><b>{{user.average_score_per_game}} points</b></div>
+  <div style="display: flex; justify-content: center; padding:10px;">
+    <a class="tabs" (click)="navigateStatsModalTabs(false)" style="border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;" [ngClass]="{'tabs_active': stats_step_num === 1}">Personal</a>
+    <a class="tabs" style="border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;" (click)="navigateStatsModalTabs(true)"
+      [ngClass]="{'tabs_active': stats_step_num === 2}">Global</a>
   </div>
+
+
+
+
+  <div *ngIf="stats_step_num === 1; else step_2">
+    <div *ngIf="stats_modal_open" style="padding: 10px;">
+      <div class="modal_text" style="font-family: 'Co';"><b>High Score</b></div>
+      <div class="modal_text" style="font-size:25px"><b>{{user?.high_score}}</b></div>
+  
+      <br>
+  
+      <div class="modal_text" style="font-family: 'Co';"><b>Highest Scoring Word</b></div>
+      <div class="modal_text" style="font-size:25px"><b>"{{user?.highest_scoring_word.word}}" -
+          {{user.highest_scoring_word.score}} points</b></div>
+  
+      <br>
+  
+      <div class="modal_text" style="font-family: 'Co';"><b>Games Played</b></div>
+      <div class="modal_text" style="font-size:25px"><b>{{user?.games_played.length}}</b></div>
+  
+      <br>
+  
+      <div class="modal_text" style="font-family: 'Co';"><b>Average Score per Game</b></div>
+      <div class="modal_text" style="font-size:25px"><b>{{user?.average_score_per_game}} points</b></div>
+    </div>
+  </div>
+  <ng-template #step_2>
+    GLOBAL STATS
+  </ng-template>
+
+
+
+
+
+
+  
 </div>
 
 <!-- TUTORIAL MODAL -->
@@ -233,7 +258,7 @@
         <mat-icon style="font-size: 30px; padding-right:15px; padding-top: 10px;">close</mat-icon>
       </a>
     </div>
-    <div style="font-size: 30px; text-align: center; font-family: 'Co'"><b>RULES</b></div>
+    <div style="font-size: 30px; text-align: center; font-family: 'Co'"><b>HOW TO PLAY</b></div>
   </div>
 
   <!-- STEP 1 -->
@@ -248,7 +273,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- STEP 2 -->
   <div *ngIf="tutorial_step_num === 2" id="step_2">
     <div style="display: flex; justify-content:center;margin-top:10px;">
@@ -275,7 +300,7 @@
     </div>
     <br>
   </div>
-  
+
 
   <br>
 
