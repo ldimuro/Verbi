@@ -215,7 +215,7 @@
 
 
 
-
+  <!-- Personal stats -->
   <div *ngIf="stats_step_num === 1; else step_2">
     <div *ngIf="stats_modal_open" style="padding: 10px;">
       <div class="modal_text" style="font-family: 'Co';"><b>High Score</b></div>
@@ -238,8 +238,32 @@
       <div class="modal_text" style="font-size:25px"><b>{{user?.average_score_per_game}} points</b></div>
     </div>
   </div>
+  <!-- Global stats -->
   <ng-template #step_2>
-    GLOBAL STATS
+    <div *ngIf="stats_modal_open" style="padding: 10px;">
+      <div class="modal_text" style="font-family: 'Co';"><b>Today's High Score</b></div>
+      <div class="modal_text" style="font-size:25px"><b>{{todays_game_data.high_score}}</b></div>
+  
+      <br>
+  
+      <div class="modal_text" style="font-family: 'Co';"><b>Today's Average Score </b></div>
+      <div class="modal_text" style="font-size:25px"><b>{{todays_game_data.average_score}}</b></div>
+
+      <br>
+
+      <hr class="solid" style="width: 75%;">
+
+      <br>
+
+      <div class="modal_text" style="font-family: 'Co';"><b>All Time High Score 🏆</b></div>
+      <div class="modal_text" style="font-size:25px"><b>312</b></div>
+
+      <br>
+
+      <div class="modal_text" style="font-family: 'Co';"><b>Perfect Game Count</b></div>
+      <div class="modal_text" style="font-size:25px"><b>2</b></div>
+
+    </div>
   </ng-template>
 
 

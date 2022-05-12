@@ -23,6 +23,7 @@ export class TodaysGameData {
     total_points_scored?: number;
     average_score?: number;
     raw_scores?: any[];
+    high_score?: any;
 }
 
 export class PercentileData {

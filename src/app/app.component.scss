@@ -301,18 +301,20 @@ a:hover {
 // }
 
 // /* mouse over link */
-a:hover {
-    background-color: #de5445;
-    color: white;
-    filter: none;
-}
+// a:hover {
+//     // background-color: #de5445;
+//     // color: white;
+//     filter: none;
+// }
 
-/* selected link */
-a:active {
-    background-color: #de5445;
-    color: white;
-    filter: none;
-}
+// /* selected link */
+// a:active {
+//     // background-color: #de5445;
+//     // color: white;
+//     filter: none;
+// }
+
+
 
 .tabs {
     padding: 8px;
@@ -331,7 +333,38 @@ a:active {
     font-weight: bold;
     border: none;
     filter: none;
+
+    
 }
+
+hr {
+    background-color: #ccc;
+    color: #ccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .blur-background_in {
     filter: blur(30px);

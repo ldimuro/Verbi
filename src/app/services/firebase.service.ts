@@ -127,7 +127,7 @@ export class FirebaseService {
 
   async getTodaysGameData(todays_date) {
     const dbRef = ref(this.database);
-    let todays_game_data: UserData;
+    let todays_game_data: TodaysGameData;
 
     await get(child(dbRef, `/daily_game_data/${todays_date}_game_data/`)).then((snapshot) => {
       if (snapshot.exists()) {
@@ -140,6 +140,13 @@ export class FirebaseService {
       return error;
     });
     console.log('GET TODAYS GAME DATA');
+
+    if (todays_game_data.raw_scores) {
+      todays_game_data.high_score = todays_game_data.raw_scores.sort()[todays_game_data.raw_scores.length - 1];
+    }
+    else {
+      todays_game_data.high_score = '-';
+    }
 
     return todays_game_data;
   }
