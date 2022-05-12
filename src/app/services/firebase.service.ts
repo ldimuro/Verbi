@@ -141,11 +141,13 @@ export class FirebaseService {
     });
     console.log('GET TODAYS GAME DATA');
 
-    if (todays_game_data.raw_scores) {
-      todays_game_data.high_score = todays_game_data.raw_scores.sort()[todays_game_data.raw_scores.length - 1];
-    }
-    else {
-      todays_game_data.high_score = '-';
+    if (todays_game_data !== null) {
+      if (todays_game_data.raw_scores) {
+        todays_game_data.high_score = todays_game_data.raw_scores.sort()[todays_game_data.raw_scores.length - 1];
+      }
+      else {
+        todays_game_data.high_score = '-';
+      }
     }
 
     return todays_game_data;
