@@ -2,7 +2,6 @@
 
   <header>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
-      <!-- <button></button> -->
       <a (click)="statsModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">equalizer</mat-icon>
       </a>
@@ -18,178 +17,183 @@
   <br>
   <br>
 
-  <div class="data">
-    <div class="correct_words">
-      <div style="font-size: 40px; text-align: center; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b>
+  <div *ngIf="!you_lose_open" class="game">
+    <div class="data">
+      <div class="correct_words">
+        <div style="font-size: 40px; text-align: center; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b>
+        </div>
+        <!-- Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span> -->
+        <!-- <mat-label>Correct words</mat-label>
+        <mat-select>
+          <mat-option value="html"> HTML </mat-option>
+          <mat-option value="css" disabled>CSS (disabled)</mat-option>
+          <mat-option value="js">JAVASCRIPT</mat-option>
+        </mat-select> -->
+
+        <!-- <textarea id="textarea"></textarea> -->
       </div>
-      <!-- Correct Words: <span *ngFor="let word of correct_words"><b>{{word}}</b>, </span> -->
-      <!-- <mat-label>Correct words</mat-label>
-      <mat-select>
-        <mat-option value="html"> HTML </mat-option>
-        <mat-option value="css" disabled>CSS (disabled)</mat-option>
-        <mat-option value="js">JAVASCRIPT</mat-option>
-      </mat-select> -->
 
-      <!-- <textarea id="textarea"></textarea> -->
-    </div>
-
-    <div class="used_letters">
-      <div class="used_letter_row">
-        <div *ngFor="let letter of used_letters;">
-          <div class="used_letter_icon" [style.background-color]="letter.point_color" [style.color]="letter.font_color">
-            {{letter.name}}</div>
+      <div class="used_letters">
+        <div class="used_letter_row">
+          <div *ngFor="let letter of used_letters;">
+            <div class="used_letter_icon" [style.background-color]="letter.point_color"
+              [style.color]="letter.font_color">
+              {{letter.name}}</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <br />
+      <br />
 
-    <div class="score" style="text-align: center;"><b>{{total_score}}</b></div>
+      <div class="score" style="text-align: center;"><b>{{total_score}}</b></div>
 
-    <div *ngIf="user?.high_score !== undefined" class="high_score" style="text-align: center;">BEST:
-      <b>{{user?.high_score}}</b>
-    </div>
-
-  </div>
-
-
-  <!-- CELLS -->
-  <div class="container">
-    <div *ngFor="let cell of cells; let i = index" class="letters">
-      <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color">
-        <b>{{cell.point_value}}</b>
+      <div *ngIf="user?.high_score !== undefined" class="high_score" style="text-align: center;">BEST:
+        <b>{{user?.high_score}}</b>
       </div>
-      <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
-        [style.cursor]="letter_selected ? 'auto' : 'cursor'" [style.background-color]="cell.color"
-        [style.color]="cell.font_color" [style.border-color]="cell.selected ? '#2b2827' : 'white'"
-        (click)="cellClicked(i)">{{cell.value}}</button>
+
     </div>
-  </div>
-
-  <!-- REMOVE -->
-  <br>
-  <br>
-  <br>
-  <span style="display: flex; justify-content: center; margin-top:20px;" id="console"
-    [style.visibility]="console_text_hidden ? 'hidden' : 'visible'">{{console_text}}</span>
-  <br>
-  <br>
-  <!-- END REMOVE -->
 
 
-  <!-- KEYBOARD -->
-  <div *ngIf="show_keyboard" id="keyboard" style="margin-left: 8px;" [style.opacity]="keyboard_opacity"
-    [style.pointer-events]="((keyboard_opacity === '1.0' && keyboard_enabled) ? 'auto' : 'none')" class="keyboard">
-
-    <div style="display: flex; justify-content: center;">
-      <div *ngFor="let key of keyboard_top;">
-        <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open"
-          [style.background-color]="key.point_color" [style.opacity]="key.opacity" [style.color]="key.font_color"
-          style="font-weight: bold;" (click)="keyboardClicked(key.name)">{{key.name}}</button>
+    <!-- CELLS -->
+    <div class="container">
+      <div *ngFor="let cell of cells; let i = index" class="letters">
+        <div class="point_value" id="point_value_{{cell.name}}" [style.color]="cell.color">
+          <b>{{cell.point_value}}</b>
+        </div>
+        <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
+          [style.cursor]="letter_selected ? 'auto' : 'cursor'" [style.background-color]="cell.color"
+          [style.color]="cell.font_color" [style.border-color]="cell.selected ? '#2b2827' : 'white'"
+          (click)="cellClicked(i)">{{cell.value}}</button>
       </div>
     </div>
 
-    <div style="display: flex; justify-content: center; margin-top: 8px;">
-      <div *ngFor="let key of keyboard_middle;">
-        <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open"
-          [style.background-color]="key.point_color" [style.opacity]="key.opacity" [style.color]="key.font_color"
-          style="font-weight: bold;" (click)="keyboardClicked(key.name)">{{key.name}}</button>
-      </div>
-    </div>
-
-    <div style="display: flex; justify-content: center; margin-top: 8px;">
-      <div *ngFor="let key of keyboard_bottom;">
-        <button class="butt-sm" [disabled]="!key.enabled || you_lose_modal_open || stats_modal_open"
-          [style.background-color]="key.point_color" [style.opacity]="key.opacity" [style.color]="key.font_color"
-          style="font-weight: bold;" (click)="keyboardClicked(key.name)">{{key.name}}</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- USER LETTERS -->
-  <div *ngIf="letter_selected">
-    <div style="display: flex; justify-content: center; margin-top: 30px;">
-      <div *ngFor="let letter of user_letters; let i = index" class="letters">
-        <button class="user_letters" [disabled]="!letter.enabled" [style.background-color]="letter.color"
-          [style.color]="letter.font_color" [style.opacity]="letter.enabled ? '1.0' : '0.25'"
-          (click)="userLetterClicked(i)">{{letter.value}}</button>
-      </div>
-    </div>
-
-    <div style="display: flex; justify-content: center; margin-top: 20px;">
-      <div *ngFor="let control of user_letter_controls">
-        <button *ngIf="control.id === 'ENTER'" class="control" [disabled]="cells[4].value === ''"
-          (click)="controlClicked(control.id)">{{control.display}}</button>
-        <button *ngIf="control.id === 'BACKSPACE'" class="control" [disabled]="cells[0].value === ''"
-          (click)="controlClicked(control.id)">
-          {{control.display}}
-        </button>
-        <button *ngIf="control.id === 'GO-BACK'" class="control" (click)="controlClicked(control.id)">
-          {{control.display}}
-        </button>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- <div class="footer">
-    <div style="display: flex;">Created by Lou DiMuro</div>
-  </div> -->
-
-</div>
-
-
-<!-- YOU LOSE MODAL -->
-<div [hidden]="!you_lose_modal_open" class="you_lose_modal" id="you_lose_modal">
-  <div>
-    <div style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px; font-family: 'Co'"><b>YOU
-        LOSE!</b></div>
-    <div style="text-align: center;font-size: 18px;">"{{losing_word}}" is not a word</div>
-
+    <!-- REMOVE -->
     <br>
+    <br>
+    <br>
+    <span style="display: flex; justify-content: center; margin-top:20px;" id="console"
+      [style.visibility]="console_text_hidden ? 'hidden' : 'visible'">{{console_text}}</span>
+    <br>
+    <br>
+    <!-- END REMOVE -->
 
-    <div style="text-align: center;font-size: 22px; padding: 10px;">
-      <div class="modal_text" style="font-family: 'Co';"><b>Final Score</b></div>
-      <div class="modal_text" style="font-size:25px"><b>{{final_score}} ({{game_over_correct_words.length}} word<span
-            *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
-    </div>
 
-    <div *ngIf="final_score !== undefined && todays_game_data"
-      style="text-align: center;font-size: 22px; padding: 10px;">
-      <div class="modal_text" style="font-family: 'Co';"><b>Today's Average</b></div>
-      <div class="modal_text" style="font-size:25px"><b>{{todays_game_data?.average_score}}</b></div>
-    </div>
+    <!-- KEYBOARD -->
+    <div *ngIf="show_keyboard" id="keyboard" style="margin-left: 8px;" [style.opacity]="keyboard_opacity"
+      [style.pointer-events]="((keyboard_opacity === '1.0' && keyboard_enabled) ? 'auto' : 'none')" class="keyboard">
 
-    <div *ngIf="final_score !== undefined && percentile_data && todays_game_data.raw_scores?.length > 1; else elseBlock"
-      style="text-align: center;font-size: 22px; padding: 10px;">
-      <div>
-        <div *ngIf="!percentile_data.special_case?.message; else specialCase">
-          You were better than<b> {{percentile_data.percentile}}%</b> of players today
+      <div style="display: flex; justify-content: center;">
+        <div *ngFor="let key of keyboard_top;">
+          <button class="butt-sm" [disabled]="!key.enabled || you_lose_open || stats_modal_open"
+            [style.background-color]="key.point_color" [style.opacity]="key.opacity" [style.color]="key.font_color"
+            style="font-weight: bold;" (click)="keyboardClicked(key.name)">{{key.name}}</button>
         </div>
-        <ng-template #specialCase>
-          <div [style.color]="percentile_data.special_case?.color">
-            <b>{{percentile_data.special_case.message}}</b>
+      </div>
+
+      <div style="display: flex; justify-content: center; margin-top: 8px;">
+        <div *ngFor="let key of keyboard_middle;">
+          <button class="butt-sm" [disabled]="!key.enabled || you_lose_open || stats_modal_open"
+            [style.background-color]="key.point_color" [style.opacity]="key.opacity" [style.color]="key.font_color"
+            style="font-weight: bold;" (click)="keyboardClicked(key.name)">{{key.name}}</button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center; margin-top: 8px;">
+        <div *ngFor="let key of keyboard_bottom;">
+          <button class="butt-sm" [disabled]="!key.enabled || you_lose_open || stats_modal_open"
+            [style.background-color]="key.point_color" [style.opacity]="key.opacity" [style.color]="key.font_color"
+            style="font-weight: bold;" (click)="keyboardClicked(key.name)">{{key.name}}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- USER LETTERS -->
+    <div *ngIf="letter_selected">
+      <div style="display: flex; justify-content: center; margin-top: 30px;">
+        <div *ngFor="let letter of user_letters; let i = index" class="letters">
+          <button class="user_letters" [disabled]="!letter.enabled" [style.background-color]="letter.color"
+            [style.color]="letter.font_color" [style.opacity]="letter.enabled ? '1.0' : '0.25'"
+            (click)="userLetterClicked(i)">{{letter.value}}</button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center; margin-top: 20px;">
+        <div *ngFor="let control of user_letter_controls">
+          <button *ngIf="control.id === 'ENTER'" class="control" [disabled]="cells[4].value === ''"
+            (click)="controlClicked(control.id)">{{control.display}}</button>
+          <button *ngIf="control.id === 'BACKSPACE'" class="control" [disabled]="cells[0].value === ''"
+            (click)="controlClicked(control.id)">
+            {{control.display}}
+          </button>
+          <button *ngIf="control.id === 'GO-BACK'" class="control" (click)="controlClicked(control.id)">
+            {{control.display}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YOU LOSE SCREEN -->
+  <div *ngIf="you_lose_open" style="display: flex; justify-content: center;">
+    <div [hidden]="!you_lose_open" class="you_lose" id="you_lose">
+      <div>
+        <div style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px; font-family: 'Co'"><b>YOU
+            LOSE!</b></div>
+        <div style="text-align: center;font-size: 18px;">"{{losing_word}}" is not a word</div>
+
+        <br>
+
+        <div style="text-align: center;font-size: 22px; padding: 10px;">
+          <div class="modal_text" style="font-family: 'Co';"><b>Final Score</b></div>
+          <div class="modal_text" style="font-size:25px"><b>{{final_score}} ({{game_over_correct_words.length}}
+              word<span *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
+        </div>
+
+        <div *ngIf="final_score !== undefined && todays_game_data"
+          style="text-align: center;font-size: 22px; padding: 10px;">
+          <div class="modal_text" style="font-family: 'Co';"><b>Today's Average</b></div>
+          <div class="modal_text" style="font-size:25px"><b>{{todays_game_data?.average_score}}</b></div>
+        </div>
+
+        <div
+          *ngIf="final_score !== undefined && percentile_data && todays_game_data.raw_scores?.length > 1; else elseBlock"
+          style="text-align: center;font-size: 22px; padding: 10px;">
+          <div>
+            <div *ngIf="!percentile_data.special_case?.message; else specialCase">
+              You were better than<b> {{percentile_data.percentile}}%</b> of players today
+            </div>
+            <ng-template #specialCase>
+              <div [style.color]="percentile_data.special_case?.color">
+                <b>{{percentile_data.special_case.message}}</b>
+              </div>
+            </ng-template>
+
+            <div style="text-align: center;font-size: 22px; padding: 10px;">
+              {{percentile_data.percentile_graphic}}
+            </div>
+          </div>
+
+        </div>
+        <ng-template #elseBlock style="text-align: center;font-size: 22px; padding: 10px;">
+          <div style="text-align: center;font-size: 22px; padding: 10px;">
+            You are today's first player! Check back later for updated results
           </div>
         </ng-template>
 
-        <div style="text-align: center;font-size: 22px; padding: 10px;">
-          {{percentile_data.percentile_graphic}}
-        </div>
-      </div>
+        <br>
 
+        <button (click)="youLoseModal(false)" style="font-size: 20px; border-width: 2px; margin:0 auto; display:block;"
+          class="control">PLAY AGAIN</button>
+      </div>
     </div>
-    <ng-template #elseBlock style="text-align: center;font-size: 22px; padding: 10px;">
-      <div style="text-align: center;font-size: 22px; padding: 10px;">
-        You are today's first player! Check back later for updated results
-      </div>
-    </ng-template>
-
-    <br>
-
-    <button (click)="youLoseModal(false)" style="font-size: 20px; border-width: 2px; margin:0 auto; display:block;"
-      class="control">PLAY AGAIN</button>
   </div>
+
+
+
 </div>
+
+
+
 
 
 <!-- STATS MODAL -->
@@ -220,20 +224,20 @@
     <div *ngIf="stats_modal_open" style="padding: 10px;">
       <div class="modal_text" style="font-family: 'Co';"><b>High Score</b></div>
       <div class="modal_text" style="font-size:25px"><b>{{user?.high_score}}</b></div>
-  
+
       <br>
-  
+
       <div class="modal_text" style="font-family: 'Co';"><b>Highest Scoring Word</b></div>
-      <div class="modal_text" style="font-size:25px"><b>"{{user?.highest_scoring_word.word}}" -
+      <div class="modal_text" style="font-size:25px;"><b>"{{user?.highest_scoring_word.word}}" -
           {{user.highest_scoring_word.score}} points</b></div>
-  
+
       <br>
-  
+
       <div class="modal_text" style="font-family: 'Co';"><b>Games Played</b></div>
       <div class="modal_text" style="font-size:25px"><b>{{user?.games_played.length}}</b></div>
-  
+
       <br>
-  
+
       <div class="modal_text" style="font-family: 'Co';"><b>Average Score per Game</b></div>
       <div class="modal_text" style="font-size:25px"><b>{{user?.average_score_per_game}} points</b></div>
     </div>
@@ -243,9 +247,9 @@
     <div *ngIf="stats_modal_open" style="padding: 10px;">
       <div class="modal_text" style="font-family: 'Co';"><b>Today's High Score</b></div>
       <div class="modal_text" style="font-size:25px"><b>{{todays_game_data.high_score}}</b></div>
-  
+
       <br>
-  
+
       <div class="modal_text" style="font-family: 'Co';"><b>Today's Average Score </b></div>
       <div class="modal_text" style="font-size:25px"><b>{{todays_game_data.average_score}}</b></div>
 
@@ -271,7 +275,7 @@
 
 
 
-  
+
 </div>
 
 <!-- TUTORIAL MODAL -->

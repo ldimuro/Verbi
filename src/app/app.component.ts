@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
           }
         }
         else { // If user is in word construction mode
-          if ((entered_key === 'BACKSPACE' || entered_key === 'ENTER') && !this.you_lose_modal_open) {
+          if ((entered_key === 'BACKSPACE' || entered_key === 'ENTER') && !this.you_lose_open) {
             this.controlClicked(entered_key);
           }
   
@@ -170,7 +170,7 @@ export class AppComponent implements OnInit {
 
   stats_modal_open = false;
   tutorial_modal_open = false;
-  you_lose_modal_open = false;
+  you_lose_open = false;
 
   tutorial_step_num = 1;
   stats_step_num = 1;
@@ -680,29 +680,29 @@ export class AppComponent implements OnInit {
 
   youLoseModal(open: boolean, losing_word?: any) {
     if (open) {
-      this.you_lose_modal_open = true;
+      this.you_lose_open = true;
       this.losing_word = losing_word;
       this.final_score = this.total_score;
 
-      document.getElementById(`app`).classList.add('blur-background_in');
-      document.getElementById(`app`).classList.remove('blur-background_out');
+      // document.getElementById(`app`).classList.add('blur-background_in');
+      // document.getElementById(`app`).classList.remove('blur-background_out');
 
-      let stats_modal = document.getElementById('you_lose_modal');
-      stats_modal.classList.add('modal_fadein');
-      stats_modal.classList.add('modal_appear');
-      stats_modal.classList.remove('modal_fadeout');
+      // let stats_modal = document.getElementById('you_lose_modal');
+      // stats_modal.classList.add('modal_fadein');
+      // stats_modal.classList.add('modal_appear');
+      // stats_modal.classList.remove('modal_fadeout');
 
       this.gameOver(losing_word);
     }
     else {
-      this.you_lose_modal_open = false;
-      document.getElementById(`app`).classList.remove('blur-background_in');
-      document.getElementById(`app`).classList.add('blur-background_out');
+      this.you_lose_open = false;
+      // document.getElementById(`app`).classList.remove('blur-background_in');
+      // document.getElementById(`app`).classList.add('blur-background_out');
 
-      let stats_modal = document.getElementById('stats_modal');
-      stats_modal.classList.remove('modal_fadein');
-      stats_modal.classList.remove('modal_appear');
-      stats_modal.classList.add('modal_fadeout');
+      // let stats_modal = document.getElementById('you_lose_modal');
+      // stats_modal.classList.remove('modal_fadein');
+      // stats_modal.classList.remove('modal_appear');
+      // stats_modal.classList.add('modal_fadeout');
 
       let new_random_word = this.chooseRandomWord();
       this.reset(new_random_word, true, false);
