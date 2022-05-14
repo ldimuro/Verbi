@@ -17,7 +17,7 @@
   <br>
   <br>
 
-  <div *ngIf="!you_lose_open" class="game">
+  <div *ngIf="!you_lose_open && !you_win_open" class="game">
     <div class="data">
       <div class="correct_words">
         <div style="font-size: 40px; text-align: center; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b>
@@ -183,11 +183,35 @@
         <br>
 
         <div style="display: flex; justify-content:center;">
-          <button (click)="youLoseModal(false)"
-            style="font-size: 20px; border-width: 2px;" class="control">PLAY
+          <button (click)="youLose(false)" style="font-size: 20px; border-width: 2px;" class="control">PLAY
             AGAIN</button>
           <button style="font-size: 20px; border-width: 2px;" class="control">SHARE</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="you_win_open" style="display: flex; justify-content: center;">
+    <div>
+      <div style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px; font-family: 'Co'"><b>PERFECT SCORE!</b></div>
+
+      <div style="text-align: center;font-size: 22px; padding: 10px;">
+        <div class="modal_text" style="font-family: 'Co';"><b>Final Score</b></div>
+        <div class="modal_text" style="font-size:25px"><b>{{final_score}} ({{game_over_correct_words.length}}
+            word<span *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
+      </div>
+
+      <div style="text-align: center;font-size: 22px; padding: 10px;">
+        Out of <b>1016 games</b>, this has only happened
+        <b>2</b> times. That's pretty rad.
+      </div>
+
+      <br>
+
+      <div style="display: flex; justify-content:center;">
+        <button (click)="youWin(false)" style="font-size: 20px; border-width: 2px;" class="control">PLAY
+          AGAIN</button>
+        <button style="font-size: 20px; border-width: 2px;" class="control">SHARE</button>
       </div>
     </div>
   </div>

@@ -25,7 +25,7 @@ export class AppService {
   findAllPotentialOpeningMoves(word_list: any) {
     let valid_words = [];
     let myString = "ZONAL";
-    let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'V', 'Q', 'R', 'S', 'T', 'U', 'V', 'W'];
+    let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     for (let each of alphabet) {
       for (let i = 0; i < myString.length; i++) {
         let temp = this.setCharAt(myString, i, each);

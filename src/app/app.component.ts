@@ -171,6 +171,7 @@ export class AppComponent implements OnInit {
   stats_modal_open = false;
   tutorial_modal_open = false;
   you_lose_open = false;
+  you_win_open = false;
 
   tutorial_step_num = 1;
   stats_step_num = 1;
@@ -554,7 +555,7 @@ export class AppComponent implements OnInit {
       this.game_over_correct_words = this.correct_words;
       this.keyboard_enabled = false;
 
-      this.youLoseModal(true, word);
+      this.youLose(true, word);
       return false;
     }
   }
@@ -594,6 +595,12 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < points; i++) {
       this.total_score++;
       await this.delay(70);
+    }
+
+    // If user enters the 26th letter, show You Win screen
+    let letters_remaining = 26 - this.used_letters.length;
+    if (letters_remaining === 0) {
+      this.youWin(true);
     }
   }
 
@@ -678,7 +685,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  youLoseModal(open: boolean, losing_word?: any) {
+  youLose(open: boolean, losing_word?: any) {
     if (open) {
       this.you_lose_open = true;
       this.losing_word = losing_word;
@@ -692,7 +699,7 @@ export class AppComponent implements OnInit {
       // stats_modal.classList.add('modal_appear');
       // stats_modal.classList.remove('modal_fadeout');
 
-      this.gameOver(losing_word);
+      this.gameOver();
     }
     else {
       this.you_lose_open = false;
@@ -709,7 +716,20 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async gameOver(losing_word: string) {
+  youWin(open: boolean) { 
+    if (open) {
+      this.you_win_open = true;
+      this.final_score = this.total_score;
+      this.gameOver();
+    }
+    else {
+      this.you_win_open = true;
+      let new_random_word = this.chooseRandomWord();
+      this.reset(new_random_word, true, false);
+    }
+  }
+
+  async gameOver() {
     // Add game session to LocalStorage
     let now = new Date();
     let game_data: GameData = {
