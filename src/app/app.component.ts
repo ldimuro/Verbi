@@ -159,7 +159,9 @@ export class AppComponent implements OnInit {
   losing_word = '';
   final_score;
   game_over_correct_words = [];
-  percent_difference_from_average;
+  game_over_correct_words_formatted = '';
+
+  test_words = ['APPLE', 'TESTS', 'WOVEN', 'MAVES', 'STAVE', 'STOVE', 'STEEP', 'STEER'];
 
   console_text = 'placeholder';
   console_text_hidden = true;
@@ -553,6 +555,17 @@ export class AppComponent implements OnInit {
     }
     else {
       this.game_over_correct_words = this.correct_words;
+      for (let i in this.game_over_correct_words) {
+        this.game_over_correct_words_formatted += this.game_over_correct_words[i];
+        console.log(i);
+        // if (Number(i) % 2 === 0) {
+        //   this.game_over_correct_words_formatted += '\n';
+        // }
+        // else {
+          this.game_over_correct_words_formatted += ' ';
+        // }
+      }
+
       this.keyboard_enabled = false;
 
       this.youLose(true, word);
