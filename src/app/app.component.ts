@@ -479,6 +479,7 @@ export class AppComponent implements OnInit {
       this.used_letters = [];
       this.starting_word = new_word;
       this.total_score = 0;
+      this.game_over_correct_words_formatted = '';
     }
 
     // APPLY ANIMATIONS

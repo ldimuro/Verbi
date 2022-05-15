@@ -219,14 +219,14 @@
 
         <div style="text-align: center;font-size: 22px; padding: 10px;">
           <div class="modal_text" style="font-family: 'Co';"><b>Final Score</b></div>
-          <div class="modal_text" style="font-size:25px"><b>{{final_score}} ({{game_over_correct_words.length}}
-              word<span *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
+          <div class="modal_text" style="font-size:25px"><b>{{final_score}}</b></div>
         </div>
 
         <div style="display: flex; justify-content: center;">
           <div style="text-align: left; font-size: 22px; padding: 10px;">
-            <div class="modal_text" style="font-family: 'Co';"><b>Correct Words</b></div>
-            <div style="font-family:'Courier New', Courier, monospace; text-align: center;">
+            <div class="modal_text" style="font-family: 'Co';"><b>Correct Words ({{game_over_correct_words.length}}
+              word<span *ngIf="game_over_correct_words.length !== 1">s</span>)</b></div>
+            <div style="font-family:'Courier New', Courier, monospace;">
               {{game_over_correct_words_formatted}}</div>
           </div>
         </div>
