@@ -58,7 +58,8 @@ textarea {
 .butt:hover:enabled,
 .user_letters:hover:enabled,
 .butt-sm:hover:enabled,
-.control:hover:enabled {
+.control:hover:enabled,
+.words_button:hover:enabled {
     filter: brightness(90%);
     cursor: pointer;
 }
@@ -110,6 +111,19 @@ textarea {
 .control:disabled {
     opacity: 0.3;
     cursor: auto;
+}
+
+.words_button {
+    border: 2px outset rgb(54, 54, 54);
+    border-radius: 10px;
+    border-style: solid;
+    background-color: white;
+    color: rgb(54, 54, 54);
+    // margin-top: 15px;
+    // padding-top:10px;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .letters {
