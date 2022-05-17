@@ -174,6 +174,7 @@ export class AppComponent implements OnInit {
   tutorial_modal_open = false;
   you_lose_open = false;
   you_win_open = false;
+  words_modal_open = false;
 
   tutorial_step_num = 1;
   stats_step_num = 1;
@@ -696,6 +697,36 @@ export class AppComponent implements OnInit {
 
       this.stats_modal_open = false;
       this.stats_step_num = 1;
+    }
+  }
+
+  async wordsModal(open: boolean) {
+    if (open) {
+      this.words_modal_open = true;
+      document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_out');
+
+      let words_modal = document.getElementById('words_modal');
+      words_modal.classList.add('modal_fadein');
+      words_modal.classList.add('modal_appear');
+      words_modal.classList.remove('modal_fadeout');
+    }
+    else {
+      document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_out');
+
+      let words_modal = document.getElementById('words_modal');
+      words_modal.classList.remove('modal_fadein');
+      words_modal.classList.remove('modal_appear');
+      words_modal.classList.add('modal_fadeout');
+
+      // Give time for blur_out animation to perform
+      await this.delay(200);
+      
+      let word_list = document.getElementById(`word_list`);
+      word_list.scrollTop = 0;
+
+      this.words_modal_open = false;
     }
   }
 
