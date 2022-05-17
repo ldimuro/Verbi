@@ -172,6 +172,7 @@ export class AppComponent implements OnInit {
 
   stats_modal_open = false;
   tutorial_modal_open = false;
+  contact_modal_open = false;
   you_lose_open = false;
   you_win_open = false;
   words_modal_open = false;
@@ -700,6 +701,33 @@ export class AppComponent implements OnInit {
     }
   }
 
+  async contactModal(open: boolean) {
+    if (open) {
+      this.contact_modal_open = true;
+      document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_out');
+
+      let contact_modal = document.getElementById('contact_modal');
+      contact_modal.classList.add('modal_fadein');
+      contact_modal.classList.add('modal_appear');
+      contact_modal.classList.remove('modal_fadeout');
+    }
+    else {
+      document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_out');
+
+      let contact_modal = document.getElementById('contact_modal');
+      contact_modal.classList.remove('modal_fadein');
+      contact_modal.classList.remove('modal_appear');
+      contact_modal.classList.add('modal_fadeout');
+
+      // Give time for blur_out animation to perform
+      await this.delay(200);
+
+      this.contact_modal_open = false;
+    }
+  }
+
   async wordsModal(open: boolean) {
     if (open) {
       this.words_modal_open = true;
@@ -722,7 +750,7 @@ export class AppComponent implements OnInit {
 
       // Give time for blur_out animation to perform
       await this.delay(200);
-      
+
       let word_list = document.getElementById(`word_list`);
       word_list.scrollTop = 0;
 

@@ -2,15 +2,15 @@
 
   <header>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
+      <a (click)="contactModal(true)">
+        <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">mail_outline</mat-icon>
+      </a>
       <a (click)="statsModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">equalizer</mat-icon>
       </a>
       <a (click)="tutorialModal(true)">
         <span style="font-size:35px;padding-right:20px;margin-top:2px;font-weight: bold;font-family: 'Arial'">?</span>
       </a>
-      <!-- <mat-icon style="font-size:30px;padding-right:20px;margin-top:5px;">settings</mat-icon> -->
-      <!-- <mat-icon stlye="font-size:40px;padding-right:20px;">bubble_chart</mat-icon> -->
-      <!-- <span style="font-size:40px;padding-right:20px;">?</span> -->
     </div>
   </header>
 
@@ -429,7 +429,6 @@
     <br>
   </div>
 
-
   <br>
 
   <div style="display: flex; justify-content:center">
@@ -437,6 +436,34 @@
     <button *ngIf="tutorial_step_num !== 3" class="control" (click)="navigateTutorialModalStep(true)">NEXT ></button>
     <button *ngIf="tutorial_step_num === 3" class="control" (click)="tutorialModal(false)">DONE</button>
   </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div [hidden]="!contact_modal_open" class="modal stats_modal" id="contact_modal">
+  <div>
+    <div class="header_items" style="display: flex;justify-content: flex-end;">
+      <a (click)="contactModal(false)">
+        <mat-icon style="font-size: 30px; padding-right:15px; padding-top: 10px;">close</mat-icon>
+      </a>
+    </div>
+    <div style="font-size: 30px; text-align: center; font-family: 'Co'"><b>CONTACT</b></div>
+  </div>
+
+  <br>
+  <br>
+
+  <div>
+    <div class="modal_text" style="font-family: 'Co'; display:flex; justify-content: center;"><b>Feedback/Questions?</b></div>
+    <a href="mailto:ldimuro@asu.edu?cc=&subject=take5 [insert subject here]"><span style="display:flex; justify-content: center;"><u>Email Me!</u></span></a>
+  </div>
+
+  <br>
+
+  <div>
+    <div class="modal_text" style="font-family: 'Co'; display:flex; justify-content: center;"><b>Like the game?</b></div>
+    <a target="_blank" href="https://www.paypal.com/paypalme/loudimuro"><span style="display:flex; justify-content: center;"><u>Buy me a coffee ☕️!</u></span></a>
+  </div>
+
 </div>
 
 
