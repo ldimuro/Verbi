@@ -71,7 +71,7 @@ export class FirebaseService {
       console.error(error);
       return error;
     });
-    console.log('GET USER DATA');
+    console.log('🚨GET USER DATA🚨');
 
     return retrieved_user;
   }
@@ -88,7 +88,7 @@ export class FirebaseService {
       total_points_scored: userData.total_points_scored,
       average_score_per_game: userData.average_score_per_game
     });
-    console.log('UPDATE USER DATA');
+    console.log('🚨UPDATE USER DATA🚨');
   }
 
   async updateGameLog(game_data: GameData) {
@@ -100,7 +100,7 @@ export class FirebaseService {
       score: game_data.score,
       correct_words: game_data.correct_words
     });
-    console.log('UPDATE GAME LOG');
+    console.log('🚨UPDATE GAME LOG🚨');
 
 
     let today = new Date();
@@ -122,7 +122,7 @@ export class FirebaseService {
       average_score: todays_game_data.average_score,
       raw_scores: todays_game_data.raw_scores
     });
-    console.log('UPDATE TODAYS GAME DATA');
+    console.log('🚨UPDATE TODAYS GAME DATA🚨');
   }
 
   async getTodaysGameData(todays_date) {
@@ -139,15 +139,14 @@ export class FirebaseService {
       console.error(error);
       return error;
     });
-    console.log('GET TODAYS GAME DATA');
+    console.log('🚨GET TODAYS GAME DATA🚨');
 
-    console.log(todays_game_data);
     if (todays_game_data !== null) {
       if (todays_game_data.raw_scores) {
         let sorted_scores = todays_game_data.raw_scores.sort(((a, b) => {
           return a - b;
         }));
-        console.log(sorted_scores);
+        // console.log(sorted_scores);
         todays_game_data.high_score = sorted_scores[todays_game_data.raw_scores.length - 1];
       }
       else {
@@ -166,6 +165,7 @@ export class FirebaseService {
       total_points_scored: 0,
       average_score: 0
     });
+    console.log('🚨POST NEW DAY GAME DATA🚨');
   }
 
 }

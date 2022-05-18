@@ -20,7 +20,8 @@
   <div *ngIf="!you_lose_open && !you_win_open" class="game">
     <div class="data">
       <div class="correct_words" style="display: flex; justify-content:space-between;">
-        <div style="padding-top:18px;"><button  class="control" style="padding: 5px;" (click)="wordsModal(true)">WORDS</button></div>
+        <div style="padding-top:18px;"><button class="control" style="padding: 5px;"
+            (click)="wordsModal(true)">WORDS</button></div>
         <div style="font-size: 40px; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b></div>
         <div style="font-size: 39px; font-family: 'Co'; margin-top: 15px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
       </div>
@@ -202,8 +203,8 @@
           <div style="text-align: left; font-size: 22px; padding: 10px; width: 90%;">
             <div class="modal_text" style="font-family: 'Co';"><b>Correct Words ({{game_over_correct_words.length}})</b>
             </div>
-            <div style="font-family:'Courier New', Courier, monospace;">
-              {{game_over_correct_words_formatted}}</div>
+              <div style="font-family:'Courier New', Courier, monospace;">
+                {{game_over_correct_words_formatted}}</div>
           </div>
         </div>
 
@@ -370,7 +371,8 @@
         <mat-icon style="font-size: 30px; padding-right:15px; padding-top: 10px;">close</mat-icon>
       </a>
     </div>
-    <div style="font-size: 30px; text-align: center; font-family: 'Co'"><b>HOW TO PLAY</b></div>
+    <div style="font-size: 30px; text-align: center; font-family: 'Co'"><b>HOW TO PLAY ({{tutorial_step_num}}/3)</b>
+    </div>
   </div>
 
   <!-- STEP 1 -->
@@ -437,15 +439,19 @@
   <br>
 
   <div>
-    <div class="modal_text" style="font-family: 'Co'; display:flex; justify-content: center;"><b>Feedback/Questions?</b></div>
-    <a href="mailto:ldimuro@asu.edu?cc=&subject=take5 [insert subject here]"><span style="display:flex; justify-content: center;"><u>Email Me!</u></span></a>
+    <div class="modal_text" style="font-family: 'Co'; display:flex; justify-content: center;"><b>Feedback/Questions?</b>
+    </div>
+    <a href="mailto:ldimuro@asu.edu?cc=&subject=take5 [insert subject here]"><span
+        style="display:flex; justify-content: center;"><u>Email Me!</u></span></a>
   </div>
 
   <br>
 
   <div>
-    <div class="modal_text" style="font-family: 'Co'; display:flex; justify-content: center;"><b>Like the game?</b></div>
-    <a target="_blank" href="https://www.paypal.com/paypalme/loudimuro"><span style="display:flex; justify-content: center;"><u>Buy me a coffee ☕️!</u></span></a>
+    <div class="modal_text" style="font-family: 'Co'; display:flex; justify-content: center;"><b>Like the game?</b>
+    </div>
+    <a target="_blank" href="https://www.paypal.com/paypalme/loudimuro"><span
+        style="display:flex; justify-content: center;"><u>Buy me a coffee ☕️!</u></span></a>
   </div>
 
 </div>

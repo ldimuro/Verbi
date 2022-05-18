@@ -223,8 +223,6 @@ export class AppComponent implements OnInit {
         }
       });
 
-    console.log('PERCENTILE: ' + this.appSvc.getPercentile([0, 3, 4, 4, 5, 7, 8], 8));
-
 
     // Check to see if today's day is present in the "daily_game_data" tree,
     // and if it isn't, get new random word and create new "[insert data]_game_data" object
@@ -233,7 +231,7 @@ export class AppComponent implements OnInit {
     let now_str = this.datepipe.transform(now, 'yyyy-MM-dd');
     this.todays_game_data = await this.firebaseSvc.getTodaysGameData(now_str);
 
-    console.log(this.todays_game_data);
+    // console.log(this.todays_game_data);
 
     if (!this.todays_game_data) {
       // Create new object in "daily_game_data" in Firebase
@@ -246,29 +244,6 @@ export class AppComponent implements OnInit {
 
     this.initialize();
 
-
-
-
-
-    // const you_lost_modal = document.querySelector('.you_lose_modal');
-    // const stats_modal = document.querySelector('.stats_modal');
-    // window.onclick = (event: any) => {
-    //   // console.log(event);
-    //   if (event.target !== you_lost_modal && this.you_lose_modal_open) {
-    //     // console.log('CLICKED OUTSIDE YOU_LOST');
-    //   }
-    //   else if (event.target !== stats_modal && this.stats_modal_open) {
-    //     // console.log('CLICKED OUTSIDE STATS_MODAL');
-    //   }
-    // }
-
-    // console.log(modalOuter);
-    // modalOuter.classList.addEventListener('click', function(event) {
-    //   const isOutside = !event.target.closest('.modal-inner');
-    //   if (isOutside) {
-    //     closeModal();
-    //   }
-    // })
   }
 
   async initialize() {
@@ -292,7 +267,7 @@ export class AppComponent implements OnInit {
     this.played_before = JSON.parse(window.localStorage.getItem('played_before'));
 
     if (!this.userID_LocalStorage) { // If user doesn't exist, create new one
-      console.log('NEW USER FOUND');
+      // console.log('NEW USER FOUND');
       let randomID = 'user_' + this.appSvc.generateRandomID();
       this.firebaseSvc.createNewUser(randomID);
       this.userID_LocalStorage = randomID;
@@ -560,7 +535,6 @@ export class AppComponent implements OnInit {
       this.game_over_correct_words = this.correct_words;
       for (let i in this.game_over_correct_words) {
         this.game_over_correct_words_formatted += this.game_over_correct_words[i];
-        console.log(i);
         // if (Number(i) % 2 === 0) {
         //   this.game_over_correct_words_formatted += '\n';
         // }
@@ -598,11 +572,8 @@ export class AppComponent implements OnInit {
     }
 
     if (highest_word_updated || high_score_updated) {
-      // this.saveToLocalStorage(this.user);
-
       this.firebaseSvc.updateUserData(this.user);
       this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
-      // this.getUserData(this.user);
     }
 
     this.reset(word, false, true);
@@ -811,6 +782,8 @@ export class AppComponent implements OnInit {
       score: this.final_score
     }
 
+    // TODO: If there is data in localStorage, assign it to update_user, and then clear it from localStorage
+
     let update_user: UserData = this.user;
 
     if (!update_user.games_played.length) {
@@ -830,7 +803,7 @@ export class AppComponent implements OnInit {
     await this.firebaseSvc.updateGameLog(game_data);
 
     this.todays_game_data = await this.firebaseSvc.getTodaysGameData(this.datepipe.transform(now, 'yyyy-MM-dd'));
-    console.log(this.todays_game_data);
+    // console.log(this.todays_game_data);
 
     // Calculate score percentile from all scores for today's word
     let sorted_raw_scores = [];
@@ -838,7 +811,7 @@ export class AppComponent implements OnInit {
       sorted_raw_scores = this.todays_game_data.raw_scores.sort((a, b) => a - b);
     }
     this.percentile_data = this.appSvc.getPercentileData(sorted_raw_scores, this.final_score);
-    console.log(this.percentile_data);
+    // console.log(this.percentile_data);
   }
 
   generateWordListData(word_list: any) {
