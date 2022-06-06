@@ -6,7 +6,7 @@ export class UserData {
         score: number;
     };
     total_points_scored: number;
-    games_played: GameData[];
+    games_played_num: number;
     average_score_per_game: number;
 }
 

@@ -267,7 +267,7 @@ export class AppComponent implements OnInit {
     this.played_before = JSON.parse(window.localStorage.getItem('played_before'));
 
     if (!this.userID_LocalStorage) { // If user doesn't exist, create new one
-      // console.log('NEW USER FOUND');
+      console.log('NEW USER FOUND');
       let randomID = 'user_' + this.appSvc.generateRandomID();
       this.firebaseSvc.createNewUser(randomID);
       this.userID_LocalStorage = randomID;
@@ -786,16 +786,10 @@ export class AppComponent implements OnInit {
 
     let update_user: UserData = this.user;
 
-    if (!update_user.games_played.length) {
-      update_user.games_played = [game_data];
-    }
-    else {
-      update_user.games_played.push(game_data);
-    }
-
     update_user.total_points_scored += this.final_score;
-    update_user.average_score_per_game = Number((Math.round((update_user.total_points_scored / update_user.games_played.length) * 100) / 100).toFixed(2));
-
+    update_user.games_played_num = update_user.games_played_num + 1;
+    update_user.average_score_per_game = Number((Math.round((update_user.total_points_scored / update_user.games_played_num) * 100) / 100).toFixed(2));
+    
     await this.firebaseSvc.updateUserData(update_user);
 
     // Add User ID to the Game Data and send to Firebase
@@ -803,7 +797,6 @@ export class AppComponent implements OnInit {
     await this.firebaseSvc.updateGameLog(game_data);
 
     this.todays_game_data = await this.firebaseSvc.getTodaysGameData(this.datepipe.transform(now, 'yyyy-MM-dd'));
-    // console.log(this.todays_game_data);
 
     // Calculate score percentile from all scores for today's word
     let sorted_raw_scores = [];
@@ -811,7 +804,6 @@ export class AppComponent implements OnInit {
       sorted_raw_scores = this.todays_game_data.raw_scores.sort((a, b) => a - b);
     }
     this.percentile_data = this.appSvc.getPercentileData(sorted_raw_scores, this.final_score);
-    // console.log(this.percentile_data);
   }
 
   generateWordListData(word_list: any) {

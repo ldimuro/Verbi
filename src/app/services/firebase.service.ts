@@ -51,7 +51,7 @@ export class FirebaseService {
         word: '',
         score: 0
       },
-      games_played: 0,
+      games_played_num: 0,
       total_points_scored: 0,
       average_score_per_game: 0.00
     });
@@ -84,7 +84,7 @@ export class FirebaseService {
         word: userData.highest_scoring_word.word,
         score: userData.highest_scoring_word.score
       },
-      games_played: userData.games_played,
+      games_played_num: userData.games_played_num,
       total_points_scored: userData.total_points_scored,
       average_score_per_game: userData.average_score_per_game
     });
@@ -94,8 +94,7 @@ export class FirebaseService {
   async updateGameLog(game_data: GameData) {
     // Add Game Data to Game Log
     let randomID = this.appSvc.generateRandomID();
-    set(ref(this.database, `/games_played/${game_data.timestamp.split(' ')[0]}/game_${randomID}`), {
-      id: game_data.id,
+    set(ref(this.database, `/games_played/${game_data.id}/game_${randomID}`), {
       timestamp: game_data.timestamp,
       score: game_data.score,
       correct_words: game_data.correct_words
