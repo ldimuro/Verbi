@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     try {
       if (event.key) {
         let entered_key = event.key.toUpperCase();
-  
+
         if (this.keyboard_enabled) { // If user is in letter selection mode
           if (this.used_letters.findIndex(letter => letter.name === entered_key) === -1) {
             this.keyboardClicked(event.key.toUpperCase());
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
           if ((entered_key === 'BACKSPACE' || entered_key === 'ENTER') && !this.you_lose_open) {
             this.controlClicked(entered_key);
           }
-  
+
           let letter_index = this.user_letters.findIndex(letter => letter.value === entered_key && letter.enabled);
           if (letter_index > -1 && this.user_letters[letter_index].enabled) {
             this.userLetterClicked(letter_index);
@@ -307,8 +307,7 @@ export class AppComponent implements OnInit {
     }
 
   }
-  
-  
+
 
   cellClicked(index: any) {
     this.selected_cell = index;
@@ -539,7 +538,7 @@ export class AppComponent implements OnInit {
         //   this.game_over_correct_words_formatted += '\n';
         // }
         // else {
-          this.game_over_correct_words_formatted += ' ';
+        this.game_over_correct_words_formatted += ' ';
         // }
       }
 
@@ -554,7 +553,11 @@ export class AppComponent implements OnInit {
     this.correct_words.push(word);
     this.current_word = word;
     let points = this.calculateScore(word);
+    const placeholder = this.total_score;
+    const total_score_temp = this.total_score += points;
+    console.log('TOTAL SCORE: ' + total_score_temp);
     // this.total_score += points;
+
 
     // Check to see if submitted word has a higher score than the user's record
     let highest_word_updated = false;
@@ -566,19 +569,26 @@ export class AppComponent implements OnInit {
 
     // Check to see if total score is higher than the user's high score
     let high_score_updated = false;
-    if (this.total_score > this.user.high_score) {
-      this.user.high_score = this.total_score;
+    if (total_score_temp > this.user.high_score) {
+      this.user.high_score = total_score_temp;
       high_score_updated = true;
     }
 
     if (highest_word_updated || high_score_updated) {
-      this.firebaseSvc.updateUserData(this.user);
-      this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
+      // this.firebaseSvc.updateUserData(this.user);
+      // this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
+
+      console.log('HIGH SCORE/WORD ACHIEVED');
+      window.localStorage.setItem('updated_user_highs', JSON.stringify(this.user));
+      let updated_user = JSON.parse(window.localStorage.getItem('updated_user_highs'));
+      console.log(updated_user);
+      // this.user = updated_user;
     }
 
     this.reset(word, false, true);
 
     // ANIMATE SCORE GOING UP
+    this.total_score = placeholder;
     for (let i = 0; i < points; i++) {
       this.total_score++;
       await this.delay(70);
@@ -760,7 +770,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  youWin(open: boolean) { 
+  youWin(open: boolean) {
     if (open) {
       this.you_win_open = true;
       this.final_score = this.total_score;
@@ -782,14 +792,22 @@ export class AppComponent implements OnInit {
       score: this.final_score
     }
 
-    // TODO: If there is data in localStorage, assign it to update_user, and then clear it from localStorage
-
-    let update_user: UserData = this.user;
+    // If there is data in localStorage, assign it to update_user, and then clear it from localStorage
+    let update_user: UserData;
+    const updated_user_highs = JSON.parse(window.localStorage.getItem('updated_user_highs'));
+    if (updated_user_highs) {
+      console.log(updated_user_highs);
+      update_user = updated_user_highs;
+      window.localStorage.removeItem('updated_user_highs');
+    }
+    else {
+      update_user = this.user;
+    }    
 
     update_user.total_points_scored += this.final_score;
     update_user.games_played_num = update_user.games_played_num + 1;
     update_user.average_score_per_game = Number((Math.round((update_user.total_points_scored / update_user.games_played_num) * 100) / 100).toFixed(2));
-    
+
     await this.firebaseSvc.updateUserData(update_user);
 
     // Add User ID to the Game Data and send to Firebase
