@@ -553,11 +553,8 @@ export class AppComponent implements OnInit {
     this.correct_words.push(word);
     this.current_word = word;
     let points = this.calculateScore(word);
-    const placeholder = this.total_score;
+    const placeholder_score = this.total_score;
     const total_score_temp = this.total_score += points;
-    console.log('TOTAL SCORE: ' + total_score_temp);
-    // this.total_score += points;
-
 
     // Check to see if submitted word has a higher score than the user's record
     let highest_word_updated = false;
@@ -578,17 +575,14 @@ export class AppComponent implements OnInit {
       // this.firebaseSvc.updateUserData(this.user);
       // this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
 
-      console.log('HIGH SCORE/WORD ACHIEVED');
+      // If user beats their own record/scores a new highest scoring word, save it to LocalStorage and apply it to Firebase at the end of the game
       window.localStorage.setItem('updated_user_highs', JSON.stringify(this.user));
-      let updated_user = JSON.parse(window.localStorage.getItem('updated_user_highs'));
-      console.log(updated_user);
-      // this.user = updated_user;
     }
 
     this.reset(word, false, true);
 
     // ANIMATE SCORE GOING UP
-    this.total_score = placeholder;
+    this.total_score = placeholder_score;
     for (let i = 0; i < points; i++) {
       this.total_score++;
       await this.delay(70);
