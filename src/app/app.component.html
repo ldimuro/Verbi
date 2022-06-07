@@ -203,8 +203,8 @@
           <div style="text-align: left; font-size: 22px; padding: 10px; width: 90%;">
             <div class="modal_text" style="font-family: 'Co';"><b>Correct Words ({{game_over_correct_words.length}})</b>
             </div>
-              <div style="font-family:'Courier New', Courier, monospace;">
-                {{game_over_correct_words_formatted}}</div>
+            <div style="font-family:'Courier New', Courier, monospace;">
+              {{game_over_correct_words_formatted}}</div>
           </div>
         </div>
 
@@ -212,16 +212,21 @@
         <hr class="solid" style="width: 75%;">
         <br>
 
-        <div *ngIf="final_score !== undefined && todays_game_data"
-          style="text-align: center;font-size: 22px; padding: 10px;">
+        <div *ngIf="final_score !== undefined" style="text-align: center;font-size: 22px; padding: 10px;">
           <div class="modal_text" style="font-family: 'Co';"><b>Today's Average</b></div>
-          <div class="modal_text" style="font-size:25px"><b>{{todays_game_data?.average_score}}</b></div>
+          <div *ngIf="todays_game_data; else statsPlaceholder">
+            <div class="modal_text" style="font-size:25px"><b>{{todays_game_data?.average_score}}</b></div>
+          </div>
+          <ng-template #statsPlaceholder>
+            <div class="modal_text" style="font-size:25px"><b>&mdash;</b></div>
+          </ng-template>
         </div>
 
         <div
-          *ngIf="final_score !== undefined && percentile_data && todays_game_data.raw_scores?.length > 1; else elseBlock"
+          *ngIf="final_score !== undefined; else elseBlock"
           style="text-align: center;font-size: 22px; padding: 10px;">
-          <div>
+
+          <div *ngIf="percentile_data && todays_game_data?.raw_scores?.length > 1">
             <div *ngIf="!percentile_data.special_case?.message; else specialCase">
               You were better than<b> {{percentile_data.percentile}}%</b> of players today
             </div>
@@ -230,11 +235,18 @@
                 <b>{{percentile_data.special_case.message}}</b>
               </div>
             </ng-template>
+          </div>
 
+          <div *ngIf="todays_game_data; else statsPlaceholder">
             <div style="text-align: center;font-size: 22px; padding: 10px;">
               {{percentile_data.percentile_graphic}}
             </div>
           </div>
+          <ng-template #statsPlaceholder>
+            <div style="text-align: center;font-size: 22px; padding: 10px;">
+              -⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️-
+            </div>
+          </ng-template>
 
         </div>
         <ng-template #elseBlock style="text-align: center;font-size: 22px; padding: 10px;">

@@ -784,6 +784,8 @@ export class AppComponent implements OnInit {
   }
 
   async gameOver() {
+    this.todays_game_data = null;
+
     // Add game session to LocalStorage
     let now = new Date();
     let game_data: GameData = {
@@ -796,7 +798,6 @@ export class AppComponent implements OnInit {
     let update_user: UserData;
     const updated_user_highs = JSON.parse(window.localStorage.getItem('updated_user_highs'));
     if (updated_user_highs) {
-      console.log(updated_user_highs);
       update_user = updated_user_highs;
       window.localStorage.removeItem('updated_user_highs');
     }
