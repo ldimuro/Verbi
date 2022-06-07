@@ -118,10 +118,10 @@ export class AppService {
 
   getPercentile(scores: any, user_score: any) {
     // Remove user_score from raw_scores
-    const index = scores.indexOf(5);
-    if (index > -1) {
-      scores.splice(index, 1);
-    }
+    // const index = scores.indexOf(user_score);
+    // if (index > -1) {
+    //   scores.splice(index, 1);
+    // }
 
     return ((100 *
       scores.reduce(
@@ -147,10 +147,10 @@ export class AppService {
     percentile_data.mode = this.getMode(sorted_raw_scores);
 
     // Remove user_score from raw_scores
-    // const index = sorted_raw_scores.indexOf(final_score);
-    // if (index > -1) {
-    //   sorted_raw_scores.splice(index, 1);
-    // }
+    const index = sorted_raw_scores.indexOf(final_score);
+    if (index > -1) {
+      sorted_raw_scores.splice(index, 1);
+    }
 
     percentile_data.high_score = sorted_raw_scores[sorted_raw_scores.length - 1];
     percentile_data.low_score = sorted_raw_scores[0];
@@ -176,27 +176,33 @@ export class AppService {
       color_value = '🟩';
     }
 
-    // If high score === low score, that means the user is the first to play
-    // if (high_score === low_score || percentile === 100) {
-    //   rounded_value = 10;
-    //   color_value = '🟩';
-    // }
 
     if (low_score === final_score) {
       rounded_value = 1;
       color_value = '💀';
     }
-    else if (high_score === final_score) {
+    else if (final_score > high_score) {
       rounded_value = 10;
       color_value = '⭐️';
     }
+    else if (high_score === final_score) {
+      rounded_value = 10;
+    }
 
     for (let i = 1; i <= 10; i++) {
-      if (i === rounded_value/*i <= rounded_value - 1*/) {
+      if (color_value === '⭐️') {
+        graphic += color_value;
+      }
+      else if (rounded_value === 10) {
         graphic += color_value;
       }
       else {
-        graphic += '⬜️';
+        if (i === rounded_value) {
+          graphic += color_value;
+        }
+        else {
+          graphic += '⬜️';
+        }
       }
     }
     graphic += ' ' + high_score + '';
@@ -218,7 +224,7 @@ export class AppService {
       special_case.message = 'You are currently tied for the lowest score for today\'s word';
       special_case.color = 'red';
     }
-    else if (percentile === 100.00) {
+    else if (final_score > high_score) {
       special_case.message = 'You currently have the highest score for today\'s word!!';
       special_case.color = 'green';
     }
