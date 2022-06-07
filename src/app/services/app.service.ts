@@ -191,7 +191,7 @@ export class AppService {
       color_value = '⭐️';
     }
 
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i <= 10; i++) {
       if (i === rounded_value/*i <= rounded_value - 1*/) {
         graphic += color_value;
       }
@@ -215,7 +215,7 @@ export class AppService {
       special_case.color = 'red';
     }
     else if (final_score === low_score) {
-      special_case.message = 'You currently are tied for the lowest score for today\'s word';
+      special_case.message = 'You are currently tied for the lowest score for today\'s word';
       special_case.color = 'red';
     }
     else if (percentile === 100.00) {

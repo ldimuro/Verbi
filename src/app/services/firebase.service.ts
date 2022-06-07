@@ -178,7 +178,7 @@ export class FirebaseService {
     const new_games_num = previous_all_time_data.games_num + 1;
     const new_total_points_scored = previous_all_time_data.total_points_scored + yesterday_game_data.total_points_scored;
     const new_all_time_high_score = previous_all_time_data.all_time_high_score;
-    const new_average_score = Number((Math.round((previous_all_time_data.total_points_scored + yesterday_game_data.total_points_scored / new_games_num) * 100) / 100).toFixed(2));
+    const new_average_score = Number((Math.round(((previous_all_time_data.total_points_scored + yesterday_game_data.total_points_scored) / new_games_num) * 100) / 100).toFixed(2));
     const new_perfect_games_count = previous_all_time_data.perfect_game_count;
 
     this.postAllTimeData(new_games_num, new_average_score, new_total_points_scored, new_all_time_high_score, new_perfect_games_count);

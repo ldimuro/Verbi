@@ -249,6 +249,10 @@ textarea {
     filter: brightness(80%);
 }
 
+.social_media_icon {
+    padding: 5px;
+}
+
 .header {
     // position: fixed;
     // left: 0;
@@ -829,8 +833,8 @@ hr {
 }
 
 .resp-sharing-button__icon svg {
-    width: 1em;
-    height: 1em;
+    width: 40px;
+    height: 40px;
     margin-right: 0.4em;
     vertical-align: top;
 }
