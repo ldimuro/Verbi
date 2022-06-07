@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cell, GameData, Letter, PercentileData, TodaysGameData, UserData } from './app.model';
+import { AllTimeGameData, Cell, GameData, Letter, PercentileData, TodaysGameData, UserData } from './app.model';
 import { DatePipe } from '@angular/common';
 import { FirebaseService } from './services/firebase.service';
 import { AppService } from './services/app.service';
@@ -188,6 +188,9 @@ export class AppComponent implements OnInit {
   // Today's Game Data
   todays_game_data: TodaysGameData;
 
+  // All Time Game Data
+  all_time_data: AllTimeGameData;
+
   // PercentileData
   percentile_data: PercentileData = {
     high_score: 0,
@@ -203,8 +206,6 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     // Initialize Firebase
     await this.firebaseSvc.initializeApp();
-
-    // (document.getElementById('textarea') as HTMLInputElement).value = 'test\ttest2\ttest3\ttest4\tetst5\ttest6\ttest7';
 
     this.httpClient.get('/assets/word_list.txt', { responseType: 'text' })
       .subscribe(data => {
@@ -230,16 +231,21 @@ export class AppComponent implements OnInit {
     let now = new Date();
     let now_str = this.datepipe.transform(now, 'yyyy-MM-dd');
     this.todays_game_data = await this.firebaseSvc.getTodaysGameData(now_str);
+    this.all_time_data = await this.firebaseSvc.getAllTimeData();
 
-    // console.log(this.todays_game_data);
-
+    // Create new object in "daily_game_data" in Firebase
     if (!this.todays_game_data) {
-      // Create new object in "daily_game_data" in Firebase
       console.log('NEW DAY');
       await this.firebaseSvc.postNewDayGameData(now_str, this.chooseRandomWord());
       this.todays_game_data = await this.firebaseSvc.getTodaysGameData(now_str);
     }
 
+    // Create "All Time Data" if it doesn't already exist
+    // if (!this.all_time_data) {
+    //   await this.firebaseSvc.postAllTimeData(0, 0.0, 0, 0, 0);
+    //   this.all_time_data = await this.firebaseSvc.getAllTimeData();
+    //   console.log(this.all_time_data);
+    // }
 
 
     this.initialize();

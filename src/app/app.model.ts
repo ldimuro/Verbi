@@ -37,6 +37,14 @@ export class PercentileData {
     special_case?: any;
 }
 
+export class AllTimeGameData {
+    games_num: number;
+    average_score: number;
+    total_points_scored: number;
+    all_time_high_score: number;
+    perfect_game_count: number;
+}
+
 export class Letter {
     name: string;
     opacity: string;
