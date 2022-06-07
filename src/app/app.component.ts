@@ -439,6 +439,7 @@ export class AppComponent implements OnInit {
     this.letter_selected = false;
     this.show_keyboard = true;
     this.console_text_hidden = true;
+    this.current_word = new_word;
     // this.keyboard_opacity = this.keyboard_opacity;
 
     if (hard_reset) {
@@ -504,7 +505,17 @@ export class AppComponent implements OnInit {
   }
 
   chooseRandomWord() {
-    return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
+    let random_word;
+    let contains_doubles;
+
+    // Keep choosing a new word until its score is >= 13 points and doesn't contain duplicate letters
+    do {
+      random_word = this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
+      contains_doubles = (/([a-zA-Z]).*?\1/).test(random_word);
+    } while (this.calculateScore(random_word) > 13 || contains_doubles);
+
+    return random_word;
+    // return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
     // return 'TAKES';
     // return 'LCHFZ';
     // return 'WITCH';
@@ -652,7 +663,6 @@ export class AppComponent implements OnInit {
 
   navigateStatsModalTabs(next: boolean) {
     next ? this.stats_step_num++ : this.stats_step_num--;
-    console.log(this.stats_step_num);
   }
 
   async statsModal(open: boolean) {
