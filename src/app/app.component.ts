@@ -438,6 +438,7 @@ export class AppComponent implements OnInit {
 
     this.letter_selected = false;
     this.show_keyboard = true;
+    this.console_text_hidden = true;
     // this.keyboard_opacity = this.keyboard_opacity;
 
     if (hard_reset) {
