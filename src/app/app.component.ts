@@ -511,8 +511,8 @@ export class AppComponent implements OnInit {
     // Keep choosing a new word until its score is >= 13 points and doesn't contain duplicate letters
     do {
       random_word = this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
-      contains_doubles = (/([a-zA-Z]).*?\1/).test(random_word);
-    } while (this.calculateScore(random_word) > 13 || contains_doubles);
+      // contains_doubles = (/([a-zA-Z]).*?\1/).test(random_word);
+    } while (this.calculateScore(random_word) > 13/* || contains_doubles*/);
 
     return random_word;
     // return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];

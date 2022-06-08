@@ -205,7 +205,7 @@ export class AppService {
         }
       }
     }
-    graphic += ' ' + high_score + '';
+    graphic += ' ' + (final_score > high_score ? final_score : high_score) + '';
 
     return graphic;
   }

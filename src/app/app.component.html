@@ -147,7 +147,9 @@
           <div style="text-align: left; font-size: 22px; padding: 10px; width: 90%;">
             <div class="modal_text" style="font-family: 'Co';"><b>Correct Words ({{game_over_correct_words.length}})</b>
             </div>
-            <div style="font-family:'Courier New', Courier, monospace;">
+            <div style="font-family:'Courier New', Courier, monospace; margin-left: 10px;"
+              [style.margin-left]="game_over_correct_words.length < 4 ? '0px' : '10px'"
+              [style.text-align]="game_over_correct_words.length < 4 ? 'center' : 'left'">
               {{game_over_correct_words_formatted}}</div>
           </div>
         </div>
