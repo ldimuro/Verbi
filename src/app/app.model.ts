@@ -34,6 +34,7 @@ export class PercentileData {
     mode: any;
     percentile?: any;
     percentile_graphic?: any;
+    percentile_color?: string;
     special_case?: any;
 }
 

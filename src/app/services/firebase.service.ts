@@ -142,7 +142,7 @@ export class FirebaseService {
     });
     console.log('🚨GET TODAYS GAME DATA🚨');
 
-    if (todays_game_data !== null) {
+    if (todays_game_data) {
       if (todays_game_data.raw_scores) {
         let sorted_scores = todays_game_data.raw_scores.sort(((a, b) => {
           return a - b;

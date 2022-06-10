@@ -173,7 +173,8 @@
 
           <div *ngIf="percentile_data && todays_game_data?.raw_scores?.length > 1">
             <div *ngIf="!percentile_data.special_case?.message; else specialCase">
-              You were better than<b> {{percentile_data.percentile}}%</b> of players today
+              You were better than <b
+                [style.color]="percentile_data?.percentile_color">{{percentile_data.percentile}}%</b> of players today
             </div>
             <ng-template #specialCase>
               <div [style.color]="percentile_data.special_case?.color">
