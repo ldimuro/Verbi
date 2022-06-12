@@ -506,13 +506,22 @@ export class AppComponent implements OnInit {
 
   chooseRandomWord() {
     let random_word;
-    let contains_doubles;
+    let vowel_count;
 
-    // Keep choosing a new word until its score is >= 13 points and doesn't contain duplicate letters
+    // Keep choosing a new word until its score is <= 13 points and doesn't have more than 2 vowels
     do {
       random_word = this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
-      // contains_doubles = (/([a-zA-Z]).*?\1/).test(random_word);
-    } while (this.calculateScore(random_word) > 13/* || contains_doubles*/);
+
+      // If there are 3+ vowels in the word, re-pick random word
+      let vowels = ['A', 'E', 'I', 'O', 'U'];
+      vowel_count = 0;
+      for (let i = 0; i < random_word.length; i++) {
+        if (vowels.includes(random_word.charAt(i))) {
+          vowel_count++;
+        }
+      }
+
+    } while (this.calculateScore(random_word) > 13 || vowel_count >= 3);
 
     return random_word;
     // return this.initial_word_list[Math.floor(Math.random() * this.initial_word_list.length)];
