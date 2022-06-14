@@ -20,10 +20,18 @@
   <div *ngIf="!you_lose_open && !you_win_open" class="game">
     <div class="data">
       <div class="correct_words" style="display: flex; justify-content:space-between;">
+
+        <!-- 'WORDS' button -->
         <div style="padding-top:18px;"><button class="control" style="padding: 5px;"
             (click)="wordsModal(true)">WORDS</button></div>
         <div style="font-size: 40px; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b></div>
         <div style="font-size: 39px; font-family: 'Co'; margin-top: 15px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+
+        <!-- WHITE FLAG BUTTON -->
+        <!-- <div style="padding-top:18px;">
+          CREDIT:  <a href="https://www.flaticon.com/free-icons/white-flag" title="white-flag icons">White-flag icons created by Victoruler - Flaticon</a>
+          <img (click)="giveUp()" class="control"src="/assets/icons/white-flag.png" style="width:25px; height: 25px; padding: 5px;" alt="image">
+        </div> -->
       </div>
 
       <div class="used_letters">
@@ -132,9 +140,8 @@
     <div [hidden]="!you_lose_open" class="you_lose" id="you_lose">
       <div>
         <div style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px; font-family: 'Co'">
-          <b>"{{losing_word}}" is not a word...</b>
+          <b>{{losing_word}}</b>
         </div>
-        <!-- <div style="text-align: center;font-size: 18px;">"{{losing_word}}" is not a word</div> -->
 
         <br>
 
