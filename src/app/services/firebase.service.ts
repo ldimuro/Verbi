@@ -125,6 +125,18 @@ export class FirebaseService {
       raw_scores: todays_game_data.raw_scores
     });
     console.log('🚨UPDATE TODAYS GAME DATA🚨');
+
+
+    // Emit Updated TODAYS GAME DATA back to app.component
+    let updated_todays_game_data: TodaysGameData = {
+      today_word: todays_game_data.today_word,
+      games_played_num: todays_game_data.games_played_num,
+      total_points_scored: todays_game_data.total_points_scored,
+      average_score: todays_game_data.average_score,
+      raw_scores: todays_game_data.raw_scores
+    };
+
+    this.appSvc.updatedTodaysGameData.emit(updated_todays_game_data);
   }
 
   async getTodaysGameData(todays_date) {
@@ -148,7 +160,6 @@ export class FirebaseService {
         let sorted_scores = todays_game_data.raw_scores.sort(((a, b) => {
           return a - b;
         }));
-        // console.log(sorted_scores);
         todays_game_data.high_score = sorted_scores[todays_game_data.raw_scores.length - 1];
       }
       else {

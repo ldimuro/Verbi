@@ -4,6 +4,7 @@ import { AllTimeGameData, Cell, GameData, Letter, PercentileData, TodaysGameData
 import { DatePipe } from '@angular/common';
 import { FirebaseService } from './services/firebase.service';
 import { AppService } from './services/app.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -202,6 +203,8 @@ export class AppComponent implements OnInit {
     percentile_graphic: ''
   };
 
+  updatedTodaysGameDataObservable$: Subscription;
+
 
   async ngOnInit() {
     // Initialize Firebase
@@ -240,16 +243,25 @@ export class AppComponent implements OnInit {
       this.todays_game_data = await this.firebaseSvc.getTodaysGameData(now_str);
     }
 
-    // Create "All Time Data" if it doesn't already exist
-    // if (!this.all_time_data) {
-    //   await this.firebaseSvc.postAllTimeData(0, 0.0, 0, 0, 0);
-    //   this.all_time_data = await this.firebaseSvc.getAllTimeData();
-    //   console.log(this.all_time_data);
-    // }
+    // Update Today's Game Data subscription
+    if (this.appSvc.updatedTodaysGameData) {
+      this.updatedTodaysGameDataObservable$ = this.appSvc.updatedTodaysGameData.subscribe((data) => {
+        this.todays_game_data = data;
 
+        // Sort raw_scores to get the high score
+        if (this.todays_game_data.raw_scores) {
+          let sorted_scores = this.todays_game_data.raw_scores.sort(((a, b) => {
+            return a - b;
+          }));
+          this.todays_game_data.high_score = sorted_scores[this.todays_game_data.raw_scores.length - 1];
+        }
+        else {
+          this.todays_game_data.high_score = '-';
+        }
+      })
+    }
 
     this.initialize();
-
   }
 
   async initialize() {
@@ -876,7 +888,7 @@ export class AppComponent implements OnInit {
     await this.firebaseSvc.postAllTimeData(new_game_num, new_average_score, new_total_points_scored, new_all_time_high_score, new_perfect_games_count);
     this.all_time_data = await this.firebaseSvc.getAllTimeData();
 
-    this.todays_game_data = await this.firebaseSvc.getTodaysGameData(this.datepipe.transform(now, 'yyyy-MM-dd'));
+    // this.todays_game_data = await this.firebaseSvc.getTodaysGameData(this.datepipe.transform(now, 'yyyy-MM-dd'));
 
     // Calculate score percentile from all scores for today's word
     let sorted_raw_scores = [];

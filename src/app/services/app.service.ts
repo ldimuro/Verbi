@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { PercentileData } from '../app.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
+
+  public updatedTodaysGameData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
