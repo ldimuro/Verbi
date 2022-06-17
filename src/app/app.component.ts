@@ -825,9 +825,10 @@ export class AppComponent implements OnInit {
     // Add game session to LocalStorage
     let now = new Date();
     let game_data: GameData = {
-      timestamp: this.datepipe.transform(now, 'yyyy-MM-dd hh:mm:ss a z'),
+      timestamp: this.datepipe.transform(now, 'yyyy-MM-dd HH:mm:ss z'),
       correct_words: this.game_over_correct_words,
-      score: this.final_score
+      score: this.final_score,
+      starting_word: this.starting_word
     }
 
     // If there is data in localStorage, assign it to update_user, and then clear it from localStorage

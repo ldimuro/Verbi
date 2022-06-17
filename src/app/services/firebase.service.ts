@@ -92,14 +92,15 @@ export class FirebaseService {
   }
 
   async updateGameLog(game_data: GameData) {
-    let timestamp = this.datepipe.transform(game_data.timestamp, 'yyyy-MM-dd hh:mm:ss a z');
+    let timestamp = this.datepipe.transform(game_data.timestamp, 'yyyy-MM-dd HH:mm:ss z');
 
     // Add Game Data to Game Log
     let randomID = this.appSvc.generateRandomID();
-    set(ref(this.database, `/games_played/${game_data.id}/${timestamp}_GAME${randomID}`), {
+    set(ref(this.database, `/games_played/${game_data.id}/${timestamp} GAME${randomID}`), {
       timestamp: game_data.timestamp,
       score: game_data.score,
-      correct_words: game_data.correct_words
+      correct_words: game_data.correct_words,
+      starting_word: game_data.starting_word
     });
     console.log('🚨UPDATE GAME LOG🚨');
 
