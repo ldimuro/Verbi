@@ -205,8 +205,15 @@ export class AppComponent implements OnInit {
 
   updatedTodaysGameDataObservable$: Subscription;
 
+  isMobile;
+
 
   async ngOnInit() {
+
+    // Check to see if device is mobile
+    this.isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+    console.log('isMobile: ' + this.isMobile);
+
     // Initialize Firebase
     await this.firebaseSvc.initializeApp();
 
@@ -852,7 +859,7 @@ export class AppComponent implements OnInit {
     }
     else {
       update_user = this.user;
-    }    
+    }
 
     update_user.total_points_scored += this.final_score;
     update_user.games_played_num = update_user.games_played_num + 1;
