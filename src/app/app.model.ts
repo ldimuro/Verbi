@@ -14,6 +14,7 @@ export class GameData {
     timestamp: string;
     correct_words: string[];
     score: number;
+    starting_word: string;
     id?: string;
 }
 

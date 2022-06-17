@@ -166,22 +166,6 @@ export class FirebaseService {
       average_score: 0
     });
     console.log('🚨POST NEW DAY GAME DATA🚨');
-
-    // Get yesterday's Daily Data and use it to update All Time Game Data
-    let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    let yesterday_str = this.datepipe.transform(yesterday, 'yyyy-MM-dd');
-
-    let previous_all_time_data: AllTimeGameData = await this.getAllTimeData();
-    let yesterday_game_data: TodaysGameData = await this.getTodaysGameData(yesterday_str);
-
-    const new_games_num = previous_all_time_data.games_num + 1;
-    const new_total_points_scored = previous_all_time_data.total_points_scored + yesterday_game_data.total_points_scored;
-    const new_all_time_high_score = previous_all_time_data.all_time_high_score;
-    const new_average_score = Number((Math.round(((previous_all_time_data.total_points_scored + yesterday_game_data.total_points_scored) / new_games_num) * 100) / 100).toFixed(2));
-    const new_perfect_games_count = previous_all_time_data.perfect_game_count;
-
-    this.postAllTimeData(new_games_num, new_average_score, new_total_points_scored, new_all_time_high_score, new_perfect_games_count);
   }
 
   async getAllTimeData() {
@@ -207,7 +191,7 @@ export class FirebaseService {
     set(ref(this.database, `/all_time_data/`), {
       games_num: games_num,
       average_score: average_score,
-      total_points_score: total_points_scored,
+      total_points_scored: total_points_scored,
       all_time_high_score: all_time_high_score,
       perfect_game_count: perfect_game_count
     });

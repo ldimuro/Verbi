@@ -613,7 +613,7 @@ export class AppComponent implements OnInit {
     // If user enters the 26th letter, show You Win screen
     let letters_remaining = 26 - this.used_letters.length;
     if (letters_remaining === 0) {
-      this.youWin(true);
+      this.youWin(true, true);
     }
   }
 
@@ -806,11 +806,11 @@ export class AppComponent implements OnInit {
     }
   }
 
-  youWin(open: boolean) {
+  youWin(open: boolean, perfect_game?: boolean) {
     if (open) {
       this.you_win_open = true;
       this.final_score = this.total_score;
-      this.gameOver();
+      this.gameOver(true);
     }
     else {
       this.you_win_open = true;
@@ -819,7 +819,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async gameOver() {
+  async gameOver(perfect_game?: boolean) {
     this.todays_game_data = null;
 
     // Add game session to LocalStorage
@@ -850,6 +850,30 @@ export class AppComponent implements OnInit {
     // Add User ID to the Game Data and send to Firebase
     game_data.id = this.userID_LocalStorage;
     await this.firebaseSvc.updateGameLog(game_data);
+
+    // Add game session data to All Time Game Data
+    const new_game_num = this.all_time_data.games_num + 1;
+    const new_total_points_scored = this.all_time_data.total_points_scored + game_data.score;
+    const new_average_score = Number((Math.round(((new_total_points_scored) / new_game_num) * 100) / 100).toFixed(2));
+
+    let new_perfect_games_count;
+    if (perfect_game) {
+      new_perfect_games_count = this.all_time_data.perfect_game_count + 1;
+    }
+    else {
+      new_perfect_games_count = this.all_time_data.perfect_game_count;
+    }
+
+    let new_all_time_high_score;
+    if (game_data.score > this.all_time_data.all_time_high_score) {
+      new_all_time_high_score = game_data.score;
+    }
+    else {
+      new_all_time_high_score = this.all_time_data.all_time_high_score;
+    }
+
+    await this.firebaseSvc.postAllTimeData(new_game_num, new_average_score, new_total_points_scored, new_all_time_high_score, new_perfect_games_count);
+    this.all_time_data = await this.firebaseSvc.getAllTimeData();
 
     this.todays_game_data = await this.firebaseSvc.getTodaysGameData(this.datepipe.transform(now, 'yyyy-MM-dd'));
 
