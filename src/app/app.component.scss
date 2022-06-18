@@ -426,18 +426,18 @@ hr {
 }
 
 .bounce {
-    animation: bounce 1s ease infinite;
-    -o-animation: bounce 1s ease infinite;
-    -moz-animation: bounce 1s ease infinite;
-    -webkit-animation: bounce 1s ease infinite;
+    animation: bounce 1s ease 1;
+    -o-animation: bounce 1s ease 1;
+    -moz-animation: bounce 1s ease 1;
+    -webkit-animation: bounce 1s ease 1;
 }
 
 .point_animation {
     opacity: 1;
-    animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
-    -o-animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
-    -moz-animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
-    -webkit-animation: fadein 0.25s linear forwards, rise 7s ease infinite, fadeout 2.5s linear forwards;
+    animation: fadein 0.25s linear forwards, rise 7s ease 1, fadeout 2.5s linear forwards;
+    -o-animation: fadein 0.25s linear forwards, rise 7s ease 1, fadeout 2.5s linear forwards;
+    -moz-animation: fadein 0.25s linear forwards, rise 7s ease 1, fadeout 2.5s linear forwards;
+    -webkit-animation: fadein 0.25s linear forwards, rise 7s ease 1, fadeout 2.5s linear forwards;
 }
 
 .console_animation_in {

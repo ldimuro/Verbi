@@ -26,13 +26,13 @@
         <div style="padding-top:18px;"><button class="control" style="padding: 5px;"
             (click)="wordsModal(true)">WORDS</button></div>
         <div style="font-size: 40px; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b></div>
-        <div style="font-size: 39px; font-family: 'Co'; margin-top: 15px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+        <!-- <div style="font-size: 39px; font-family: 'Co'; margin-top: 15px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div> -->
 
         <!-- WHITE FLAG BUTTON -->
-        <!-- <div style="padding-top:18px;">
-          CREDIT:  <a href="https://www.flaticon.com/free-icons/white-flag" title="white-flag icons">White-flag icons created by Victoruler - Flaticon</a>
+        <div style="padding-top:18px;">
+          <!-- CREDIT:  <a href="https://www.flaticon.com/free-icons/white-flag" title="white-flag icons">White-flag icons created by Victoruler - Flaticon</a> -->
           <img (click)="giveUp()" class="control"src="/assets/icons/white-flag.png" style="width:25px; height: 25px; padding: 5px;" alt="image">
-        </div> -->
+        </div>
       </div>
 
       <div class="used_letters" style="position:fixed">
@@ -224,7 +224,7 @@
         <div style="display: flex; justify-content:center;">
           <button (click)="youLose(false)" style="font-size: 20px; border-width: 2px;" class="control">PLAY
             AGAIN</button>
-          <button style="font-size: 20px; border-width: 2px;" class="control">SHARE</button>
+          <button (click)="shareScore()" style="font-size: 20px; border-width: 2px;" class="control">SHARE</button>
         </div>
       </div>
     </div>
@@ -295,9 +295,8 @@
 
       <br>
 
-      <div class="modal_text" style="font-family: 'Co';"><b>Highest Scoring Word</b></div>
-      <div class="modal_text" style="font-size:25px;"><b>"{{user?.highest_scoring_word.word}}" -
-          {{user.highest_scoring_word.score}} points</b></div>
+      <div class="modal_text" style="font-family: 'Co';"><b>Average Score per Game</b></div>
+      <div class="modal_text" style="font-size:25px"><b>{{user?.average_score_per_game}} points</b></div>
 
       <br>
 
@@ -306,8 +305,9 @@
 
       <br>
 
-      <div class="modal_text" style="font-family: 'Co';"><b>Average Score per Game</b></div>
-      <div class="modal_text" style="font-size:25px"><b>{{user?.average_score_per_game}} points</b></div>
+      <div class="modal_text" style="font-family: 'Co';"><b>Highest Scoring Word</b></div>
+      <div class="modal_text" style="font-size:25px;"><b>"{{user?.highest_scoring_word.word}}" -
+          {{user.highest_scoring_word.score}} points</b></div>
     </div>
   </div>
   <!-- Global stats -->

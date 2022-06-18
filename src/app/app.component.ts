@@ -773,20 +773,24 @@ export class AppComponent implements OnInit {
     }
   }
 
-  // giveUp() {
-  //   let giveUp = confirm('Are you sure you want to give up?');
-  //   if (giveUp) {
-  //     this.game_over_correct_words = this.correct_words;
-  //     for (let i in this.game_over_correct_words) {
-  //       this.game_over_correct_words_formatted += this.game_over_correct_words[i];
-  //       this.game_over_correct_words_formatted += ' ';
-  //     }
+  giveUp() {
+    let giveUp = confirm('Are you sure you want to give up?');
+    if (giveUp) {
+      this.game_over_correct_words = this.correct_words;
+      for (let i in this.game_over_correct_words) {
+        this.game_over_correct_words_formatted += this.game_over_correct_words[i];
+        this.game_over_correct_words_formatted += ' ';
+      }
 
-  //     this.keyboard_enabled = false;
+      this.keyboard_enabled = false;
 
-  //     this.youLose(true, null);
-  //   }
-  // }
+      this.youLose(true, null);
+    }
+  }
+
+  shareScore() {
+    this.appSvc.copyTextToClipboard('test');
+  }
 
   youLose(open: boolean, losing_word?: any) {
     if (open) {
