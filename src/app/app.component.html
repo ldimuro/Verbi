@@ -17,8 +17,9 @@
   <br>
   <br>
 
-  <div *ngIf="!you_lose_open && !you_win_open" class="game" style="background-color: lightpink; height:95vh"
-    [style.width]="isMobile ? '100%' : '60%'" [style.margin]="isMobile ? '0' : '0 auto'">
+  <div *ngIf="!you_lose_open && !you_win_open" class="game" style="position:relative;height: 95vh;"
+    [style.width]="isMobile ? '100%' : '60%'"
+    [style.margin]="isMobile ? '0' : '0 auto'">
     <div class="data">
       <div class="correct_words" style="display: flex; justify-content:space-between;">
 
@@ -47,10 +48,13 @@
 
       <br />
 
-      <div class="score" style="text-align: center;"><b>{{total_score}}</b></div>
-
-      <div *ngIf="user?.high_score !== undefined" class="high_score" style="text-align: center;">BEST:
-        <b>{{user?.high_score}}</b>
+      <div>
+        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 25vh;">
+          <div class="score" style="text-align: center;"><b>{{total_score}}</b></div>
+          <div *ngIf="user?.high_score !== undefined" class="high_score" style="text-align: center;">BEST:
+            <b>{{user?.high_score}}</b>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -71,23 +75,24 @@
     </div>
 
     <!-- REMOVE -->
+    <!-- <br>
     <br>
-    <br>
-    <br>
-    <span style="display: flex; justify-content: center; margin-top:20px;" id="console"
+    <br> -->
+    <span style="display: flex; justify-content: center;background-color: lightblue;" id="console"
       [style.visibility]="console_text_hidden ? 'hidden' : 'visible'">{{console_text}}</span>
-    <br>
-    <br>
+    <!-- <br>
+    <br> -->
     <!-- END REMOVE -->
 
 
     <!-- KEYBOARD -->
     <div *ngIf="show_keyboard" id="keyboard" style="margin-left: 8px;" [style.opacity]="keyboard_opacity"
+      style="position: absolute; bottom: 0;width: 100%;margin: 0 auto;"
       [style.pointer-events]="((keyboard_opacity === '1.0' && keyboard_enabled) ? 'auto' : 'none')" class="keyboard">
 
       <div style="display: flex; justify-content: center;">
         <div *ngFor="let key of keyboard_top;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '7vw'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
             [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
@@ -96,7 +101,7 @@
 
       <div style="display: flex; justify-content: center; margin-top: 8px;">
         <div *ngFor="let key of keyboard_middle;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '7vw'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
             [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
@@ -105,7 +110,7 @@
 
       <div style="display: flex; justify-content: center; margin-top: 8px;">
         <div *ngFor="let key of keyboard_bottom;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '7vw'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
             [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
@@ -114,14 +119,13 @@
     </div>
 
     <!-- USER LETTERS -->
-    <div *ngIf="letter_selected">
-      <div style="display: flex; justify-content: center; margin-top: 30px;">
+    <div *ngIf="letter_selected" style="position: absolute; bottom: 0;width: 100%;margin: 0 auto; margin-bottom: 30px;">
+      <div style="display: flex; justify-content: center;">
         <div *ngFor="let letter of user_letters; let i = index" class="letters">
           <button class="user_letters" [disabled]="!letter.enabled" [style.background-color]="letter.color"
             [style.color]="letter.font_color" [style.opacity]="letter.enabled ? '1.0' : '0.25'"
             [style.height]="isMobile ? '20vw' : '10vw'" [style.width]="isMobile ? '20vw' : '10vw'"
-            [style.font-size]="isMobile ? '10vw' : '5vw'"
-            (click)="userLetterClicked(i)">{{letter.value}}</button>
+            [style.font-size]="isMobile ? '10vw' : '5vw'" (click)="userLetterClicked(i)">{{letter.value}}</button>
         </div>
       </div>
 

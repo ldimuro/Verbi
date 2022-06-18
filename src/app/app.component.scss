@@ -25,7 +25,7 @@
 
 .score {
     font-size: 65px;
-    margin-top: 50px;
+    // margin-top: 50px;
 }
 
 textarea {
@@ -46,7 +46,7 @@ textarea {
     background-color: white;
     height: 80px; // 150px for desktop, 100px for mobile
     width: 80px; //150px for desktop, 100px for mobile
-    margin-top: 60px; // for mobile
+    // margin-top: 60px; // for mobile
     cursor: pointer;
     // margin-right: 7px;
     font-size: 50px;
@@ -132,10 +132,14 @@ textarea {
 }
 
 .container {
-    margin-top: 50px;
+    // margin-top: 50px;
     height: fit-content;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 25vh;
+    // display: flex;
+    // justify-content: center;
 }
 
 .used_letter_row {
@@ -210,7 +214,7 @@ textarea {
     // font-family: 'Co';
 }
 
-.center { 
+.center {
     position: absolute;
     top: 50%;
     left: 50%;
