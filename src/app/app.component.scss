@@ -46,6 +46,10 @@ textarea {
     background-color: white;
     height: 80px; // 150px for desktop, 100px for mobile
     width: 80px; //150px for desktop, 100px for mobile
+    max-width: 110px;
+    max-height: 110px;
+    position:relative;
+    
     // margin-top: 60px; // for mobile
     cursor: pointer;
     // margin-right: 7px;
@@ -76,6 +80,8 @@ textarea {
     background-color: rgb(160, 160, 160);
     height: 80px;
     width: 80px;
+    max-width: 110px;
+    max-height: 110px;
     cursor: pointer;
     // font-size: 50px;
     color: rgb(92, 92, 92);
@@ -89,6 +95,8 @@ textarea {
     background-color: rgb(224, 224, 224);
     height: 80px; // 80px for desktop
     width: 8vw; //60px for desktop, 33px for mobile
+    max-width: 50px;
+    max-height: 70px;
     margin-right: 8px;
     font-size: 20px;
 }
@@ -137,7 +145,7 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25vh;
+    height: 20vh;
     // display: flex;
     // justify-content: center;
 }
@@ -247,9 +255,10 @@ textarea {
     font-size: 34px;
     // margin-bottom: 50px;
     opacity: 0;
-    position: fixed;
-    margin-left: 32px; // 66px for desktop
+    // position: fixed;
+    // margin-left: 32px; // 66px for desktop
     // margin-top: -92px;
+    margin-bottom: 10px;
     filter: brightness(80%);
 }
 

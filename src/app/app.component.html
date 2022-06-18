@@ -18,8 +18,7 @@
   <br>
 
   <div *ngIf="!you_lose_open && !you_win_open" class="game" style="position:relative;height: 95vh;"
-    [style.width]="isMobile ? '100%' : '60%'"
-    [style.margin]="isMobile ? '0' : '0 auto'">
+    [style.width]="isMobile ? '100%' : '50%'" [style.margin]="isMobile ? '0' : '0 auto'">
     <div class="data">
       <div class="correct_words" style="display: flex; justify-content:space-between;">
 
@@ -36,11 +35,11 @@
         </div> -->
       </div>
 
-      <div class="used_letters">
+      <div class="used_letters" style="position:fixed">
         <div class="used_letter_row">
           <div *ngFor="let letter of used_letters;">
             <div class="used_letter_icon" [style.background-color]="letter.point_color"
-              [style.color]="letter.font_color">
+              [style.color]="letter.font_color" style="margin-bottom: 5px;">
               {{letter.name}}</div>
           </div>
         </div>
@@ -49,7 +48,8 @@
       <br />
 
       <div>
-        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 25vh;">
+        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 20vh;"
+          [style.height]="isMobile ? '25vh' : '20vh'">
           <div class="score" style="text-align: center;"><b>{{total_score}}</b></div>
           <div *ngIf="user?.high_score !== undefined" class="high_score" style="text-align: center;">BEST:
             <b>{{user?.high_score}}</b>
@@ -68,7 +68,7 @@
         </div>
         <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
           [style.height]="isMobile ? '20vw' : '10vw'" [style.width]="isMobile ? '20vw' : '10vw'"
-          [style.font-size]="isMobile ? '10vw' : '5vw'" [style.cursor]="letter_selected ? 'auto' : 'cursor'"
+          [style.font-size]="isMobile ? '12vw' : '5vw'" [style.cursor]="letter_selected ? 'auto' : 'cursor'"
           [style.background-color]="cell.color" [style.color]="cell.font_color"
           [style.border-color]="cell.selected ? '#2b2827' : 'white'" (click)="cellClicked(i)">{{cell.value}}</button>
       </div>
@@ -92,7 +92,7 @@
 
       <div style="display: flex; justify-content: center;">
         <div *ngFor="let key of keyboard_top;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '7vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '5vw'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
             [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
@@ -101,7 +101,7 @@
 
       <div style="display: flex; justify-content: center; margin-top: 8px;">
         <div *ngFor="let key of keyboard_middle;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '7vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '5vw'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
             [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
@@ -110,7 +110,7 @@
 
       <div style="display: flex; justify-content: center; margin-top: 8px;">
         <div *ngFor="let key of keyboard_bottom;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '7vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '5vw'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
             [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
@@ -125,7 +125,7 @@
           <button class="user_letters" [disabled]="!letter.enabled" [style.background-color]="letter.color"
             [style.color]="letter.font_color" [style.opacity]="letter.enabled ? '1.0' : '0.25'"
             [style.height]="isMobile ? '20vw' : '10vw'" [style.width]="isMobile ? '20vw' : '10vw'"
-            [style.font-size]="isMobile ? '10vw' : '5vw'" (click)="userLetterClicked(i)">{{letter.value}}</button>
+            [style.font-size]="isMobile ? '12vw' : '5vw'" (click)="userLetterClicked(i)">{{letter.value}}</button>
         </div>
       </div>
 
