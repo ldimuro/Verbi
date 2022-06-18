@@ -25,8 +25,8 @@
         <!-- 'WORDS' button -->
         <div style="padding-top:18px;"><button class="control" style="padding: 5px;"
             (click)="wordsModal(true)">WORDS</button></div>
-        <div style="font-size: 40px; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b></div>
-        <!-- <div style="font-size: 39px; font-family: 'Co'; margin-top: 15px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div> -->
+        <!-- <div style="font-size: 40px; font-family: 'Co'; margin-top: 15px;"><b>{{starting_word}}</b></div> -->
+        <div style="font-size: 39px; font-family: 'Co'; margin-top: 15px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
 
         <!-- WHITE FLAG BUTTON -->
         <div style="padding-top:18px;">
@@ -68,7 +68,7 @@
         </div>
         <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
           [style.height]="isMobile ? '20vw' : '10vw'" [style.width]="isMobile ? '20vw' : '10vw'"
-          [style.font-size]="isMobile ? '12vw' : '5vw'" [style.cursor]="letter_selected ? 'auto' : 'cursor'"
+          [style.font-size]="isMobile ? '12vw' : '4.3vw'" [style.cursor]="letter_selected ? 'auto' : 'cursor'"
           [style.background-color]="cell.color" [style.color]="cell.font_color"
           [style.border-color]="cell.selected ? '#2b2827' : 'white'" (click)="cellClicked(i)">{{cell.value}}</button>
       </div>
@@ -86,8 +86,8 @@
 
 
     <!-- KEYBOARD -->
-    <div *ngIf="show_keyboard" id="keyboard" style="margin-left: 8px;" [style.opacity]="keyboard_opacity"
-      style="position: absolute; bottom: 0;width: 100%;margin: 0 auto;"
+    <div *ngIf="show_keyboard" id="keyboard" [style.opacity]="keyboard_opacity"
+      style="margin-left: 8px; position: absolute; bottom: 0; width: 100%; margin: 0 auto; margin-bottom: 3px;"
       [style.pointer-events]="((keyboard_opacity === '1.0' && keyboard_enabled) ? 'auto' : 'none')" class="keyboard">
 
       <div style="display: flex; justify-content: center;">

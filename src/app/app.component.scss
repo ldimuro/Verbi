@@ -10,7 +10,9 @@
     /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
     max-width: 101%;
     max-height: 101%;
-    overflow: auto;
+
+    // overflow: auto;
+    overflow: none;
 }
 
 .correct_words,
