@@ -70,12 +70,6 @@ export class AppComponent implements OnInit {
     { value: "", color: this.user_letter_color, enabled: true, font_color: this.black }
   ];
 
-  user_letter_controls = [
-    { display: 'GO BACK', id: 'GO-BACK', color: '#ffffff' },
-    { display: 'ENTER', id: 'ENTER', color: '#ffffff' },
-    { display: 'DELETE', id: 'BACKSPACE', color: '#ffffff' },
-  ];
-
   // MULT-COLOR
   // point1_color = '#e6e0cf';
   // point2_color = '#f0d47f';

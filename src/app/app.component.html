@@ -126,22 +126,22 @@
           <button class="user_letters" [disabled]="!letter.enabled" [style.background-color]="letter.color"
             [style.color]="letter.font_color" [style.opacity]="letter.enabled ? '1.0' : '0.25'"
             [style.height]="isMobile ? '20vw' : '10vw'" [style.width]="isMobile ? '20vw' : '10vw'"
-            [style.font-size]="isMobile ? '12vw' : '5vw'" (click)="userLetterClicked(i)">{{letter.value}}</button>
+            [style.font-size]="isMobile ? '12vw' : '4.3vw'" (click)="userLetterClicked(i)">{{letter.value}}</button>
         </div>
       </div>
 
-      <div style="display: flex; justify-content: center; margin-top: 20px;">
-        <div *ngFor="let control of user_letter_controls">
-          <button *ngIf="control.id === 'ENTER'" class="control" [disabled]="cells[4].value === ''"
-            (click)="controlClicked(control.id)">{{control.display}}</button>
-          <button *ngIf="control.id === 'BACKSPACE'" class="control" [disabled]="cells[0].value === ''"
-            (click)="controlClicked(control.id)">
-            {{control.display}}
-          </button>
-          <button *ngIf="control.id === 'GO-BACK'" class="control" (click)="controlClicked(control.id)">
-            {{control.display}}
-          </button>
-        </div>
+      <div style="margin-top: 20px;">
+        <button class="control" (click)="controlClicked('GO-BACK')"
+          style="float:left;">GO BACK</button>
+
+        <button class="control" [disabled]="cells[4].value === ''"  (click)="controlClicked('ENTER')"
+          style="float:right;">
+          ENTER</button>
+
+        <button class="control" [disabled]="cells[0].value === ''" (click)="controlClicked('BACKSPACE')"
+          style="float:right;">
+          DELETE
+        </button>
       </div>
     </div>
 
