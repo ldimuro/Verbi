@@ -167,6 +167,9 @@ export class AppComponent implements OnInit {
   console_text = 'placeholder';
   console_text_hidden = true;
 
+  copied_to_clipboard = 'Copied results to clipboard';
+  copied_to_clipboard_hidden = true;
+
   show_keyboard = true;
   letter_selected = false;
   selected_cell;
@@ -788,8 +791,32 @@ export class AppComponent implements OnInit {
     }
   }
 
-  shareScore() {
-    this.appSvc.copyTextToClipboard('test');
+  async shareScore() {
+    let copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}`;
+    let newVariable: any;
+    newVariable = window.navigator;
+
+    if (newVariable && newVariable.share) {
+      newVariable.navigator.share({ // Brings up mobile share modal
+        title: 'Take5',
+        text: copyText
+      }).then(() => {
+        console.log(copyText);
+      })
+      .catch(console.error);
+    } else { // Copies to clipboard
+      this.appSvc.copyTextToClipboard(copyText);
+
+      this.copied_to_clipboard_hidden = false;
+
+      document.getElementById(`copied_to_clipboard`).classList.add('console_animation_in');
+      document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_out');
+
+      await this.delay(2000);
+
+      document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_in');
+      document.getElementById(`copied_to_clipboard`).classList.add('console_animation_out');
+    }
   }
 
   youLose(open: boolean, losing_word?: any) {

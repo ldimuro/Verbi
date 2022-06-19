@@ -31,7 +31,8 @@
         <!-- WHITE FLAG BUTTON -->
         <div style="padding-top:18px;">
           <!-- CREDIT:  <a href="https://www.flaticon.com/free-icons/white-flag" title="white-flag icons">White-flag icons created by Victoruler - Flaticon</a> -->
-          <img (click)="giveUp()" class="control"src="/assets/icons/white-flag.png" style="width:25px; height: 25px; padding: 5px;" alt="image">
+          <img (click)="giveUp()" class="control" src="/assets/icons/white-flag.png"
+            style="width:25px; height: 25px; padding: 5px;" alt="image">
         </div>
       </div>
 
@@ -78,7 +79,7 @@
     <!-- <br>
     <br>
     <br> -->
-    <span style="display: flex; justify-content: center;background-color: lightblue;" id="console"
+    <span class="alert_text" style="display: flex; justify-content: center;" id="console"
       [style.visibility]="console_text_hidden ? 'hidden' : 'visible'">{{console_text}}</span>
     <!-- <br>
     <br> -->
@@ -226,6 +227,9 @@
             AGAIN</button>
           <button (click)="shareScore()" style="font-size: 20px; border-width: 2px;" class="control">SHARE</button>
         </div>
+
+        <span class="alert_text" style="display: flex; justify-content: center;" id="copied_to_clipboard"
+          [style.visibility]="copied_to_clipboard_hidden ? 'hidden' : 'visible'">{{copied_to_clipboard}}</span>
       </div>
     </div>
   </div>
