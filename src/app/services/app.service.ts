@@ -173,7 +173,7 @@ export class AppService {
       color = 'red';
     }
     else if (rounded_value > 2 && rounded_value <= 6) {
-      color = 'f38d00'; // orange
+      color = '#f38d00'; // orange
     }
     else {
       color = '#0c8a1d'; // green
@@ -239,11 +239,11 @@ export class AppService {
 
     if (percentile === 0.00) {
       special_case.message = 'You currently have the lowest score for today\'s word';
-      special_case.color = 'red';
+      special_case.color = '#c61100';
     }
     else if (final_score === low_score) {
       special_case.message = 'You are currently tied for the lowest score for today\'s word';
-      special_case.color = 'red';
+      special_case.color = '#c61100';
     }
     else if (final_score > high_score) {
       special_case.message = 'You currently have the highest score for today\'s word!!';

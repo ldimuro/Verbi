@@ -224,6 +224,10 @@ textarea {
     // font-family: 'Co';
 }
 
+.modal_header {
+    color: #c61100;
+}
+
 .center {
     position: absolute;
     top: 50%;
@@ -400,10 +404,37 @@ a:hover {
     filter: none;
 }
 
+// hr {
+//     // background-color: #ccc;
+//     color: #ccc;
+//     border: 0.5px solid black;
+// }
+
+// hr {
+//     border: 0;
+//     height: 1px;
+//     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+// }
+
+/* Glyph, by Harry Roberts */
+
 hr {
-    background-color: #ccc;
-    color: #ccc;
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
 }
+hr:after {
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
+
 
 .blur-background_in {
     filter: blur(30px);

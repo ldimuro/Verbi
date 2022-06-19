@@ -156,8 +156,6 @@ export class AppComponent implements OnInit {
   game_over_correct_words = [];
   game_over_correct_words_formatted = '';
 
-  test_words = ['APPLE', 'TESTS', 'WOVEN', 'MAVES', 'STAVE', 'STOVE', 'STEEP', 'STEER'];
-
   console_text = 'placeholder';
   console_text_hidden = true;
 
@@ -208,7 +206,7 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
 
     // Check to see if device is mobile
-    this.isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+    this.isMobile = window.matchMedia("only screen and (max-width: 920px)").matches;
     console.log('isMobile: ' + this.isMobile);
 
     // Initialize Firebase
@@ -455,6 +453,7 @@ export class AppComponent implements OnInit {
     this.letter_selected = false;
     this.show_keyboard = true;
     this.console_text_hidden = true;
+    this.copied_to_clipboard_hidden = true;
     this.current_word = new_word;
     // this.keyboard_opacity = this.keyboard_opacity;
 
