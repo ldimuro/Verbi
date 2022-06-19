@@ -20,14 +20,18 @@
 .score,
 .high_score,
 .highest_scoring_word {
-    font-family: "Roboto", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
     color: #4d4749;
 }
 
 .score {
     font-size: 65px;
+    font-family: 'Inconsolata-Bold', 'Courier New', Courier, monospace;
     // margin-top: 50px;
+}
+
+.high_score {
+    font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;
 }
 
 textarea {
@@ -57,17 +61,30 @@ textarea {
     // margin-right: 7px;
     font-size: 50px;
     color: white;
+
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-family: "Co";
+    // font-family: "Co";
+    font-family: 'Domine-Regular', sans-serif;
 }
 
 .butt:hover:enabled,
 .user_letters:hover:enabled,
 .butt-sm:hover:enabled,
 .control:hover:enabled,
-.words_button:hover:enabled {
-    filter: brightness(90%);
+.words_button:hover:enabled{
     cursor: pointer;
+    filter: brightness(90%);
+    -webkit-filter: brightness(90%);
+    -o-filter: brightness(90%);
+    -moz-filter: brightness(90%);
+}
+
+a:hover {
+    cursor: pointer;
+    filter: brightness(90%);
+    -webkit-filter: brightness(90%);
+    -o-filter: brightness(90%);
+    -moz-filter: brightness(90%);
 }
 
 .user_letters {
@@ -115,7 +132,8 @@ textarea {
     margin-right: 8px;
     font-size: 20px;
     cursor: pointer;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;
 }
 
 .control:disabled {
@@ -185,7 +203,7 @@ textarea {
 
 .tutorial_modal {
     position: fixed;
-    height: 550px;
+    height: 570px;
     width: 390px;
     top: 50%;
     left: 50%;
@@ -220,12 +238,25 @@ textarea {
 .modal_text {
     display: flex;
     justify-content: center;
-    font-size: 20px;
-    // font-family: 'Co';
+    font-size: 24px;
+    color: #333;
+    font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;
 }
 
 .modal_header {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
     color: #c61100;
+    font-family: 'Domine-Bold', sans-serif;
+}
+
+.modal_header_sm {
+    font-size: 17px;
+}
+
+.modal_title {
+    font-family: 'Domine-Bold', sans-serif;
 }
 
 .center {
@@ -241,8 +272,8 @@ textarea {
     // position: fixed;
     // display: flex;
     // justify-content: center;
-    height: 450px;
-    width: 360px;
+    height: 100vh;
+    // width: 360px;
     // top: 50%;
     // left: 50%;
     background-color: white;
@@ -266,6 +297,7 @@ textarea {
     // margin-top: -92px;
     margin-bottom: 10px;
     filter: brightness(80%);
+    font-family:'Inconsolata-Bold', 'Courier New', Courier, monospace;
 }
 
 .social_media_icon {
@@ -276,6 +308,7 @@ textarea {
     font-size: 18px;
     color: rgb(63, 63, 63);
     margin-top:20px;
+    font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;
 }
 
 .header {
@@ -328,14 +361,6 @@ header {
     color: #4d4749;
     border-bottom: 1px solid rgb(184, 184, 184);
     justify-content: flex-end;
-}
-
-a:hover {
-    cursor: pointer;
-    filter: brightness(150%);
-    -webkit-filter: brightness(150%);
-    -o-filter: brightness(150%);
-    -moz-filter: brightness(150%);
 }
 
 .item {
@@ -422,8 +447,8 @@ hr {
     overflow: visible; /* For IE */
     padding: 0;
     border: none;
-    border-top: medium double #333;
-    color: #333;
+    border-top: medium double rgb(195, 186, 186);
+    color:  rgb(195, 186, 186);
     text-align: center;
 }
 hr:after {
