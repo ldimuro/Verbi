@@ -33,7 +33,6 @@ export class AppService {
         let temp = this.setCharAt(myString, i, each);
         let permutations = this.permut(temp);
         for (let p of permutations) {
-          console.log(p);
           if (word_list.includes(p)) {
             valid_words.push(p);
           }
@@ -155,12 +154,21 @@ export class AppService {
       sorted_raw_scores.splice(index, 1);
     }
 
-    percentile_data.high_score = sorted_raw_scores[sorted_raw_scores.length - 1];
-    percentile_data.low_score = sorted_raw_scores[0];
+    percentile_data.high_score = /*final_score > sorted_raw_scores[sorted_raw_scores.length - 1] ? final_score : */sorted_raw_scores[sorted_raw_scores.length - 1] ;
+    percentile_data.low_score = /*final_score < sorted_raw_scores[0] ? final_score : */sorted_raw_scores[0];
     percentile_data.percentile = this.getPercentile(sorted_raw_scores, final_score).toFixed(1);
+
+    if (final_score > sorted_raw_scores[sorted_raw_scores.length - 1]) {
+      percentile_data.high_score = final_score;
+    }
+    if (final_score < sorted_raw_scores[0]) {
+      percentile_data.low_score = final_score;
+    }
+
     percentile_data.percentile_graphic = this.getPercentileGraphic(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
     percentile_data.percentile_color = this.getPercentileColor(percentile_data.percentile);
     percentile_data.special_case = this.getSpecialCase(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
+
 
     return percentile_data;
   }
@@ -198,7 +206,7 @@ export class AppService {
     }
 
 
-    if (low_score === final_score) {
+    if (low_score >= final_score) {
       rounded_value = 1;
       color_value = '💀';
     }
@@ -237,7 +245,7 @@ export class AppService {
       color: null
     };
 
-    if (percentile === 0.00) {
+    if (final_score < low_score) {
       special_case.message = 'You currently have the lowest score for today\'s word';
       special_case.color = '#c61100';
     }
@@ -254,7 +262,6 @@ export class AppService {
       special_case.color = 'green';
     }
 
-    console.log(special_case);
     return special_case;
   }
 

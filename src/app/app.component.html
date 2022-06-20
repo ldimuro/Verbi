@@ -188,11 +188,11 @@
           </ng-template>
         </div>
 
-        <div *ngIf="final_score !== undefined; else elseBlock"
+        <div *ngIf="todays_game_data?.raw_scores.length > 0; else elseBlock"
           style="text-align: center;font-size: 22px; padding: 10px;">
 
-          <div *ngIf="percentile_data && todays_game_data?.raw_scores?.length > 1" class="modal_text">
-            <div *ngIf="!percentile_data.special_case?.message; else specialCase">
+          <div *ngIf="percentile_data && todays_game_data?.raw_scores?.length > 0" class="modal_text">
+            <div *ngIf="percentile_data.special_case?.message === null; else specialCase">
               You were better than <span style="font-family: 'Inconsolata-Bold', 'Courier New', Courier, monospace;"
                 [style.color]="percentile_data?.percentile_color">{{percentile_data.percentile}}%</span> of players
               today
