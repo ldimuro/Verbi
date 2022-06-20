@@ -172,6 +172,7 @@ export class AppComponent implements OnInit {
   you_lose_open = false;
   you_win_open = false;
   words_modal_open = false;
+  giveup_modal_open = false;
 
   tutorial_step_num = 1;
   stats_step_num = 1;
@@ -769,19 +770,60 @@ export class AppComponent implements OnInit {
     }
   }
 
-  giveUp() {
-    let giveUp = confirm('Are you sure you want to give up?');
-    if (giveUp) {
-      this.game_over_correct_words = this.correct_words;
-      for (let i in this.game_over_correct_words) {
-        this.game_over_correct_words_formatted += this.game_over_correct_words[i];
-        this.game_over_correct_words_formatted += ' ';
-      }
+  async giveUpModal(open: boolean, give_up?: boolean) {
+    if (open) {
+      this.giveup_modal_open = true;
+      document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_out');
 
-      this.keyboard_enabled = false;
-
-      this.youLose(true, null);
+      let giveup_modal = document.getElementById('giveup_modal');
+      giveup_modal.classList.add('modal_fadein');
+      giveup_modal.classList.add('modal_appear');
+      giveup_modal.classList.remove('modal_fadeout');
     }
+    else {
+      document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_out');
+
+      let giveup_modal = document.getElementById('giveup_modal');
+      giveup_modal.classList.remove('modal_fadein');
+      giveup_modal.classList.remove('modal_appear');
+      giveup_modal.classList.add('modal_fadeout');
+
+      // Give time for blur_out animation to perform
+      await this.delay(200);
+
+      let word_list = document.getElementById(`word_list`);
+      word_list.scrollTop = 0;
+
+      this.giveup_modal_open = false;
+
+      if (give_up) {
+        this.game_over_correct_words = this.correct_words;
+        for (let i in this.game_over_correct_words) {
+          this.game_over_correct_words_formatted += this.game_over_correct_words[i];
+          this.game_over_correct_words_formatted += ' ';
+        }
+
+        this.keyboard_enabled = false;
+
+        this.youLose(true, null);
+      }
+    }
+
+
+    // let giveUp = confirm('Are you sure you want to give up?');
+    // if (giveUp) {
+    //   this.game_over_correct_words = this.correct_words;
+    //   for (let i in this.game_over_correct_words) {
+    //     this.game_over_correct_words_formatted += this.game_over_correct_words[i];
+    //     this.game_over_correct_words_formatted += ' ';
+    //   }
+
+    //   this.keyboard_enabled = false;
+
+    //   this.youLose(true, null);
+    // }
   }
 
   async shareScore() {
@@ -796,7 +838,7 @@ export class AppComponent implements OnInit {
       }).then(() => {
         console.log(copyText);
       })
-      .catch(console.error);
+        .catch(console.error);
     } else { // Copies to clipboard
       this.appSvc.copyTextToClipboard(copyText);
 

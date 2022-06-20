@@ -1,6 +1,9 @@
 <div class="app" id="app">
 
   <header>
+    <!-- <div style="left: 50%;position:fixed;margin-top:9px;font-family: 'Inconsolata-Light', 
+    'Courier New', Courier, monospace;">
+      Take5</div> -->
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="contactModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">mail_outline</mat-icon>
@@ -31,7 +34,7 @@
         <!-- WHITE FLAG BUTTON -->
         <div style="padding-top:18px;">
           <!-- CREDIT:  <a href="https://www.flaticon.com/free-icons/white-flag" title="white-flag icons">White-flag icons created by Victoruler - Flaticon</a> -->
-          <img (click)="giveUp()" class="control" src="/assets/icons/white-flag.png"
+          <img (click)="giveUpModal(true)" class="control" src="/assets/icons/white-flag.png"
             style="width:25px; height: 25px; padding: 5px;" alt="image">
         </div>
       </div>
@@ -133,7 +136,7 @@
           style="float:right;">ENTER</button>
 
         <button class="control" [disabled]="cells[0].value === ''" (click)="controlClicked('BACKSPACE')"
-          style="float:right;">DELETE
+          style="float:right;">&#60; DEL
         </button>
       </div>
     </div>
@@ -163,8 +166,8 @@
             <!-- To Fix on iPad -->
             <!-- <div style="font-family:'Courier New', Courier, monospace; text-align: center;">
               {{game_over_correct_words_formatted}}</div> -->
-            <div style="font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace; margin-left: 10px;"
-              [style.margin-left]="game_over_correct_words.length <= 4 ? '0px' : '10px'"
+            <div style="font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;"
+              [style.margin-left]="game_over_correct_words.length <= 4 ? '0px' : '20px'"
               [style.text-align]="game_over_correct_words.length <= 4 ? 'center' : 'left'">
               {{game_over_correct_words_formatted}}</div>
           </div>
@@ -346,7 +349,7 @@
 </div>
 
 <!-- TUTORIAL MODAL -->
-<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal">
+<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal" style="position: relative">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="tutorialModal(false)">
@@ -399,7 +402,7 @@
 
   <br>
 
-  <div style="display: flex; justify-content:center">
+  <div style="position: absolute; bottom: 0;margin: 0 auto;width: 100%;display: flex; justify-content: center; padding-bottom: 10px;">
     <button *ngIf="tutorial_step_num > 1" class="control" (click)="navigateTutorialModalStep(false)">&#60; BACK</button>
     <button *ngIf="tutorial_step_num !== 3" class="control" (click)="navigateTutorialModalStep(true)">NEXT ></button>
     <button *ngIf="tutorial_step_num === 3" class="control" (click)="tutorialModal(false)">DONE</button>
@@ -511,7 +514,7 @@
 </div>
 
 <!-- CORRECT WORDS MODAL -->
-<div [hidden]="!words_modal_open" class="modal words_modal" id="words_modal">
+<div [hidden]="!words_modal_open" class="modal words_modal" id="words_modal" style="position: relative">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="wordsModal(false)">
@@ -536,11 +539,34 @@
     </div>
   </div>
 
-  <br>
-
-  <div style="display: flex; justify-content:center">
+  <div style="position: absolute; bottom: 0;margin: 0 auto;width: 100%;display: flex;
+  justify-content: center; padding-bottom: 20px;">
     <button class="control" (click)="wordsModal(false)">CLOSE</button>
   </div>
+</div>
+
+<!-- GIVE UP MODAL -->
+<div [hidden]="!giveup_modal_open" class="modal giveup_modal" id="giveup_modal" style="position: relative">
+  <div>
+    <div class="header_items" style="display: flex;justify-content: flex-end;">
+      <!-- <a (click)="giveUpModal(false)">
+        <mat-icon style="font-size: 24px; padding-right:15px; padding-top: 10px;">close</mat-icon>
+      </a> -->
+    </div>
+    <div class="modal_title" style="font-size: 28px; text-align: center; padding-top:25px;"><b>Are you sure you want to
+        give up?</b></div>
+  </div>
+
+  <!-- <br>
+  <br> -->
+
+  <div style="display: flex; justify-content:center;" style="position: absolute; bottom: 0;margin: 0 auto;width: 100%;display: flex;
+  justify-content: center; padding-bottom: 30px;">
+    <button (click)="giveUpModal(false, true)" style="font-size: 20px; width:60px;" class="control">YES</button>
+    <button (click)="giveUpModal(false)" style="font-size: 20px; width:60px;" class="control">NO</button>
+  </div>
+
+
 </div>
 
 

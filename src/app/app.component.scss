@@ -104,8 +104,10 @@ a:hover {
     cursor: pointer;
     // font-size: 50px;
     color: rgb(92, 92, 92);
+
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-family: "Co";
+    // font-family: "Co";
+    font-family: 'Domine-Regular', sans-serif;
 }
 
 .butt-sm {
@@ -222,6 +224,23 @@ a:hover {
     position: fixed;
     height: 550px;
     width: 330px;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    // border: 10px solid rgb(232, 232, 232);
+    border-radius: 20px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    -moz-box-shadow: 0 0 3px #ccc;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.giveup_modal {
+    position: fixed;
+    height: 200px;
+    width: 300px;
     top: 50%;
     left: 50%;
     background-color: white;
