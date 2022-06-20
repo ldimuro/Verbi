@@ -158,12 +158,12 @@ export class AppService {
     percentile_data.low_score = /*final_score < sorted_raw_scores[0] ? final_score : */sorted_raw_scores[0];
     percentile_data.percentile = this.getPercentile(sorted_raw_scores, final_score).toFixed(1);
 
-    if (final_score > sorted_raw_scores[sorted_raw_scores.length - 1]) {
-      percentile_data.high_score = final_score;
-    }
-    if (final_score < sorted_raw_scores[0]) {
-      percentile_data.low_score = final_score;
-    }
+    // if (final_score > sorted_raw_scores[sorted_raw_scores.length - 1]) {
+    //   percentile_data.high_score = final_score;
+    // }
+    // if (final_score < sorted_raw_scores[0]) {
+    //   percentile_data.low_score = final_score;
+    // }
 
     percentile_data.percentile_graphic = this.getPercentileGraphic(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
     percentile_data.percentile_color = this.getPercentileColor(percentile_data.percentile);
@@ -191,7 +191,14 @@ export class AppService {
   }
 
   getPercentileGraphic(low_score: number, high_score: number, percentile: number, final_score: number) {
-    let graphic = low_score + ' ';
+    let graphic;
+    if (final_score < low_score) {
+      graphic = final_score + ' ';
+    }
+    else {
+      graphic = low_score + ' ';
+    }
+
     let rounded_value = (Math.round(percentile / 10) * 10) / 10;
     let color_value;
 
@@ -234,6 +241,7 @@ export class AppService {
         }
       }
     }
+
     graphic += ' ' + (final_score > high_score ? final_score : high_score) + '';
 
     return graphic;

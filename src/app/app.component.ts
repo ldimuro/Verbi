@@ -827,7 +827,7 @@ export class AppComponent implements OnInit {
   }
 
   async shareScore() {
-    let copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}`;
+    let copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}\nBetter than ${this.percentile_data.percentile}% of players`;
     let newVariable: any;
     newVariable = window.navigator;
 
