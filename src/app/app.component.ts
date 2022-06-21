@@ -483,30 +483,30 @@ export class AppComponent implements OnInit {
     }
 
     // APPLY ANIMATIONS
-    if (animate) {
-      // Apply BOUNCE animation to each letter with a 0.1s delay
-      for (let i = 1; i < this.cells.length + 1; i++) {
-        document.getElementById(`container_cell${i}`).classList.add('bounce');
-        await this.delay(50);
-        document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
-        await this.delay(100);
-      }
+    // if (animate) {
+    //   // Apply BOUNCE animation to each letter with a 0.1s delay
+    //   for (let i = 1; i < this.cells.length + 1; i++) {
+    //     document.getElementById(`container_cell${i}`).classList.add('bounce');
+    //     await this.delay(50);
+    //     document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
+    //     await this.delay(100);
+    //   }
 
-      // Wait for each letter to bounce (5 letters * 0.1s)
-      await this.delay(300);
+    //   // Wait for each letter to bounce (5 letters * 0.1s)
+    //   await this.delay(300);
 
-      // Remove BOUNCE animation from each letter
-      for (let i = 1; i < this.cells.length + 1; i++) {
-        document.getElementById(`container_cell${i}`).classList.remove('bounce');
-      }
+    //   // Remove BOUNCE animation from each letter
+    //   for (let i = 1; i < this.cells.length + 1; i++) {
+    //     document.getElementById(`container_cell${i}`).classList.remove('bounce');
+    //   }
 
-      await this.delay(800);
+    //   await this.delay(800);
 
-      // Remove POINT_ANIMATION from each cell
-      for (let i = 1; i < this.cells.length + 1; i++) {
-        document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
-      }
-    }
+    //   // Remove POINT_ANIMATION from each cell
+    //   for (let i = 1; i < this.cells.length + 1; i++) {
+    //     document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
+    //   }
+    // }
   }
 
   calculateScore(word: string) {
@@ -554,13 +554,13 @@ export class AppComponent implements OnInit {
       this.console_text = 'Word already guessed';
       this.console_text_hidden = false;
 
-      document.getElementById(`console`).classList.add('console_animation_in');
-      document.getElementById(`console`).classList.remove('console_animation_out');
+      // document.getElementById(`console`).classList.add('console_animation_in');
+      // document.getElementById(`console`).classList.remove('console_animation_out');
 
-      await this.delay(2000);
+      // await this.delay(2000);
 
-      document.getElementById(`console`).classList.remove('console_animation_in');
-      document.getElementById(`console`).classList.add('console_animation_out');
+      // document.getElementById(`console`).classList.remove('console_animation_in');
+      // document.getElementById(`console`).classList.add('console_animation_out');
 
       // if (autoguess) {
       //   console.log('');
@@ -652,25 +652,25 @@ export class AppComponent implements OnInit {
   async tutorialModal(open: boolean) {
     if (open) {
       this.tutorial_modal_open = true;
-      document.getElementById(`app`).classList.add('blur-background_in');
-      document.getElementById(`app`).classList.remove('blur-background_out');
+      // document.getElementById(`app`).classList.add('blur-background_in');
+      // document.getElementById(`app`).classList.remove('blur-background_out');
 
-      let tutorial_modal = document.getElementById('tutorial_modal');
-      tutorial_modal.classList.add('modal_fadein');
-      tutorial_modal.classList.add('modal_appear');
-      tutorial_modal.classList.remove('modal_fadeout');
+      // let tutorial_modal = document.getElementById('tutorial_modal');
+      // tutorial_modal.classList.add('modal_fadein');
+      // tutorial_modal.classList.add('modal_appear');
+      // tutorial_modal.classList.remove('modal_fadeout');
     }
     else {
-      document.getElementById(`app`).classList.remove('blur-background_in');
-      document.getElementById(`app`).classList.add('blur-background_out');
+      // document.getElementById(`app`).classList.remove('blur-background_in');
+      // document.getElementById(`app`).classList.add('blur-background_out');
 
-      let tutorial_modal = document.getElementById('tutorial_modal');
-      tutorial_modal.classList.remove('modal_fadein');
-      tutorial_modal.classList.remove('modal_appear');
-      tutorial_modal.classList.add('modal_fadeout');
+      // let tutorial_modal = document.getElementById('tutorial_modal');
+      // tutorial_modal.classList.remove('modal_fadein');
+      // tutorial_modal.classList.remove('modal_appear');
+      // tutorial_modal.classList.add('modal_fadeout');
 
       // Give time for blur_out animation to perform
-      await this.delay(200);
+      // await this.delay(200);
 
       this.tutorial_modal_open = false;
       this.tutorial_step_num = 1;
@@ -688,25 +688,25 @@ export class AppComponent implements OnInit {
   async statsModal(open: boolean) {
     if (open) {
       this.stats_modal_open = true;
-      document.getElementById(`app`).classList.add('blur-background_in');
-      document.getElementById(`app`).classList.remove('blur-background_out');
+      // document.getElementById(`app`).classList.add('blur-background_in');
+      // document.getElementById(`app`).classList.remove('blur-background_out');
 
-      let stats_modal = document.getElementById('stats_modal');
-      stats_modal.classList.add('modal_fadein');
-      stats_modal.classList.add('modal_appear');
-      stats_modal.classList.remove('modal_fadeout');
+      // let stats_modal = document.getElementById('stats_modal');
+      // stats_modal.classList.add('modal_fadein');
+      // stats_modal.classList.add('modal_appear');
+      // stats_modal.classList.remove('modal_fadeout');
     }
     else {
-      document.getElementById(`app`).classList.remove('blur-background_in');
-      document.getElementById(`app`).classList.add('blur-background_out');
+      // document.getElementById(`app`).classList.remove('blur-background_in');
+      // document.getElementById(`app`).classList.add('blur-background_out');
 
-      let stats_modal = document.getElementById('stats_modal');
-      stats_modal.classList.remove('modal_fadein');
-      stats_modal.classList.remove('modal_appear');
-      stats_modal.classList.add('modal_fadeout');
+      // let stats_modal = document.getElementById('stats_modal');
+      // stats_modal.classList.remove('modal_fadein');
+      // stats_modal.classList.remove('modal_appear');
+      // stats_modal.classList.add('modal_fadeout');
 
       // Give time for blur_out animation to perform
-      await this.delay(200);
+      // await this.delay(200);
 
       this.stats_modal_open = false;
       this.stats_step_num = 1;
@@ -716,25 +716,25 @@ export class AppComponent implements OnInit {
   async contactModal(open: boolean) {
     if (open) {
       this.contact_modal_open = true;
-      document.getElementById(`app`).classList.add('blur-background_in');
-      document.getElementById(`app`).classList.remove('blur-background_out');
+      // document.getElementById(`app`).classList.add('blur-background_in');
+      // document.getElementById(`app`).classList.remove('blur-background_out');
 
-      let contact_modal = document.getElementById('contact_modal');
-      contact_modal.classList.add('modal_fadein');
-      contact_modal.classList.add('modal_appear');
-      contact_modal.classList.remove('modal_fadeout');
+      // let contact_modal = document.getElementById('contact_modal');
+      // contact_modal.classList.add('modal_fadein');
+      // contact_modal.classList.add('modal_appear');
+      // contact_modal.classList.remove('modal_fadeout');
     }
     else {
-      document.getElementById(`app`).classList.remove('blur-background_in');
-      document.getElementById(`app`).classList.add('blur-background_out');
+      // document.getElementById(`app`).classList.remove('blur-background_in');
+      // document.getElementById(`app`).classList.add('blur-background_out');
 
-      let contact_modal = document.getElementById('contact_modal');
-      contact_modal.classList.remove('modal_fadein');
-      contact_modal.classList.remove('modal_appear');
-      contact_modal.classList.add('modal_fadeout');
+      // let contact_modal = document.getElementById('contact_modal');
+      // contact_modal.classList.remove('modal_fadein');
+      // contact_modal.classList.remove('modal_appear');
+      // contact_modal.classList.add('modal_fadeout');
 
       // Give time for blur_out animation to perform
-      await this.delay(200);
+      // await this.delay(200);
 
       this.contact_modal_open = false;
     }
@@ -743,28 +743,28 @@ export class AppComponent implements OnInit {
   async wordsModal(open: boolean) {
     if (open) {
       this.words_modal_open = true;
-      document.getElementById(`app`).classList.add('blur-background_in');
-      document.getElementById(`app`).classList.remove('blur-background_out');
+      // document.getElementById(`app`).classList.add('blur-background_in');
+      // document.getElementById(`app`).classList.remove('blur-background_out');
 
-      let words_modal = document.getElementById('words_modal');
-      words_modal.classList.add('modal_fadein');
-      words_modal.classList.add('modal_appear');
-      words_modal.classList.remove('modal_fadeout');
+      // let words_modal = document.getElementById('words_modal');
+      // words_modal.classList.add('modal_fadein');
+      // words_modal.classList.add('modal_appear');
+      // words_modal.classList.remove('modal_fadeout');
     }
     else {
-      document.getElementById(`app`).classList.remove('blur-background_in');
-      document.getElementById(`app`).classList.add('blur-background_out');
+      // document.getElementById(`app`).classList.remove('blur-background_in');
+      // document.getElementById(`app`).classList.add('blur-background_out');
 
-      let words_modal = document.getElementById('words_modal');
-      words_modal.classList.remove('modal_fadein');
-      words_modal.classList.remove('modal_appear');
-      words_modal.classList.add('modal_fadeout');
+      // let words_modal = document.getElementById('words_modal');
+      // words_modal.classList.remove('modal_fadein');
+      // words_modal.classList.remove('modal_appear');
+      // words_modal.classList.add('modal_fadeout');
 
       // Give time for blur_out animation to perform
-      await this.delay(200);
+      // await this.delay(200);
 
-      let word_list = document.getElementById(`word_list`);
-      word_list.scrollTop = 0;
+      // let word_list = document.getElementById(`word_list`);
+      // word_list.scrollTop = 0;
 
       this.words_modal_open = false;
     }
@@ -773,28 +773,28 @@ export class AppComponent implements OnInit {
   async giveUpModal(open: boolean, give_up?: boolean) {
     if (open) {
       this.giveup_modal_open = true;
-      document.getElementById(`app`).classList.add('blur-background_in');
-      document.getElementById(`app`).classList.remove('blur-background_out');
+      // document.getElementById(`app`).classList.add('blur-background_in');
+      // document.getElementById(`app`).classList.remove('blur-background_out');
 
-      let giveup_modal = document.getElementById('giveup_modal');
-      giveup_modal.classList.add('modal_fadein');
-      giveup_modal.classList.add('modal_appear');
-      giveup_modal.classList.remove('modal_fadeout');
+      // let giveup_modal = document.getElementById('giveup_modal');
+      // giveup_modal.classList.add('modal_fadein');
+      // giveup_modal.classList.add('modal_appear');
+      // giveup_modal.classList.remove('modal_fadeout');
     }
     else {
-      document.getElementById(`app`).classList.remove('blur-background_in');
-      document.getElementById(`app`).classList.add('blur-background_out');
+      // document.getElementById(`app`).classList.remove('blur-background_in');
+      // document.getElementById(`app`).classList.add('blur-background_out');
 
-      let giveup_modal = document.getElementById('giveup_modal');
-      giveup_modal.classList.remove('modal_fadein');
-      giveup_modal.classList.remove('modal_appear');
-      giveup_modal.classList.add('modal_fadeout');
+      // let giveup_modal = document.getElementById('giveup_modal');
+      // giveup_modal.classList.remove('modal_fadein');
+      // giveup_modal.classList.remove('modal_appear');
+      // giveup_modal.classList.add('modal_fadeout');
 
       // Give time for blur_out animation to perform
-      await this.delay(200);
+      // await this.delay(200);
 
-      let word_list = document.getElementById(`word_list`);
-      word_list.scrollTop = 0;
+      // let word_list = document.getElementById(`word_list`);
+      // word_list.scrollTop = 0;
 
       this.giveup_modal_open = false;
 
@@ -844,13 +844,13 @@ export class AppComponent implements OnInit {
 
       this.copied_to_clipboard_hidden = false;
 
-      document.getElementById(`copied_to_clipboard`).classList.add('console_animation_in');
-      document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_out');
+      // document.getElementById(`copied_to_clipboard`).classList.add('console_animation_in');
+      // document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_out');
 
-      await this.delay(2000);
+      // await this.delay(2000);
 
-      document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_in');
-      document.getElementById(`copied_to_clipboard`).classList.add('console_animation_out');
+      // document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_in');
+      // document.getElementById(`copied_to_clipboard`).classList.add('console_animation_out');
     }
   }
 

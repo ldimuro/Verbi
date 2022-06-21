@@ -9,7 +9,7 @@
     margin: auto;
     /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
     max-width: 101%;
-    max-height: 101%;
+    // max-height: 101%;
 
     // overflow: auto;
     overflow: none;
@@ -67,25 +67,25 @@ textarea {
     font-family: 'Domine-Regular', sans-serif;
 }
 
-.butt:hover:enabled,
-.user_letters:hover:enabled,
-.butt-sm:hover:enabled,
-.control:hover:enabled,
-.words_button:hover:enabled{
-    cursor: pointer;
-    filter: brightness(90%);
-    -webkit-filter: brightness(90%);
-    -o-filter: brightness(90%);
-    -moz-filter: brightness(90%);
-}
+// .butt:hover:enabled,
+// .user_letters:hover:enabled,
+// .butt-sm:hover:enabled,
+// .control:hover:enabled,
+// .words_button:hover:enabled{
+//     cursor: pointer;
+//     filter: brightness(90%);
+//     -webkit-filter: brightness(90%);
+//     -o-filter: brightness(90%);
+//     -moz-filter: brightness(90%);
+// }
 
-a:hover {
-    cursor: pointer;
-    filter: brightness(90%);
-    -webkit-filter: brightness(90%);
-    -o-filter: brightness(90%);
-    -moz-filter: brightness(90%);
-}
+// a:hover {
+//     cursor: pointer;
+//     filter: brightness(90%);
+//     -webkit-filter: brightness(90%);
+//     -o-filter: brightness(90%);
+//     -moz-filter: brightness(90%);
+// }
 
 .user_letters {
     // border: none;
