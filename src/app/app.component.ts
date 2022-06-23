@@ -483,30 +483,30 @@ export class AppComponent implements OnInit {
     }
 
     // APPLY ANIMATIONS
-    // if (animate) {
-    //   // Apply BOUNCE animation to each letter with a 0.1s delay
-    //   for (let i = 1; i < this.cells.length + 1; i++) {
-    //     document.getElementById(`container_cell${i}`).classList.add('bounce');
-    //     await this.delay(50);
-    //     document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
-    //     await this.delay(100);
-    //   }
+    if (animate) {
+      // Apply BOUNCE animation to each letter with a 0.1s delay
+      for (let i = 1; i < this.cells.length + 1; i++) {
+        document.getElementById(`container_cell${i}`).classList.add('bounce');
+        await this.delay(50);
+        document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
+        await this.delay(100);
+      }
 
-    //   // Wait for each letter to bounce (5 letters * 0.1s)
-    //   await this.delay(300);
+      // Wait for each letter to bounce (5 letters * 0.1s)
+      await this.delay(300);
 
-    //   // Remove BOUNCE animation from each letter
-    //   for (let i = 1; i < this.cells.length + 1; i++) {
-    //     document.getElementById(`container_cell${i}`).classList.remove('bounce');
-    //   }
+      // Remove BOUNCE animation from each letter
+      for (let i = 1; i < this.cells.length + 1; i++) {
+        document.getElementById(`container_cell${i}`).classList.remove('bounce');
+      }
 
-    //   await this.delay(800);
+      await this.delay(800);
 
-    //   // Remove POINT_ANIMATION from each cell
-    //   for (let i = 1; i < this.cells.length + 1; i++) {
-    //     document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
-    //   }
-    // }
+      // Remove POINT_ANIMATION from each cell
+      for (let i = 1; i < this.cells.length + 1; i++) {
+        document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
+      }
+    }
   }
 
   calculateScore(word: string) {
@@ -763,8 +763,8 @@ export class AppComponent implements OnInit {
       // Give time for blur_out animation to perform
       // await this.delay(200);
 
-      // let word_list = document.getElementById(`word_list`);
-      // word_list.scrollTop = 0;
+      let word_list = document.getElementById(`word_list`);
+      word_list.scrollTop = 0;
 
       this.words_modal_open = false;
     }
@@ -792,9 +792,6 @@ export class AppComponent implements OnInit {
 
       // Give time for blur_out animation to perform
       // await this.delay(200);
-
-      // let word_list = document.getElementById(`word_list`);
-      // word_list.scrollTop = 0;
 
       this.giveup_modal_open = false;
 

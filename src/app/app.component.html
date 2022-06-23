@@ -5,7 +5,7 @@
     'Courier New', Courier, monospace;">
       Take5</div> -->
     <div class="header_items" style="display: flex;justify-content: flex-end;">
-      <span>Version: 1.0</span>
+      <span>Version: 1.16</span>
       <a (click)="contactModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">mail_outline</mat-icon>
       </a>
@@ -21,8 +21,9 @@
   <br>
   <br>
 
-  <div *ngIf="!you_lose_open && !you_win_open" class="game" style="position:relative;height: 95vh;"
-    [style.width]="isMobile ? '100%' : '50%'" [style.margin]="isMobile ? '0' : '0 auto'">
+  <div *ngIf="!you_lose_open && !you_win_open" class="game"
+    style="position:relative;" [style.width]="isMobile ? '100%' : '50%'"
+    [style.margin]="isMobile ? '0' : '0 auto'" [style.height]="isMobile ? '82vh' : '95vh'">
     <div class="data">
       <div class="correct_words" style="display: flex; justify-content:space-between;">
 
@@ -54,7 +55,7 @@
 
       <div>
         <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 20vh;"
-          [style.height]="isMobile ? '25vh' : '20vh'">
+          [style.height]="isMobile ? '18vh' : '20vh'">
           <div class="score" style="text-align: center;"><b>{{total_score}}</b></div>
           <div *ngIf="user?.high_score !== undefined" class="high_score" style="text-align: center;">BEST:<span
               style="font-family: 'Inconsolata-Bold', 'Courier New', Courier, monospace;">{{user?.high_score}}</span>
@@ -72,7 +73,7 @@
           <b>{{cell.point_value}}</b>
         </div>
         <button class="butt" id="container_{{cell.name}}" [disabled]="letter_selected"
-          [style.height]="isMobile ? '20vw' : '10vw'" [style.width]="isMobile ? '20vw' : '10vw'"
+          [style.height]="isMobile ? '20vw' : '10vw'" [style.width]="isMobile ? '20vw' : '10vw'" style="padding: 0px;"
           [style.font-size]="isMobile ? '11vw' : '4.3vw'" [style.cursor]="letter_selected ? 'auto' : 'cursor'"
           [style.background-color]="cell.color" [style.color]="cell.font_color"
           [style.border-color]="cell.selected ? '#2b2827' : 'white'" (click)="cellClicked(i)">{{cell.value}}</button>
@@ -87,32 +88,33 @@
 
     <!-- KEYBOARD -->
     <div *ngIf="show_keyboard" id="keyboard" [style.opacity]="keyboard_opacity"
-      style="margin-left: 8px; position: absolute; bottom: 0; width: 100%; margin: 0 auto; margin-bottom: 3px;"
+      style="margin-left: 8px; position: absolute; bottom: 0; width: 100%; margin: 0 auto;"
+      [style.margin-bottom]="isMobile ? '0px' : '3px'"
       [style.pointer-events]="((keyboard_opacity === '1.0' && keyboard_enabled) ? 'auto' : 'none')" class="keyboard">
 
       <div style="display: flex; justify-content: center;">
         <div *ngFor="let key of keyboard_top;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '5vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '12vh' : '9vh'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
-            [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
+            [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold; padding: 0px;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
         </div>
       </div>
 
       <div style="display: flex; justify-content: center; margin-top: 8px;">
         <div *ngFor="let key of keyboard_middle;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '5vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '12vh' : '9vh'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
-            [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
+            [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold; padding: 0px;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
         </div>
       </div>
 
       <div style="display: flex; justify-content: center; margin-top: 8px;">
         <div *ngFor="let key of keyboard_bottom;">
-          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '18vw' : '5vw'"
+          <button class="butt-sm" [style.width]="isMobile ? '8vw' : '4vw'" [style.height]="isMobile ? '12vh' : '9vh'"
             [disabled]="!key.enabled || you_lose_open || stats_modal_open" [style.background-color]="key.point_color"
-            [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold;"
+            [style.opacity]="key.opacity" [style.color]="key.font_color" style="font-weight: bold; padding: 0px;"
             (click)="keyboardClicked(key.name)">{{key.name}}</button>
         </div>
       </div>
@@ -125,7 +127,8 @@
           <button class="user_letters" [disabled]="!letter.enabled" [style.background-color]="letter.color"
             [style.color]="letter.font_color" [style.opacity]="letter.enabled ? '1.0' : '0.25'"
             [style.height]="isMobile ? '20vw' : '10vw'" [style.width]="isMobile ? '20vw' : '10vw'"
-            [style.font-size]="isMobile ? '11vw' : '4.3vw'" (click)="userLetterClicked(i)">{{letter.value}}</button>
+            [style.font-size]="isMobile ? '11vw' : '4.3vw'" style="padding: 0px;"
+            (click)="userLetterClicked(i)">{{letter.value}}</button>
         </div>
       </div>
 
@@ -350,7 +353,7 @@
 </div>
 
 <!-- TUTORIAL MODAL -->
-<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal" style="position: relative">
+<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="tutorialModal(false)">
@@ -403,7 +406,8 @@
 
   <br>
 
-  <div style="position: absolute; bottom: 0;margin: 0 auto;width: 100%;display: flex; justify-content: center; padding-bottom: 10px;">
+  <div
+    style="position: absolute; bottom: 0;margin: 0 auto;width: 100%;display: flex; justify-content: center; padding-bottom: 10px;">
     <button *ngIf="tutorial_step_num > 1" class="control" (click)="navigateTutorialModalStep(false)">&#60; BACK</button>
     <button *ngIf="tutorial_step_num !== 3" class="control" (click)="navigateTutorialModalStep(true)">NEXT ></button>
     <button *ngIf="tutorial_step_num === 3" class="control" (click)="tutorialModal(false)">DONE</button>
@@ -515,7 +519,7 @@
 </div>
 
 <!-- CORRECT WORDS MODAL -->
-<div [hidden]="!words_modal_open" class="modal words_modal" id="words_modal" style="position: relative">
+<div [hidden]="!words_modal_open" class="modal words_modal" id="words_modal">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="wordsModal(false)">
@@ -547,7 +551,7 @@
 </div>
 
 <!-- GIVE UP MODAL -->
-<div [hidden]="!giveup_modal_open" class="modal giveup_modal" id="giveup_modal" style="position: relative">
+<div [hidden]="!giveup_modal_open" class="modal giveup_modal" id="giveup_modal">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <!-- <a (click)="giveUpModal(false)">
