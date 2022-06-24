@@ -557,13 +557,13 @@ export class AppComponent implements OnInit {
       this.console_text = 'Word already guessed';
       this.console_text_hidden = false;
 
-      // document.getElementById(`console`).classList.add('console_animation_in');
-      // document.getElementById(`console`).classList.remove('console_animation_out');
+      document.getElementById(`console`).classList.add('console_animation_in');
+      document.getElementById(`console`).classList.remove('console_animation_out');
 
-      // await this.delay(2000);
+      await this.delay(2000);
 
-      // document.getElementById(`console`).classList.remove('console_animation_in');
-      // document.getElementById(`console`).classList.add('console_animation_out');
+      document.getElementById(`console`).classList.remove('console_animation_in');
+      document.getElementById(`console`).classList.add('console_animation_out');
 
       // if (autoguess) {
       //   console.log('');
@@ -855,13 +855,13 @@ export class AppComponent implements OnInit {
     }
       
 
-      // document.getElementById(`copied_to_clipboard`).classList.add('console_animation_in');
-      // document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_out');
+      document.getElementById(`copied_to_clipboard`).classList.add('console_animation_in');
+      document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_out');
 
-      // await this.delay(2000);
+      await this.delay(2000);
 
-      // document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_in');
-      // document.getElementById(`copied_to_clipboard`).classList.add('console_animation_out');
+      document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_in');
+      document.getElementById(`copied_to_clipboard`).classList.add('console_animation_out');
     // }
   }
 

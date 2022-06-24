@@ -5,7 +5,7 @@
     'Courier New', Courier, monospace;">
       Take5</div> -->
     <div class="header_items" style="display: flex;justify-content: flex-end;">
-      <span>Version: 1.38</span>
+      <span>Version: 1.39</span>
       <a (click)="contactModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">mail_outline</mat-icon>
       </a>
@@ -276,7 +276,7 @@
 
 
 <!-- STATS MODAL -->
-<div [hidden]="!stats_modal_open" class="modal stats_modal" id="stats_modal">
+<div [hidden]="!stats_modal_open" class="modal stats_modal" id="stats_modal" [style.width]="isMobile ? '80%' : '360px'">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="statsModal(false)">
@@ -369,7 +369,7 @@
 </div>
 
 <!-- TUTORIAL MODAL -->
-<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal">
+<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal" [style.width]="isMobile ? '85%' : '400px'">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="tutorialModal(false)">
@@ -431,7 +431,7 @@
 </div>
 
 <!-- CONTACT MODAL -->
-<div [hidden]="!contact_modal_open" class="modal stats_modal" id="contact_modal">
+<div [hidden]="!contact_modal_open" class="modal stats_modal" id="contact_modal" [style.width]="isMobile ? '80%' : '360px'">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="contactModal(false)">
@@ -535,7 +535,7 @@
 </div>
 
 <!-- CORRECT WORDS MODAL -->
-<div [hidden]="!words_modal_open" class="modal words_modal" id="words_modal">
+<div [hidden]="!words_modal_open" class="modal words_modal" id="words_modal" [style.width]="isMobile ? '75%' : '330px'">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="wordsModal(false)">
