@@ -877,7 +877,7 @@ export class AppComponent implements OnInit {
         this.losing_word = 'You Lose!'
       }
 
-      document.getElementById(`app`).classList.add('blur-background_in');
+      // document.getElementById(`app`).classList.add('blur-background_in');
       // document.getElementById(`app`).classList.remove('blur-background_out');
 
       // let stats_modal = document.getElementById('you_lose_modal');
@@ -889,7 +889,7 @@ export class AppComponent implements OnInit {
     }
     else {
       this.you_lose_open = false;
-      document.getElementById(`app`).classList.remove('blur-background_in');
+      // document.getElementById(`app`).classList.remove('blur-background_in');
       // document.getElementById(`app`).classList.add('blur-background_out');
 
       // let stats_modal = document.getElementById('you_lose_modal');
