@@ -491,24 +491,24 @@ hr:after {
 
     pointer-events: none;
 
-    transition: all 0.1s ease-in;
-    -webkit-transition: all 0.1s ease-in;
-    -o-transition: all 0.1s ease-in;
-    -moz-transition: all 0.1s ease-in;
+    // transition: all 0.1s ease-in;
+    // -webkit-transition: all 0.1s ease-in;
+    // -o-transition: all 0.1s ease-in;
+    // -moz-transition: all 0.1s ease-in;
 }
 
 .in {
-    animation: blurin 0.3s, linear forwards;
-    -o-animation: blurin 0.3s, linear forwards;
-    -moz-animation: blurin 0.3s, linear forwards;
-    -webkit-animation: blurin 0.3s, linear forwards;
+    // animation: blurin 0.3s, linear forwards;
+    // -o-animation: blurin 0.3s, linear forwards;
+    // -moz-animation: blurin 0.3s, linear forwards;
+    // -webkit-animation: blurin 0.3s, linear forwards;
 }
 
 .blur-background_out {
-    animation: blurout 0.3s, linear forwards;
-    -o-animation: blurout 0.3s, linear forwards;
-    -moz-animation: blurout 0.3s, linear forwards;
-    -webkit-animation: blurout 0.3s, linear forwards;
+    // animation: blurout 0.3s, linear forwards;
+    // -o-animation: blurout 0.3s, linear forwards;
+    // -moz-animation: blurout 0.3s, linear forwards;
+    // -webkit-animation: blurout 0.3s, linear forwards;
 }
 
 .bounce {

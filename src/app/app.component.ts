@@ -655,7 +655,7 @@ export class AppComponent implements OnInit {
   async tutorialModal(open: boolean) {
     if (open) {
       this.tutorial_modal_open = true;
-      // document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_in');
       // document.getElementById(`app`).classList.remove('blur-background_out');
 
       // let tutorial_modal = document.getElementById('tutorial_modal');
@@ -664,7 +664,7 @@ export class AppComponent implements OnInit {
       // tutorial_modal.classList.remove('modal_fadeout');
     }
     else {
-      // document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_in');
       // document.getElementById(`app`).classList.add('blur-background_out');
 
       // let tutorial_modal = document.getElementById('tutorial_modal');
@@ -691,7 +691,7 @@ export class AppComponent implements OnInit {
   async statsModal(open: boolean) {
     if (open) {
       this.stats_modal_open = true;
-      // document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_in');
       // document.getElementById(`app`).classList.remove('blur-background_out');
 
       // let stats_modal = document.getElementById('stats_modal');
@@ -703,7 +703,7 @@ export class AppComponent implements OnInit {
       console.log(this.errors);
     }
     else {
-      // document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_in');
       // document.getElementById(`app`).classList.add('blur-background_out');
 
       // let stats_modal = document.getElementById('stats_modal');
@@ -722,7 +722,7 @@ export class AppComponent implements OnInit {
   async contactModal(open: boolean) {
     if (open) {
       this.contact_modal_open = true;
-      // document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_in');
       // document.getElementById(`app`).classList.remove('blur-background_out');
 
       // let contact_modal = document.getElementById('contact_modal');
@@ -731,7 +731,7 @@ export class AppComponent implements OnInit {
       // contact_modal.classList.remove('modal_fadeout');
     }
     else {
-      // document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_in');
       // document.getElementById(`app`).classList.add('blur-background_out');
 
       // let contact_modal = document.getElementById('contact_modal');
@@ -749,7 +749,7 @@ export class AppComponent implements OnInit {
   async wordsModal(open: boolean) {
     if (open) {
       this.words_modal_open = true;
-      // document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_in');
       // document.getElementById(`app`).classList.remove('blur-background_out');
 
       // let words_modal = document.getElementById('words_modal');
@@ -758,7 +758,7 @@ export class AppComponent implements OnInit {
       // words_modal.classList.remove('modal_fadeout');
     }
     else {
-      // document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_in');
       // document.getElementById(`app`).classList.add('blur-background_out');
 
       // let words_modal = document.getElementById('words_modal');
@@ -779,7 +779,7 @@ export class AppComponent implements OnInit {
   async giveUpModal(open: boolean, give_up?: boolean) {
     if (open) {
       this.giveup_modal_open = true;
-      // document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_in');
       // document.getElementById(`app`).classList.remove('blur-background_out');
 
       // let giveup_modal = document.getElementById('giveup_modal');
@@ -788,7 +788,7 @@ export class AppComponent implements OnInit {
       // giveup_modal.classList.remove('modal_fadeout');
     }
     else {
-      // document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_in');
       // document.getElementById(`app`).classList.add('blur-background_out');
 
       // let giveup_modal = document.getElementById('giveup_modal');
@@ -877,7 +877,7 @@ export class AppComponent implements OnInit {
         this.losing_word = 'You Lose!'
       }
 
-      // document.getElementById(`app`).classList.add('blur-background_in');
+      document.getElementById(`app`).classList.add('blur-background_in');
       // document.getElementById(`app`).classList.remove('blur-background_out');
 
       // let stats_modal = document.getElementById('you_lose_modal');
@@ -889,7 +889,7 @@ export class AppComponent implements OnInit {
     }
     else {
       this.you_lose_open = false;
-      // document.getElementById(`app`).classList.remove('blur-background_in');
+      document.getElementById(`app`).classList.remove('blur-background_in');
       // document.getElementById(`app`).classList.add('blur-background_out');
 
       // let stats_modal = document.getElementById('you_lose_modal');
