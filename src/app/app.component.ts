@@ -270,8 +270,8 @@ export class AppComponent implements OnInit {
   }
 
   async initialize() {
-    // const random_word: any = this.chooseRandomWord();
-    const random_word: any = this.todays_game_data.today_word;
+    const random_word: any = this.chooseRandomWord();
+    // const random_word: any = this.todays_game_data.today_word;
 
     this.current_word = random_word;
     this.starting_word = random_word;
@@ -282,7 +282,7 @@ export class AppComponent implements OnInit {
       this.cells[i].value = random_word.charAt(i);
       this.cells[i].color = char.point_color;
       this.cells[i].font_color = char.font_color;
-      this.cells[i].point_value = char.points
+      this.cells[i].point_value = char.points;
     }
 
     // Get User Credentials
