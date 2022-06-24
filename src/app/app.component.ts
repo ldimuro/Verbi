@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
     private httpClient: HttpClient,
     private datepipe: DatePipe,
     private firebaseSvc: FirebaseService,
-    private appSvc: AppService
+    private appSvc: AppService,
   ) { }
 
 
@@ -200,6 +200,8 @@ export class AppComponent implements OnInit {
   };
 
   updatedTodaysGameDataObservable$: Subscription;
+  logError$: Subscription;
+  errors = [];
 
   isMobile;
 
@@ -207,7 +209,7 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
 
     // Check to see if device is mobile
-    this.isMobile = window.matchMedia("only screen and (max-width: 920px)").matches;
+    this.isMobile = this.appSvc.isMobile();
     console.log('isMobile: ' + this.isMobile);
 
     // Initialize Firebase
@@ -457,6 +459,7 @@ export class AppComponent implements OnInit {
     this.copied_to_clipboard_hidden = true;
     this.current_word = new_word;
     // this.keyboard_opacity = this.keyboard_opacity;
+    this.errors = this.appSvc.setErrors('');
 
     if (hard_reset) {
       // Reset keyboard keys
@@ -695,6 +698,9 @@ export class AppComponent implements OnInit {
       // stats_modal.classList.add('modal_fadein');
       // stats_modal.classList.add('modal_appear');
       // stats_modal.classList.remove('modal_fadeout');
+
+      this.errors = this.appSvc.getErrors();
+      console.log(this.errors);
     }
     else {
       // document.getElementById(`app`).classList.remove('blur-background_in');
@@ -825,21 +831,29 @@ export class AppComponent implements OnInit {
 
   async shareScore() {
     let copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}\nBetter than ${this.percentile_data.percentile}% of players`;
-    let newVariable: any;
-    newVariable = window.navigator;
-
-    if (newVariable && newVariable.share) {
-      newVariable.navigator.share({ // Brings up mobile share modal
-        title: 'Take5',
-        text: copyText
-      }).then(() => {
-        console.log(copyText);
-      })
-        .catch(console.error);
-    } else { // Copies to clipboard
+    
+    try {
+    // let newVariable: any;
+    // newVariable = window.navigator;
+    // if (newVariable && newVariable.share && this.isMobile) {
+    //   newVariable.navigator.share({ // Brings up mobile share modal
+    //     title: 'Take5',
+    //     text: copyText
+    //   }).then(() => {
+    //     console.log(copyText);
+    //   }).catch((err) => {
+    //     this.appSvc.setErrors({stack: err});
+    //   });
+    // } else { // Copies to clipboard
+    
       this.appSvc.copyTextToClipboard(copyText);
 
       this.copied_to_clipboard_hidden = false;
+    }
+    catch (ex) {
+      this.appSvc.setErrors(ex);
+    }
+      
 
       // document.getElementById(`copied_to_clipboard`).classList.add('console_animation_in');
       // document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_out');
@@ -848,7 +862,7 @@ export class AppComponent implements OnInit {
 
       // document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_in');
       // document.getElementById(`copied_to_clipboard`).classList.add('console_animation_out');
-    }
+    // }
   }
 
   youLose(open: boolean, losing_word?: any) {
@@ -930,9 +944,28 @@ export class AppComponent implements OnInit {
 
     await this.firebaseSvc.updateUserData(update_user);
 
-    // Add User ID to the Game Data and send to Firebase
-    game_data.id = this.userID_LocalStorage;
-    await this.firebaseSvc.updateGameLog(game_data);
+    try {
+      // Add User ID to the Game Data and send to Firebase
+      game_data.id = this.userID_LocalStorage;
+      this.appSvc.setErrors({stack: '\tBEFORE SETTING UPDATEGAMELOG'});
+      await this.firebaseSvc.updateGameLog(game_data);
+      this.appSvc.setErrors({stack: '\tAFTER UPDATED GAME LOG'});
+    }
+    catch (ex) {
+      this.appSvc.setErrors({stack: ex});
+    }
+
+    // Update data for Today in "daily_game_data"
+    let today = new Date();
+    let today_str;
+    today_str = this.datepipe.transform(today, 'yyyy-MM-dd');
+    try {
+      await this.firebaseSvc.setTodaysGameData(today_str, game_data);
+    }
+    catch (ex) {
+      this.appSvc.setErrors({stack: ex});
+    }
+    
 
     // Add game session data to All Time Game Data
     const new_game_num = this.all_time_data.games_num + 1;

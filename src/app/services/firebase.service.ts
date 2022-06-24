@@ -44,17 +44,22 @@ export class FirebaseService {
   }
 
   createNewUser(id: string) {
-    set(ref(this.database, '/users/' + id), {
-      id: id,
-      high_score: 0,
-      highest_scoring_word: {
-        word: '',
-        score: 0
-      },
-      games_played_num: 0,
-      total_points_scored: 0,
-      average_score_per_game: 0.00
-    });
+    try {
+      set(ref(this.database, '/users/' + id), {
+        id: id,
+        high_score: 0,
+        highest_scoring_word: {
+          word: '',
+          score: 0
+        },
+        games_played_num: 0,
+        total_points_scored: 0,
+        average_score_per_game: 0.00
+      });
+    }
+    catch (ex) {
+      this.appSvc.setErrors(ex);
+    }
   }
 
   async getUserData(id: string): Promise<UserData> {
@@ -67,8 +72,10 @@ export class FirebaseService {
       } else {
         retrieved_user = null;
       }
+      this.appSvc.setErrors({passed: 'GOT USER, ' + retrieved_user});
     }).catch((error) => {
       console.error(error);
+      this.appSvc.setErrors(error);
       return error;
     });
     console.log('🚨GET USER DATA🚨');
@@ -77,39 +84,52 @@ export class FirebaseService {
   }
 
   async updateUserData(userData: UserData) {
-    set(ref(this.database, '/users/' + userData.id), {
-      id: userData.id,
-      high_score: userData.high_score,
-      highest_scoring_word: {
-        word: userData.highest_scoring_word.word,
-        score: userData.highest_scoring_word.score
-      },
-      games_played_num: userData.games_played_num,
-      total_points_scored: userData.total_points_scored,
-      average_score_per_game: userData.average_score_per_game
-    });
+    try {
+      set(ref(this.database, '/users/' + userData.id), {
+        id: userData.id,
+        high_score: userData.high_score,
+        highest_scoring_word: {
+          word: userData.highest_scoring_word.word,
+          score: userData.highest_scoring_word.score
+        },
+        games_played_num: userData.games_played_num,
+        total_points_scored: userData.total_points_scored,
+        average_score_per_game: userData.average_score_per_game
+      });
+      this.appSvc.setErrors({passed: 'UPDATED USER DATA'});
+    }
+    catch (ex) {
+      this.appSvc.setErrors(ex);
+    }
     console.log('🚨UPDATE USER DATA🚨');
   }
 
   async updateGameLog(game_data: GameData) {
+    console.log(game_data.timestamp);
     let timestamp = this.datepipe.transform(game_data.timestamp, 'yyyy-MM-dd HH:mm:ss z');
+    this.appSvc.setErrors({stack: timestamp});
 
     // Add Game Data to Game Log
     let randomID = this.appSvc.generateRandomID();
-    set(ref(this.database, `/games_played/${game_data.id}/${timestamp} GAME${randomID}`), {
-      timestamp: game_data.timestamp,
-      score: game_data.score,
-      correct_words: game_data.correct_words,
-      starting_word: game_data.starting_word
-    });
+    try {
+      this.appSvc.setErrors({stack: '\tBEFORE SETTING UPDATEGAMELOG'});
+      set(ref(this.database, `/games_played/${game_data.id}/${timestamp} GAME${randomID}`), {
+        timestamp: game_data.timestamp,
+        score: game_data.score,
+        correct_words: game_data.correct_words,
+        starting_word: game_data.starting_word
+      });
+      this.appSvc.setErrors({stack: '\tAFTER UPDATED GAME LOG'});
+    }
+    catch (ex) {
+      this.appSvc.setErrors(ex);
+    }
     console.log('🚨UPDATE GAME LOG🚨');
 
+    this.appSvc.setErrors({passed: 'UPDATED GAME LOG'});
+  }
 
-    let today = new Date();
-    let today_str;
-    today_str = this.datepipe.transform(today, 'yyyy-MM-dd');
-
-    // Update data for Today in "daily_game_data"
+  async setTodaysGameData(today_str: any, game_data: GameData) {
     let todays_game_data: TodaysGameData = await this.getTodaysGameData(today_str);
     todays_game_data.games_played_num += 1;
     todays_game_data.total_points_scored += game_data.score;
@@ -117,13 +137,19 @@ export class FirebaseService {
 
     !todays_game_data.raw_scores ? todays_game_data.raw_scores = [game_data.score] : todays_game_data.raw_scores.push(game_data.score);
 
-    await set(ref(this.database, `/daily_game_data/${today_str}_game_data/`), {
-      today_word: todays_game_data.today_word,
-      games_played_num: todays_game_data.games_played_num,
-      total_points_scored: todays_game_data.total_points_scored,
-      average_score: todays_game_data.average_score,
-      raw_scores: todays_game_data.raw_scores
-    });
+    try {
+      await set(ref(this.database, `/daily_game_data/${today_str}_game_data/`), {
+        today_word: todays_game_data.today_word,
+        games_played_num: todays_game_data.games_played_num,
+        total_points_scored: todays_game_data.total_points_scored,
+        average_score: todays_game_data.average_score,
+        raw_scores: todays_game_data.raw_scores
+      });
+      this.appSvc.setErrors({passed: 'UPDATED TODAYS GAME DATA'});
+    }
+    catch (ex) {
+      this.appSvc.setErrors(ex);
+    }
     console.log('🚨UPDATE TODAYS GAME DATA🚨');
 
 
@@ -149,8 +175,10 @@ export class FirebaseService {
       } else {
         todays_game_data = null;
       }
+      this.appSvc.setErrors({passed: 'GET TODAYS GAME DATA, ' + todays_game_data});
     }).catch((error) => {
       console.error(error);
+      this.appSvc.setErrors(error);
       return error;
     });
     console.log('🚨GET TODAYS GAME DATA🚨');
@@ -171,12 +199,17 @@ export class FirebaseService {
   }
 
   async postNewDayGameData(todays_date: string, random_word: string) {
-    set(ref(this.database, `/daily_game_data/${todays_date}_game_data`), {
-      today_word: random_word,
-      games_played_num: 0,
-      total_points_scored: 0,
-      average_score: 0
-    });
+    try {
+      set(ref(this.database, `/daily_game_data/${todays_date}_game_data`), {
+        today_word: random_word,
+        games_played_num: 0,
+        total_points_scored: 0,
+        average_score: 0
+      });
+    }
+    catch (ex) {
+      this.appSvc.setErrors(ex);
+    }
     console.log('🚨POST NEW DAY GAME DATA🚨');
   }
 
@@ -190,8 +223,10 @@ export class FirebaseService {
       } else {
         all_time_data = null;
       }
+      this.appSvc.setErrors({passed: 'GET ALL TIME DATA, ' + all_time_data});
     }).catch((error) => {
       console.error(error);
+      this.appSvc.setErrors(error);
       return error;
     });
     console.log('🚨GET ALL TIME GAME DATA🚨');
@@ -200,13 +235,19 @@ export class FirebaseService {
   }
 
   async postAllTimeData(games_num: number, average_score: number, total_points_scored: number, all_time_high_score: number, perfect_game_count: number) {
-    set(ref(this.database, `/all_time_data/`), {
-      games_num: games_num,
-      average_score: average_score,
-      total_points_scored: total_points_scored,
-      all_time_high_score: all_time_high_score,
-      perfect_game_count: perfect_game_count
-    });
+    try {
+      set(ref(this.database, `/all_time_data/`), {
+        games_num: games_num,
+        average_score: average_score,
+        total_points_scored: total_points_scored,
+        all_time_high_score: all_time_high_score,
+        perfect_game_count: perfect_game_count
+      });
+      this.appSvc.setErrors({passed: 'ALL TIME DATA POSTED'});
+    }
+    catch (ex) {
+      this.appSvc.setErrors(ex);
+    }
     console.log('🚨POST ALL TIME GAME DATA🚨');
   }
 

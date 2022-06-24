@@ -5,7 +5,7 @@
     'Courier New', Courier, monospace;">
       Take5</div> -->
     <div class="header_items" style="display: flex;justify-content: flex-end;">
-      <span>Version: 1.16</span>
+      <span>Version: 1.37</span>
       <a (click)="contactModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">mail_outline</mat-icon>
       </a>
@@ -21,9 +21,9 @@
   <br>
   <br>
 
-  <div *ngIf="!you_lose_open && !you_win_open" class="game"
-    style="position:relative;" [style.width]="isMobile ? '100%' : '50%'"
-    [style.margin]="isMobile ? '0' : '0 auto'" [style.height]="isMobile ? '82vh' : '95vh'">
+  <div *ngIf="!you_lose_open && !you_win_open" class="game" style="position:relative;"
+    [style.width]="isMobile ? '100%' : '50%'" [style.margin]="isMobile ? '0' : '0 auto'"
+    [style.height]="isMobile ? '82vh' : '95vh'">
     <div class="data">
       <div class="correct_words" style="display: flex; justify-content:space-between;">
 
@@ -211,7 +211,7 @@
           <div *ngIf="todays_game_data; else statsPlaceholder">
             <div
               style="text-align: center;font-size: 22px; padding: 10px;font-family: 'Inconsolata-Bold', 'Courier New', Courier, monospace;">
-              {{percentile_data.percentile_graphic}}
+              <span>{{percentile_data?.low_score}}</span> {{percentile_data.percentile_graphic}} <span>{{percentile_data?.high_score}}</span>
             </div>
           </div>
           <ng-template #statsPlaceholder>
@@ -348,8 +348,24 @@
       <div class="modal_header modal_header_sm"><b>PERFECT GAME COUNT 💯</b></div>
       <div class="modal_text" style="font-size:25px"><b>{{all_time_data.perfect_game_count}}</b></div>
 
+      <!-- <p style="display: flex; justify-content: center;">ERRORS:</p>
+      <ul style="display: list-item;">
+        <li *ngFor="let error of errors" style="font-size: 10px;">
+          <div *ngIf="error.stack; else elseBlock" style="color: red;">
+            {{error.stack}}
+          </div>
+          <ng-template #elseBlock>
+            <div style="color: rgb(36, 166, 36);">
+              {{error.passed}}
+            </div>
+          </ng-template>
+        </li>
+      </ul> -->
+
     </div>
   </ng-template>
+
+
 </div>
 
 <!-- TUTORIAL MODAL -->
@@ -531,7 +547,7 @@
 
   <br>
 
-  <div style="height: 65%; overflow: scroll;" id="word_list">
+  <div style="height: 65%; overflow: scroll; overflow-x: hidden;" id="word_list">
     <div style="color: #b31e0f; font-size: 30px; font-family:'Domine-Bold', 'Courier New', Courier, monospace;"
       class="modal_text">
       {{starting_word}}</div>
@@ -558,8 +574,11 @@
         <mat-icon style="font-size: 24px; padding-right:15px; padding-top: 10px;">close</mat-icon>
       </a> -->
     </div>
-    <div class="modal_title" style="font-size: 28px; text-align: center; padding-top:25px;"><b>Are you sure you want to
-        give up?</b></div>
+    <div class="modal_title"
+      style="font-size: 22px; text-align: center; padding-top:25px; font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;">
+      <b>Are you sure you want to
+        give up?</b>
+    </div>
   </div>
 
   <!-- <br>
