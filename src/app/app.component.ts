@@ -906,7 +906,7 @@ export class AppComponent implements OnInit {
     if (open) {
       this.you_win_open = true;
       this.final_score = this.total_score;
-      this.gameOver(true);
+      this.gameOver(perfect_game);
     }
     else {
       this.you_win_open = true;

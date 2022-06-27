@@ -5,7 +5,7 @@
     'Courier New', Courier, monospace;">
       Take5</div> -->
     <div class="header_items" style="display: flex;justify-content: flex-end;">
-      <span>Version: 1.45</span>
+      <span>Version: 1.49</span>
       <a (click)="contactModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">mail_outline</mat-icon>
       </a>
@@ -151,36 +151,31 @@
   <div *ngIf="you_lose_open" style="display: flex; justify-content: center;">
     <div [hidden]="!you_lose_open" class="you_lose" id="you_lose" [style.width]="isMobile ? '100vw' : '400px'">
       <div>
-        <div class="modal_title" style="text-align: center; font-size: 30px; padding: 10px; margin-top: 10px;">
+        <div class="modal_title" style="text-align: center; font-size: 3.4vh; padding: 10px; margin-top: 10px;">
           <b>{{losing_word}}</b>
         </div>
 
-        <br>
-
-        <div style="text-align: center;font-size: 22px; padding: 10px;">
+        <div style="text-align: center;padding: 10px;">
           <div class="modal_header"><b>FINAL SCORE</b></div>
           <div class="modal_text" style="font-size:30px"><b>{{final_score}}</b></div>
         </div>
 
         <div style="display: flex; justify-content: center;">
-          <div style="text-align: left; font-size: 22px; padding: 10px; width: 90%;">
+          <div style="text-align: left; padding: 10px; width: 90%;">
             <div class="modal_header"><b>CORRECT WORDS ({{game_over_correct_words.length}})</b>
             </div>
 
             <!-- To Fix on iPad -->
             <!-- <div style="font-family:'Courier New', Courier, monospace; text-align: center;">
               {{game_over_correct_words_formatted}}</div> -->
-            <div style="font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;"
+            <div style="font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace; font-size: 2.5vh"
               [style.margin-left]="game_over_correct_words.length <= 4 ? '0px' : '20px'"
               [style.text-align]="game_over_correct_words.length <= 4 ? 'center' : 'left'">
               {{game_over_correct_words_formatted}}</div>
           </div>
         </div>
 
-        <br>
         <hr class="1px solid black" style="width: 75%;">
-        <!-- <hr> -->
-        <br>
 
         <div *ngIf="final_score !== undefined" style="text-align: center;font-size: 22px; padding: 10px;">
           <div class="modal_header"><b>TODAY'S AVERAGE</b></div>
@@ -196,13 +191,14 @@
           style="text-align: center;font-size: 22px; padding: 10px;">
 
           <div *ngIf="percentile_data && todays_game_data?.raw_scores?.length > 0" class="modal_text">
-            <div *ngIf="percentile_data.special_case?.message === null; else specialCase">
-              You were better than <span style="font-family: 'Inconsolata-Bold', 'Courier New', Courier, monospace;"
+            <div *ngIf="percentile_data.special_case?.message === null; else specialCase" style="font-size: 2.8vh; width: 70%;">
+              You were better than <span
+                style="font-family: 'Inconsolata-Bold', 'Courier New', Courier, monospace;"
                 [style.color]="percentile_data?.percentile_color">{{percentile_data.percentile}}%</span> of players
               today
             </div>
             <ng-template #specialCase>
-              <div [style.color]="percentile_data.special_case?.color">
+              <div [style.color]="percentile_data.special_case?.color" style="font-size: 2.5vh;">
                 <b>{{percentile_data.special_case.message}}</b>
               </div>
             </ng-template>
@@ -211,7 +207,8 @@
           <div *ngIf="todays_game_data; else statsPlaceholder">
             <div
               style="text-align: center;font-size: 22px; padding: 10px;font-family: 'Inconsolata-Bold', 'Courier New', Courier, monospace;">
-              <span>{{percentile_data?.low_score}}</span> {{percentile_data.percentile_graphic}} <span>{{percentile_data?.high_score}}</span>
+              <span>{{percentile_data?.low_score}}</span> {{percentile_data.percentile_graphic}}
+              <span>{{percentile_data?.high_score}}</span>
             </div>
           </div>
           <ng-template #statsPlaceholder>
@@ -223,7 +220,7 @@
         </div>
         <ng-template #elseBlock style="text-align: center;font-size: 22px; padding: 10px;">
           <div style="text-align: center;font-size: 22px; padding: 10px;">
-            You are today's first player! Check back later for updated results
+            Error: Could not get Today's data
           </div>
         </ng-template>
 
@@ -260,7 +257,7 @@
       <br>
 
       <div style="display: flex; justify-content:center;">
-        <button (click)="youWin(false)" style="font-size: 20px;" class="control">PLAY
+        <button (click)="youWin(false, true)" style="font-size: 20px;" class="control">PLAY
           AGAIN</button>
         <button style="font-size: 20px;" class="control">SHARE</button>
       </div>
@@ -369,7 +366,8 @@
 </div>
 
 <!-- TUTORIAL MODAL -->
-<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal" [style.width]="isMobile ? '85%' : '400px'">
+<div [hidden]="!tutorial_modal_open" class="modal tutorial_modal" id="tutorial_modal"
+  [style.width]="isMobile ? '85%' : '400px'">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="tutorialModal(false)">
@@ -431,7 +429,8 @@
 </div>
 
 <!-- CONTACT MODAL -->
-<div [hidden]="!contact_modal_open" class="modal stats_modal" id="contact_modal" [style.width]="isMobile ? '80%' : '360px'">
+<div [hidden]="!contact_modal_open" class="modal stats_modal" id="contact_modal"
+  [style.width]="isMobile ? '80%' : '360px'">
   <div>
     <div class="header_items" style="display: flex;justify-content: flex-end;">
       <a (click)="contactModal(false)">
@@ -574,8 +573,7 @@
         <mat-icon style="font-size: 24px; padding-right:15px; padding-top: 10px;">close</mat-icon>
       </a> -->
     </div>
-    <div class="modal_title"
-      style="font-size: 22px; text-align: center; padding-top:25px; font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace; width: 60%;
+    <div class="modal_title" style="font-size: 22px; text-align: center; padding-top:25px; font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace; width: 60%;
       margin: 0 auto;">
       <b>Are you sure you want to
         give up?</b>
