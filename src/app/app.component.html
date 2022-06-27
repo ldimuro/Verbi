@@ -5,7 +5,7 @@
     'Courier New', Courier, monospace;">
       Take5</div> -->
     <div class="header_items" style="display: flex;justify-content: flex-end;">
-      <span>Version: 1.49</span>
+      <span>Version: 1.50</span>
       <a (click)="contactModal(true)">
         <mat-icon style="font-size:35px;padding-right:20px;margin-top:2px;">mail_outline</mat-icon>
       </a>
@@ -22,8 +22,7 @@
   <br>
 
   <div *ngIf="!you_lose_open && !you_win_open" class="game" style="position:relative;"
-    [style.width]="isMobile ? '100%' : '50%'" [style.margin]="isMobile ? '0' : '0 auto'"
-    [style.height]="isMobile ? '82vh' : '95vh'">
+    [style.width]="isMobile ? '100%' : '50%'" [style.margin]="isMobile ? '0' : '0 auto'" style="height: 100vh">
     <div class="data">
       <div class="correct_words" style="display: flex; justify-content:space-between;">
 
