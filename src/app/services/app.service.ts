@@ -170,6 +170,12 @@ export class AppService {
     percentile_data.percentile_color = this.getPercentileColor(percentile_data.percentile);
     percentile_data.special_case = this.getSpecialCase(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
 
+    if (final_score < percentile_data.low_score) {
+      percentile_data.low_score = final_score;
+    }
+    if(final_score > percentile_data.high_score) {
+      percentile_data.high_score = final_score;
+    }
 
     return percentile_data;
   }

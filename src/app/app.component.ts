@@ -629,6 +629,9 @@ export class AppComponent implements OnInit {
     // If user enters the 26th letter, show You Win screen
     let letters_remaining = 26 - this.used_letters.length;
     if (letters_remaining === 0) {
+      this.game_over_correct_words = this.correct_words;
+      this.keyboard_enabled = false;
+
       this.youWin(true, true);
     }
     else {
@@ -842,7 +845,16 @@ export class AppComponent implements OnInit {
       copyText = `PERFECT GAME!\n${this.percentile_data.percentile_graphic}\nFinal Score: ${this.final_score}`;
     }
     else {
-      copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}\nBetter than ${this.percentile_data.percentile}% of players`;
+      copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}\n`;
+      if (this.percentile_data.percentile_graphic.includes('💀')) {
+        copyText += `Bottom ${this.percentile_data.percentile}% of players`;
+      }
+      else if (this.percentile_data.percentile_graphic.includes('⭐️')) {
+        copyText += `Best score of the day`;
+      }
+      else {
+        copyText += `Better than ${this.percentile_data.percentile}% of players`;
+      }
     }
 
     try {
