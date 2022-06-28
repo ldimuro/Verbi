@@ -830,8 +830,15 @@ export class AppComponent implements OnInit {
     // }
   }
 
-  async shareScore() {
-    let copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}\nBetter than ${this.percentile_data.percentile}% of players`;
+  async shareScore(perfect_game?: boolean) {
+    let copyText;
+
+    if (perfect_game) {
+      copyText = `PERFECT GAME!\n${this.percentile_data.percentile_graphic}\nFinal Score: ${this.final_score}`;
+    }
+    else {
+      copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}\nBetter than ${this.percentile_data.percentile}% of players`;
+    }
 
     try {
       // let newVariable: any;
@@ -999,7 +1006,7 @@ export class AppComponent implements OnInit {
     if (this.todays_game_data.raw_scores) {
       sorted_raw_scores = this.todays_game_data.raw_scores.sort((a, b) => a - b);
     }
-    this.percentile_data = this.appSvc.getPercentileData(sorted_raw_scores, this.final_score);
+    this.percentile_data = this.appSvc.getPercentileData(sorted_raw_scores, this.final_score, perfect_game);
   }
 
   generateWordListData(word_list: any) {

@@ -133,7 +133,7 @@ export class AppService {
       scores.length);
   }
 
-  getPercentileData(sorted_raw_scores: any, final_score: any) {
+  getPercentileData(sorted_raw_scores: any, final_score: any, perfect_game?: boolean) {
     let percentile_data: PercentileData = {
       high_score: 0,
       low_score: 0,
@@ -166,7 +166,7 @@ export class AppService {
     //   percentile_data.low_score = final_score;
     // }
 
-    percentile_data.percentile_graphic = this.getPercentileGraphic(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
+    percentile_data.percentile_graphic = this.getPercentileGraphic(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score, perfect_game);
     percentile_data.percentile_color = this.getPercentileColor(percentile_data.percentile);
     percentile_data.special_case = this.getSpecialCase(percentile_data.low_score, percentile_data.high_score, percentile_data.percentile, final_score);
 
@@ -191,7 +191,7 @@ export class AppService {
     return color;
   }
 
-  getPercentileGraphic(low_score: number, high_score: number, percentile: number, final_score: number) {
+  getPercentileGraphic(low_score: number, high_score: number, percentile: number, final_score: number, perfect_game?: boolean) {
     let graphic = '';
     // if (final_score < low_score) {
     //   graphic = final_score + ' ';
@@ -226,21 +226,26 @@ export class AppService {
       rounded_value = 10;
     }
 
-    for (let i = 1; i <= 10; i++) {
-      if (color_value === '⭐️') {
-        graphic += color_value;
-      }
-      else if (rounded_value === 10) {
-        graphic += color_value;
-      }
-      else {
-        if (i <= rounded_value) {
+    if (!perfect_game) {
+      for (let i = 1; i <= 10; i++) {
+        if (color_value === '⭐️') {
+          graphic += color_value;
+        }
+        else if (rounded_value === 10) {
           graphic += color_value;
         }
         else {
-          graphic += '⬜️';
+          if (i <= rounded_value) {
+            graphic += color_value;
+          }
+          else {
+            graphic += '⬜️';
+          }
         }
       }
+    }
+    else {
+      graphic = '🏆🏅🏆🏅🏆🏅🏆🏅🏆🏅';
     }
 
     // graphic += ' ' + (final_score > high_score ? final_score : high_score) + '';
