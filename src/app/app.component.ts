@@ -620,19 +620,20 @@ export class AppComponent implements OnInit {
       window.localStorage.setItem('updated_user_highs', JSON.stringify(this.user));
     }
 
-    this.reset(word, false, true);
-
-    // ANIMATE SCORE GOING UP
-    this.total_score = placeholder_score;
-    for (let i = 0; i < points; i++) {
-      this.total_score++;
-      await this.delay(70);
-    }
-
     // If user enters the 26th letter, show You Win screen
     let letters_remaining = 26 - this.used_letters.length;
-    if (letters_remaining === 0) {
+    if (letters_remaining === 21) {
       this.youWin(true, true);
+    }
+    else {
+      this.reset(word, false, true);
+
+      // ANIMATE SCORE GOING UP
+      this.total_score = placeholder_score;
+      for (let i = 0; i < points; i++) {
+        this.total_score++;
+        await this.delay(70);
+      }
     }
   }
 
@@ -831,21 +832,21 @@ export class AppComponent implements OnInit {
 
   async shareScore() {
     let copyText = `Final Score: ${this.final_score}\n${this.percentile_data.percentile_graphic}\nBetter than ${this.percentile_data.percentile}% of players`;
-    
+
     try {
-    // let newVariable: any;
-    // newVariable = window.navigator;
-    // if (newVariable && newVariable.share && this.isMobile) {
-    //   newVariable.navigator.share({ // Brings up mobile share modal
-    //     title: 'Take5',
-    //     text: copyText
-    //   }).then(() => {
-    //     console.log(copyText);
-    //   }).catch((err) => {
-    //     this.appSvc.setErrors({stack: err});
-    //   });
-    // } else { // Copies to clipboard
-    
+      // let newVariable: any;
+      // newVariable = window.navigator;
+      // if (newVariable && newVariable.share && this.isMobile) {
+      //   newVariable.navigator.share({ // Brings up mobile share modal
+      //     title: 'Take5',
+      //     text: copyText
+      //   }).then(() => {
+      //     console.log(copyText);
+      //   }).catch((err) => {
+      //     this.appSvc.setErrors({stack: err});
+      //   });
+      // } else { // Copies to clipboard
+
       this.appSvc.copyTextToClipboard(copyText);
 
       this.copied_to_clipboard_hidden = false;
@@ -853,15 +854,15 @@ export class AppComponent implements OnInit {
     catch (ex) {
       this.appSvc.setErrors(ex);
     }
-      
 
-      document.getElementById(`copied_to_clipboard`).classList.add('console_animation_in');
-      document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_out');
 
-      await this.delay(2000);
+    document.getElementById(`copied_to_clipboard`).classList.add('console_animation_in');
+    document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_out');
 
-      document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_in');
-      document.getElementById(`copied_to_clipboard`).classList.add('console_animation_out');
+    await this.delay(2000);
+
+    document.getElementById(`copied_to_clipboard`).classList.remove('console_animation_in');
+    document.getElementById(`copied_to_clipboard`).classList.add('console_animation_out');
     // }
   }
 
@@ -909,7 +910,7 @@ export class AppComponent implements OnInit {
       this.gameOver(perfect_game);
     }
     else {
-      this.you_win_open = true;
+      this.you_win_open = false;
       let new_random_word = this.chooseRandomWord();
       this.reset(new_random_word, true, false);
     }
@@ -947,12 +948,12 @@ export class AppComponent implements OnInit {
     try {
       // Add User ID to the Game Data and send to Firebase
       game_data.id = this.userID_LocalStorage;
-      this.appSvc.setErrors({stack: '\tBEFORE SETTING UPDATEGAMELOG'});
+      this.appSvc.setErrors({ stack: '\tBEFORE SETTING UPDATEGAMELOG' });
       await this.firebaseSvc.updateGameLog(game_data);
-      this.appSvc.setErrors({stack: '\tAFTER UPDATED GAME LOG'});
+      this.appSvc.setErrors({ stack: '\tAFTER UPDATED GAME LOG' });
     }
     catch (ex) {
-      this.appSvc.setErrors({stack: ex});
+      this.appSvc.setErrors({ stack: ex });
     }
 
     // Update data for Today in "daily_game_data"
@@ -963,9 +964,9 @@ export class AppComponent implements OnInit {
       await this.firebaseSvc.setTodaysGameData(today_str, game_data);
     }
     catch (ex) {
-      this.appSvc.setErrors({stack: ex});
+      this.appSvc.setErrors({ stack: ex });
     }
-    
+
 
     // Add game session data to All Time Game Data
     const new_game_num = this.all_time_data.games_num + 1;
