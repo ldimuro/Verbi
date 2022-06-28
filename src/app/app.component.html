@@ -308,10 +308,12 @@
 
 
   <div style="display: flex; justify-content: center; padding:10px;">
-    <a class="tabs" (click)="navigateStatsModalTabs(false)" style="border-bottom-left-radius: 10px;
+    <a class="tabs" [style.padding-left]="isMobile ? '15px' : '8px'" [style.padding-right]="isMobile ? '15px' : '8px'"
+      (click)="navigateStatsModalTabs(false)" style="border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;" [ngClass]="{'tabs_active': stats_step_num === 1}"><span
         style="font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;">Personal</span></a>
-    <a class="tabs" style="border-top-right-radius: 10px;
+    <a class="tabs" [style.padding-left]="isMobile ? '15px' : '8px'" [style.padding-right]="isMobile ? '15px' : '8px'"
+      style="border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;" (click)="navigateStatsModalTabs(true)"
       [ngClass]="{'tabs_active': stats_step_num === 2}"><span
         style="font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;">Global</span></a>
@@ -338,8 +340,9 @@
       <br>
 
       <div class="modal_header modal_header_sm"><b>HIGHEST SCORING WORD</b></div>
-      <div class="modal_text" style="font-size:25px;"><b>"{{user?.highest_scoring_word.word}}"
+      <div *ngIf="user?.highest_scoring_word.word !== ''; else elseBlock" class="modal_text" style="font-size:25px;"><b>"{{user?.highest_scoring_word.word}}"
           {{user.highest_scoring_word.score}} points</b></div>
+      <ng-template #elseBlock><div class="modal_text" style="font-size:25px;">-</div></ng-template>
     </div>
   </div>
   <!-- Global stats -->
@@ -556,7 +559,7 @@
   <br>
 
   <div style="text-align: center;">
-    <span>Version: 1.54</span>
+    <span>Version: 1.0</span>
   </div>
 
 </div>

@@ -316,11 +316,15 @@ export class AppComponent implements OnInit {
     }
     else {
       console.log('WELCOME BACK, ' + this.userID_LocalStorage);
-      this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
-      // this.getUserData(this.user);
 
-      // console.log('REMOVED');
-      // window.localStorage.removeItem('userID_LocalStorage');
+      this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
+
+      if (this.user === null) {
+        console.log('REPLACED OLD USER');
+        window.localStorage.removeItem('userID_LocalStorage');
+        await this.newUser();
+        this.played_before = false;
+      }
     }
 
     // If User has never played before, automatically open Tutorial
@@ -1024,6 +1028,19 @@ export class AppComponent implements OnInit {
       sorted_raw_scores = this.todays_game_data.raw_scores.sort((a, b) => a - b);
     }
     this.percentile_data = this.appSvc.getPercentileData(sorted_raw_scores, this.final_score, perfect_game);
+
+    this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
+  }
+
+  async newUser() {
+    console.log('NEW USER FOUND');
+    let randomID = 'user_' + this.appSvc.generateRandomID();
+    this.firebaseSvc.createNewUser(randomID);
+    this.userID_LocalStorage = randomID;
+    window.localStorage.setItem('userID_LocalStorage', JSON.stringify(this.userID_LocalStorage));
+    window.localStorage.removeItem('user');
+
+    this.user = await this.firebaseSvc.getUserData(this.userID_LocalStorage);
   }
 
   generateWordListData(word_list: any) {
