@@ -30,12 +30,12 @@
 
 .score {
     font-size: 65px;
-    font-family: 'Inconsolata-Bold', 'Courier New', Courier, monospace;
+    font-family: "Inconsolata-Bold", "Courier New", Courier, monospace;
     // margin-top: 50px;
 }
 
 .high_score {
-    font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;
+    font-family: "Inconsolata-Light", "Courier New", Courier, monospace;
 }
 
 textarea {
@@ -58,8 +58,8 @@ textarea {
     // width: 80px; //150px for desktop, 100px for mobile
     max-width: 110px;
     max-height: 110px;
-    position:relative;
-    
+    position: relative;
+
     // margin-top: 60px; // for mobile
     cursor: pointer;
     // margin-right: 7px;
@@ -68,28 +68,30 @@ textarea {
 
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     // font-family: "Co";
-    font-family: 'Domine-Regular', sans-serif;
+    font-family: "Domine-Regular", sans-serif;
 }
 
-// .butt:hover:enabled,
-// .user_letters:hover:enabled,
-// .butt-sm:hover:enabled,
-// .control:hover:enabled,
-// .words_button:hover:enabled{
-//     cursor: pointer;
-//     filter: brightness(90%);
-//     -webkit-filter: brightness(90%);
-//     -o-filter: brightness(90%);
-//     -moz-filter: brightness(90%);
-// }
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .butt:hover:enabled,
+    .user_letters:hover:enabled,
+    .butt-sm:hover:enabled,
+    .control:hover:enabled,
+    .words_button:hover:enabled {
+        cursor: pointer;
+        filter: brightness(90%);
+        -webkit-filter: brightness(90%);
+        -o-filter: brightness(90%);
+        -moz-filter: brightness(90%);
+    }
 
-// a:hover {
-//     cursor: pointer;
-//     filter: brightness(90%);
-//     -webkit-filter: brightness(90%);
-//     -o-filter: brightness(90%);
-//     -moz-filter: brightness(90%);
-// }
+    a:hover {
+        cursor: pointer;
+        filter: brightness(50%);
+        -webkit-filter: brightness(90%);
+        -o-filter: brightness(90%);
+        -moz-filter: brightness(90%);
+    }
+}
 
 .user_letters {
     // border: none;
@@ -111,7 +113,7 @@ textarea {
 
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     // font-family: "Co";
-    font-family: 'Domine-Regular', sans-serif;
+    font-family: "Domine-Regular", sans-serif;
 }
 
 .butt-sm {
@@ -139,7 +141,7 @@ textarea {
     font-size: 20px;
     cursor: pointer;
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;
+    font-family: "Inconsolata-Light", "Courier New", Courier, monospace;
 }
 
 .control:disabled {
@@ -263,7 +265,7 @@ textarea {
     justify-content: center;
     font-size: 24px;
     color: #333;
-    font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;
+    font-family: "Inconsolata-Light", "Courier New", Courier, monospace;
 }
 
 .modal_header {
@@ -271,7 +273,7 @@ textarea {
     justify-content: center;
     font-size: 2vh;
     color: #c61100;
-    font-family: 'Domine-Bold', sans-serif;
+    font-family: "Domine-Bold", sans-serif;
 }
 
 .modal_header_sm {
@@ -279,7 +281,7 @@ textarea {
 }
 
 .modal_title {
-    font-family: 'Domine-Bold', sans-serif;
+    font-family: "Domine-Bold", sans-serif;
 }
 
 .center {
@@ -320,7 +322,7 @@ textarea {
     // margin-top: -92px;
     margin-bottom: 10px;
     filter: brightness(80%);
-    font-family:'Inconsolata-Bold', 'Courier New', Courier, monospace;
+    font-family: "Inconsolata-Bold", "Courier New", Courier, monospace;
 }
 
 .social_media_icon {
@@ -330,8 +332,8 @@ textarea {
 .alert_text {
     font-size: 18px;
     color: rgb(63, 63, 63);
-    margin-top:20px;
-    font-family: 'Inconsolata-Light', 'Courier New', Courier, monospace;
+    margin-top: 20px;
+    font-family: "Inconsolata-Light", "Courier New", Courier, monospace;
 }
 
 .header {
@@ -471,7 +473,7 @@ hr {
     padding: 0;
     border: none;
     border-top: medium double rgb(203, 203, 203);
-    color:  rgb(203, 203, 203);
+    color: rgb(203, 203, 203);
     text-align: center;
 }
 hr:after {
@@ -482,7 +484,6 @@ hr:after {
     padding: 0 0.25em;
     background: white;
 }
-
 
 .blur-background_in {
     filter: blur(30px);

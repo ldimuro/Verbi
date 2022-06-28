@@ -491,7 +491,11 @@ export class AppComponent implements OnInit {
       for (let i = 1; i < this.cells.length + 1; i++) {
         document.getElementById(`container_cell${i}`).classList.add('bounce');
         await this.delay(50);
-        document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
+
+        if (!this.isMobile) {
+          document.getElementById(`point_value_cell${i}`).classList.add('point_animation');
+        }
+
         await this.delay(100);
       }
 
@@ -506,8 +510,10 @@ export class AppComponent implements OnInit {
       await this.delay(800);
 
       // Remove POINT_ANIMATION from each cell
-      for (let i = 1; i < this.cells.length + 1; i++) {
-        document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
+      if (!this.isMobile) {
+        for (let i = 1; i < this.cells.length + 1; i++) {
+          document.getElementById(`point_value_cell${i}`).classList.remove('point_animation');
+        }
       }
     }
   }
@@ -622,7 +628,7 @@ export class AppComponent implements OnInit {
 
     // If user enters the 26th letter, show You Win screen
     let letters_remaining = 26 - this.used_letters.length;
-    if (letters_remaining === 21) {
+    if (letters_remaining === 0) {
       this.youWin(true, true);
     }
     else {
@@ -700,8 +706,7 @@ export class AppComponent implements OnInit {
       // stats_modal.classList.add('modal_appear');
       // stats_modal.classList.remove('modal_fadeout');
 
-      this.errors = this.appSvc.getErrors();
-      console.log(this.errors);
+      // this.errors = this.appSvc.getErrors();
     }
     else {
       document.getElementById(`app`).classList.remove('blur-background_in');
