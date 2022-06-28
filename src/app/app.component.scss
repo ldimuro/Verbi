@@ -76,7 +76,8 @@ textarea {
     .user_letters:hover:enabled,
     .butt-sm:hover:enabled,
     .control:hover:enabled,
-    .words_button:hover:enabled {
+    .words_button:hover:enabled,
+    a:hover:enabled {
         cursor: pointer;
         filter: brightness(90%);
         -webkit-filter: brightness(90%);
@@ -84,13 +85,13 @@ textarea {
         -moz-filter: brightness(90%);
     }
 
-    a:hover {
-        cursor: pointer;
-        filter: brightness(50%);
-        -webkit-filter: brightness(90%);
-        -o-filter: brightness(90%);
-        -moz-filter: brightness(90%);
-    }
+    // a:hover {
+    //     cursor: pointer;
+    //     filter: brightness(50%);
+    //     -webkit-filter: brightness(90%);
+    //     -o-filter: brightness(90%);
+    //     -moz-filter: brightness(90%);
+    // }
 }
 
 .user_letters {
