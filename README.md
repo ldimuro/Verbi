@@ -1,9 +1,11 @@
-# Take5
+# VERBI
 A word game where you simply have to switch out letters from a starting word one at a time to create a new word. The rarer the letter (e.g. V, W, Z), the more points you earn for each word you create. Can you use every letter of the alphabet?
 
 # [PLAY NOW](https://lou-game.web.app/)
 
-<img src="/src/assets/correct_word.gif" alt="Take5 Screenshot" title="Take5 Screenshot" width="600" />
+<img src="/src/assets/correct_word.gif" alt="Verbi Screenshot" title="Verbi Screenshot" width="600" />
+
+<img src="/src/assets/UI_screenshot.png" alt="Verbi Screenshot" title="Verbi Screenshot" width="600" />
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.14.
 
