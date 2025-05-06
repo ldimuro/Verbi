@@ -1,4 +1,4 @@
-# VERBI
+# Wordle-Inspired Game
 A word game where you simply have to switch out letters from a starting word one at a time to create a new word. The rarer the letter (e.g. V, W, Z), the more points you earn for each word you create. Can you use every letter of the alphabet?
 
 # [PLAY NOW](https://lou-game.web.app/)
